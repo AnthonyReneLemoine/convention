@@ -536,35 +536,45 @@ function generateConventionHtml(data, logos) {
   html += getConventionCSS_();
   html += '</head><body>';
 
-  // === PAGE 1 ===
-  html += '<header class="header-page1">';
-  html += '<div class="logo-container">';
-  html += '<img src="' + logo1Src + '" alt="Logo Mairie de Sarzeau" class="logo-page-1">';
-  html += '</div>';
-  html += '<div class="header-info">';
-  html += '<div class="mairie-title">Mairie de Sarzeau</div>';
-  html += '<div class="mairie-details">';
-  html += 'Place Richemont - BP 14<br>';
-  html += '56370 Sarzeau<br>';
-  html += 'T\u00e9l. : 02 97 41 85 15';
-  html += '</div>';
-  html += '<div class="mairie-web">www.sarzeau.fr</div>';
-  html += '</div></header>';
+  // Fond de page (pleine page) — image décorative en arrière-plan
+  var bgSrc = logos.background || '';
+  if (bgSrc) {
+    html += '<div class="bg-page"><img src="' + bgSrc + '" alt=""></div>';
+  }
 
-  html += '<div class="content-wrapper">';
-  html += '<div class="main-title"><h1>Convention d\u2019exposition</h1><div class="underline"></div></div>';
+  // === PAGE 1 ===
+  // Bannière pleine largeur : logo contient la charte graphique complète (logo mairie + coordonnées)
+  html += '<header class="header-page1">';
+  html += '<img src="' + logo1Src + '" alt="Mairie de Sarzeau — Espace Culturel L\'Hermine" class="logo-page-1">';
+  html += '</header>';
+
+  html += '<div class="page-layout">';
+  html += '<aside class="cartouche">';
+  html += '<p class="cartouche-mairie">Mairie de Sarzeau</p>';
+  html += '<p>Place Richemont - BP 14</p>';
+  html += '<p>56370 Sarzeau</p>';
+  html += '<p>T\u00e9l. : 02 97 41 85 15</p>';
+  html += '<p>www.sarzeau.fr</p>';
+  html += '</aside>';
+  html += '<div class="main-column">';
+  html += '<div class="main-title"><h1>Convention d\u2019exposition</h1></div>';
+  html += '<div class="convention-body">';
 
   // Parties
   html += '<section class="parties-section">';
-  html += '<p class="parties-intro">ENTRE LES SOUSSIGN\u00c9S,</p>';
+  html += '<p class="parties-intro">Entre les soussign\u00e9s,</p>';
 
   var a2 = data.artiste2 || {};
   var a2Actif = a2.actif === true && !!(a2.nom);
 
   html += '<div class="party-block">';
   html += '<p class="party-name">' + escapeHtml_(data.artiste.nom) + '</p>';
-  html += '<p>' + escapeHtml_(data.artiste.adresse) + '</p>';
-  html += '<p>Num\u00e9ro SIRET : ' + escapeHtml_(data.artiste.siret) + '</p>';
+  // Adresse : chaque ligne sur une ligne séparée
+  var adresseLines = String(data.artiste.adresse || '').replace(/\r\n/g,'\n').replace(/\r/g,'\n').split('\n');
+  for (var al = 0; al < adresseLines.length; al++) {
+    if (adresseLines[al].trim()) html += '<p>' + escapeHtml_(adresseLines[al].trim()) + '</p>';
+  }
+  if (data.artiste.siret) html += '<p>Num\u00e9ro SIRET : ' + escapeHtml_(data.artiste.siret) + '</p>';
   if (a2Actif) {
     html += '<p class="designation">Ci-apr\u00e8s d\u00e9sign\u00e9 \u00ab <strong>l\u2019Exposant 1</strong> \u00bb,</p>';
   } else {
@@ -573,159 +583,166 @@ function generateConventionHtml(data, logos) {
   html += '</div>';
 
   if (a2Actif) {
-    html += '<p class="separator-et">\u2014 ET \u2014</p>';
+    html += '<p class="separator-et">Et</p>';
     html += '<div class="party-block">';
     html += '<p class="party-name">' + escapeHtml_(a2.nom) + '</p>';
-    if (a2.adresse) html += '<p>' + escapeHtml_(a2.adresse) + '</p>';
+    if (a2.adresse) {
+      var a2Lines = String(a2.adresse).replace(/\r\n/g,'\n').replace(/\r/g,'\n').split('\n');
+      for (var a2l = 0; a2l < a2Lines.length; a2l++) {
+        if (a2Lines[a2l].trim()) html += '<p>' + escapeHtml_(a2Lines[a2l].trim()) + '</p>';
+      }
+    }
     if (a2.siret) html += '<p>Num\u00e9ro SIRET : ' + escapeHtml_(a2.siret) + '</p>';
     html += '<p class="designation">Ci-apr\u00e8s d\u00e9sign\u00e9 \u00ab <strong>l\u2019Exposant 2</strong> \u00bb, d\u2019une part</p>';
     html += '</div>';
   }
 
-  html += '<p class="separator-et">\u2014 ET \u2014</p>';
+  html += '<p class="separator-et">Et</p>';
 
   html += '<div class="party-block">';
-  html += '<p class="party-name">Commune de Sarzeau \u2014 Espace Culturel l\u2019Hermine</p>';
+  html += '<p class="party-name">COMMUNE DE SARZEAU \u2013 ESPACE CULTUREL L\u2019HERMINE</p>';
   html += '<p>Place Richemont - BP 14 - 56370 SARZEAU</p>';
-  html += '<p>T\u00e9l. : 02 97 48 29 40 \u2014 E.mail : lhermine@sarzeau.fr</p>';
-  html += '<p>Num\u00e9ro SIRET : 215 602 400 00016 \u2014 Code NAF/APE : 8411Z</p>';
+  html += '<p>T\u00e9l. : 02 97 48 29 40</p>';
+  html += '<p>E.mail : lhermine@sarzeau.fr</p>';
+  html += '<p>Num\u00e9ro SIRET : 215 602 400 00016</p>';
+  html += '<p>Code NAF/APE : 8411Z</p>';
   html += '<p>Licence d\u2019entrepreneur de spectacles n\u00b0 : PLATESV-D-2022-008045</p>';
   html += '<p>Repr\u00e9sent\u00e9e par : Monsieur Jean-Marc Dupeyrat en sa qualit\u00e9 de Maire</p>';
-  html += '<p class="designation">Ci-apr\u00e8s d\u00e9sign\u00e9e \u00ab <strong>l\u2019Organisateur</strong> \u00bb, d\u2019autre part.</p>';
-  html += '</div></section></div>';
+  html += '<p class="designation">Ci-apr\u00e8s, d\u00e9sign\u00e9e \u00ab <strong>l\u2019Organisateur</strong> \u00bb, d\u2019autre part.</p>';
+  html += '</div></section></div></div></div>';
 
   html += '<div class="page-break"></div>';
 
   // === PAGES 2+ : ARTICLES avec header qui se répète ===
-  html += '<table class="articles-table"><thead><tr><td>';
-  html += '<div class="header-continuation">';
-  html += '<img src="' + logo2Src + '" alt="Logo Sarzeau" class="logo-small">';
-  html += '<span class="page-title">Convention d\u2019exposition \u2014 ' + escapeHtml_(data.artiste.nom) + '</span>';
-  html += '</div>';
-  html += '</td></tr></thead>';
-  html += '<tbody><tr><td>';
-  html += '<div class="content-wrapper">';
-  html += '<div class="agreement-clause">IL A \u00c9T\u00c9 ARR\u00caT\u00c9 ET CONVENU CE QUI SUIT :</div>';
+  // Table 2 colonnes : col-logo (130px) | col-content (bordures sur <td> avec border-collapse)
+  html += '<table class="articles-table"><thead><tr>';
+  html += '<td class="col-logo"><div class="header-continuation"><img src="' + logo2Src + '" alt="Logo Sarzeau" class="logo-small"></div></td>';
+  html += '<td class="col-content col-head"></td>';
+  html += '</tr></thead>';
+  html += '<tbody><tr>';
+  html += '<td class="col-logo"></td>';
+  html += '<td class="col-content col-body">';
+  html += '<div class="agreement-clause">IL A ETE ARRETE ET CONVENU CE QUI SUIT</div>';
 
-  // Article 1 — Objet
+  // Article 1 - Objet
   var n = nextArticle();
   html += '<article class="article no-break">';
-  html += '<h3>Article ' + n + ' \u2014 Objet</h3>';
+  html += '<h3>Article ' + n + ' - Objet</h3>';
   var customText = getStdOverrideText_(articlesStd, 'objet');
   if (customText) {
     html += formatArticleTextToHtml_(customText);
   } else {
-    html += '<p>La présente convention a pour but de définir les modalités d’accueil de l’exposition des œuvres de l’Exposant.</p>';
-    html += '<p><span class="highlight">Lieu :</span> ' + escapeHtml_(data.expo.lieu || 'Espace Culturel L’Hermine') + '</p>';
-    html += '<p><span class="highlight">Dates de l’exposition :</span> du ' + escapeHtml_(data.expo.debut) + ' au ' + escapeHtml_(data.expo.fin) + '</p>';
+    html += ‘<p>La pr\u00e9sente convention a pour but de d\u00e9finir les modalit\u00e9s d\u2019accueil de l\u2019exposition des \u0153uvres de l\u2019Exposant.</p>’;
+    html += ‘<p>Lieu : ‘ + escapeHtml_(data.expo.lieu || ‘Espace Culturel L\u2019Hermine’) + ‘</p>’;
+    html += ‘<p>Dates de l\u2019exposition : du ‘ + escapeHtml_(data.expo.debut) + ‘ au ‘ + escapeHtml_(data.expo.fin) + ‘</p>’;
   }
-  html += '</article>';
+  html += ‘</article>’;
 
-  // Article 2 — Obligations de l'Exposant
+  // Article 2 - Obligations de l’Exposant
   n = nextArticle();
-  html += '<article class="article no-break">';
-  html += '<h3>Article ' + n + ' \u2014 Obligations de l\u2019Exposant</h3>';
-  var customText = getStdOverrideText_(articlesStd, 'obligationsExposant');
+  html += ‘<article class="article no-break">’;
+  html += ‘<h3>Article ‘ + n + ‘ - Obligations de l\u2019Exposant</h3>’;
+  var customText = getStdOverrideText_(articlesStd, ‘obligationsExposant’);
   if (customText) {
     html += formatArticleTextToHtml_(customText);
   } else {
-    html += '<p>L’Exposant s’engage à fournir l’exposition conformément à ce qui avait été décidé avec l’Organisateur.</p>';
-    html += '<p>L’Exposant en outre s’engage à communiquer à l’organisateur une estimation de la valeur d’assurance (clou à clou) de l’exposition. En cas de non-respect de cet article, la collectivité ne prendra pas en charge l’assurance des biens exposés.</p>';
+    html += ‘<p>L\u2019Exposant s\u2019engage \u00e0 fournir l\u2019exposition conform\u00e9ment \u00e0 ce qui avait \u00e9t\u00e9 d\u00e9cid\u00e9 avec l\u2019Organisateur. L\u2019Exposant en outre s\u2019engage \u00e0 communiquer \u00e0 l\u2019organisateur une estimation de la valeur d\u2019assurance (clou \u00e0 clou) de l\u2019exposition. En cas de non-respect de cet article, la collectivit\u00e9 ne prendra pas en charge l\u2019assurance des biens expos\u00e9s.</p>’;
   }
-  html += '</article>';
+  html += ‘</article>’;
 
-  // Article 3 — Obligations de l'Organisateur
+  // Article 3 - Obligations de l’Organisateur
   n = nextArticle();
-  html += '<article class="article no-break">';
-  html += '<h3>Article ' + n + ' \u2014 Obligations de l\u2019Organisateur</h3>';
-  var customText = getStdOverrideText_(articlesStd, 'obligationsOrganisateur');
+  html += ‘<article class="article no-break">’;
+  html += ‘<h3>Article ‘ + n + ‘ - Obligations de l\u2019Organisateur</h3>’;
+  var customText = getStdOverrideText_(articlesStd, ‘obligationsOrganisateur’);
   if (customText) {
     html += formatArticleTextToHtml_(customText);
   } else {
-    html += '<p>L’Organisateur s’engage à faciliter l’accueil de l’exposition par :</p>';
-    html += '<ul>';
-    html += '<li>La mise à disposition gratuite de locaux adéquats,</li>';
-    html += '<li>La mise à disposition gratuite d’une personne pour aider à l’installation et au démontage de l’exposition.</li>';
-    html += '</ul>';
+    html += ‘<p>L\u2019Organisateur s\u2019engage \u00e0 faciliter l\u2019accueil de l\u2019exposition par :</p>’;
+    html += ‘<ul>’;
+    html += ‘<li>la mise \u00e0 disposition gratuite de locaux ad\u00e9quats,</li>’;
+    html += ‘<li>la mise \u00e0 disposition gratuite d\u2019une personne pour aider \u00e0 l\u2019installation et au d\u00e9montage de l\u2019exposition.</li>’;
+    html += ‘</ul>’;
   }
-  html += '</article>';
+  html += ‘</article>’;
 
-  // Article 4 — Durée
+  // Article 4 - Durée
   n = nextArticle();
-  html += '<article class="article no-break">';
-  html += '<h3>Article ' + n + ' \u2014 Dur\u00e9e</h3>';
-  var customText = getStdOverrideText_(articlesStd, 'duree');
+  html += ‘<article class="article no-break">’;
+  html += ‘<h3>Article ‘ + n + ‘ \u2013 Dur\u00e9e</h3>’;
+  var customText = getStdOverrideText_(articlesStd, ‘duree’);
   if (customText) {
     html += formatArticleTextToHtml_(customText);
   } else {
-    html += '<p>La présente convention est conclue pour toute la durée de la présentation de l’exposition dans les locaux de l’Organisateur, de son installation à son démontage.</p>';
+    html += ‘<p>La pr\u00e9sente convention est conclue pour toute la dur\u00e9e de la pr\u00e9sentation de l\u2019exposition dans les locaux de l\u2019Organisateur, de son installation \u00e0 son d\u00e9montage.</p>’;
   }
-  html += '</article>';
+  html += ‘</article>’;
 
-  // Article 5 — Installation, vernissage et démontage
+  // Article 5 - Installation et vernissage
   n = nextArticle();
-  html += '<article class="article no-break">';
-  html += '<h3>Article ' + n + ' \u2014 Installation, vernissage et d\u00e9montage</h3>';
-  var customText = getStdOverrideText_(articlesStd, 'installation');
+  html += ‘<article class="article no-break">’;
+  html += ‘<h3>Article ‘ + n + ‘ - Installation et vernissage</h3>’;
+  var customText = getStdOverrideText_(articlesStd, ‘installation’);
   if (customText) {
     html += formatArticleTextToHtml_(customText);
   } else {
-    html += '<p>L’Organisateur et l’Exposant installeront l’exposition le <span class="highlight">' + escapeHtml_(data.installation.date) + ' à ' + escapeHtml_(data.installation.heure) + '</span> à l’Hermine à Sarzeau pour un vernissage de l’exposition le <span class="highlight">' + escapeHtml_(data.vernissage.date) + ' à ' + escapeHtml_(data.vernissage.heure) + '</span>.</p>';
-    html += '<p>Le démontage étant le dernier jour de la présentation public, soit le <span class="highlight">' + escapeHtml_(data.demontage.date) + ' à ' + escapeHtml_(data.demontage.heure) + '</span>.</p>';
+    html += ‘<p>L\u2019Organisateur et l\u2019Exposant installeront l\u2019exposition le ‘ + escapeHtml_(data.installation.date) + ‘ \u00e0 ‘ + escapeHtml_(data.installation.heure) + ‘ \u00e0 l\u2019Hermine \u00e0 Sarzeau. Le vernissage de l\u2019exposition sera le ‘ + escapeHtml_(data.vernissage.date) + ‘ \u00e0 ‘ + escapeHtml_(data.vernissage.heure) + ‘ \u00e0 l\u2019Hermine.</p>’;
+    html += ‘<p>Le d\u00e9montage \u00e9tant le dernier jour de la pr\u00e9sentation public, soit le ‘ + escapeHtml_(data.demontage.date) + ‘ \u00e0 ‘ + escapeHtml_(data.demontage.heure) + ‘.</p>’;
   }
-  html += '</article>';
-  // Article 6 — Droits de présentation publique
+  html += ‘</article>’;
+
+  // Article 6 - Droits de présentation publique
   n = nextArticle();
-  html += '<article class="article no-break">';
-  html += '<h3>Article ' + n + ' — Droits de présentation publique</h3>';
-  var customText = getStdOverrideText_(articlesStd, 'droits');
+  html += ‘<article class="article no-break">’;
+  html += ‘<h3>Article ‘ + n + ‘ \u2013 Droits de pr\u00e9sentation public</h3>’;
+  var customText = getStdOverrideText_(articlesStd, ‘droits’);
   if (customText) {
     html += formatArticleTextToHtml_(customText);
   } else {
-    html += '<p>L’Organisateur versera la somme de <span class="highlight">' + escapeHtml_(data.droits.montant) + ' euros TTC</span> à l’Exposant pour les droits de présentation publique de son exposition à l’Hermine.</p>';
-    if (data.droits.tva === 'Non assujetti') {
-      html += '<p>TVA non applicable conformément à l’article 293B du CGI. ';
+    html += ‘<p>L\u2019Organisateur versera la somme de ‘ + escapeHtml_(data.droits.montant) + ‘ euros TTC \u00e0 l\u2019Exposant pour les droits de pr\u00e9sentation publique de son exposition \u00e0 l\u2019Hermine.</p>’;
+    if (data.droits.tva === ‘Non assujetti’) {
+      html += ‘<p>TVA non applicable conform\u00e9ment \u00e0 l\u2019article 293B du CGI. ‘;
     } else if (data.droits.tva) {
-      html += '<p>' + escapeHtml_(data.droits.tva) + '. ';
+      html += ‘<p>’ + escapeHtml_(data.droits.tva) + ‘. ‘;
     } else {
-      html += '<p>';
+      html += ‘<p>’;
     }
-    html += 'Le règlement des sommes dues à l’Exposant sera effectué après dépôt d’une facture sur le portail dématérialisé Chorus Pro, par virement bancaire sur le compte de l’Exposant dans les 30 jours suivant la date de fin d’exposition mentionnée à l’article 1 du présent contrat. Aucun acompte ne peut être versé à la signature du présent contrat.</p>';
+    html += ‘Le r\u00e8glement des sommes dues \u00e0 l\u2019Exposant sera effectu\u00e9 apr\u00e8s d\u00e9p\u00f4t d\u2019une facture sur le portail d\u00e9mat\u00e9rialis\u00e9 Chorus Pro, par virement bancaire sur le compte de l\u2019Exposant dans les 30 jours suivant la date de fin d\u2019exposition mentionn\u00e9e \u00e0 l\u2019article 1 du pr\u00e9sent contrat. Aucun acompte ne peut \u00eatre vers\u00e9 \u00e0 la signature du pr\u00e9sent contrat</p>’;
   }
-  html += '</article>';
+  html += ‘</article>’;
 
   // === Articles optionnels (insérés avant Résiliation) ===
 
   // Transport
   if (data.transport.actif) {
     n = nextArticle();
-    html += '<article class="article no-break">';
-    html += '<h3>Article ' + n + ' \u2014 Transport des \u0153uvres</h3>';
-    html += '<p>' + escapeHtml_(data.transport.details || 'Le transport des \u0153uvres est \u00e0 la charge de l\u2019Organisateur. Les modalit\u00e9s seront d\u00e9finies en concertation entre les deux parties.') + '</p>';
-    html += '</article>';
+    html += ‘<article class="article no-break">’;
+    html += ‘<h3>Article ‘ + n + ‘ - Transport des \u0153uvres</h3>’;
+    html += ‘<p>’ + escapeHtml_(data.transport.details || ‘Le transport des \u0153uvres est \u00e0 la charge de l\u2019Organisateur. Les modalit\u00e9s seront d\u00e9finies en concertation entre les deux parties.’) + ‘</p>’;
+    html += ‘</article>’;
   }
 
   // Hébergement
   if (data.hebergement.actif) {
     n = nextArticle();
-    html += '<article class="article no-break">';
-    html += '<h3>Article ' + n + ' \u2014 H\u00e9bergement</h3>';
-    html += '<p>' + escapeHtml_(data.hebergement.details || 'L\u2019Organisateur prend en charge l\u2019h\u00e9bergement de l\u2019Exposant pour la dur\u00e9e n\u00e9cessaire \u00e0 l\u2019installation et au vernissage de l\u2019exposition.') + '</p>';
-    html += '</article>';
+    html += ‘<article class="article no-break">’;
+    html += ‘<h3>Article ‘ + n + ‘ - H\u00e9bergement</h3>’;
+    html += ‘<p>’ + escapeHtml_(data.hebergement.details || ‘L\u2019Organisateur prend en charge l\u2019h\u00e9bergement de l\u2019Exposant pour la dur\u00e9e n\u00e9cessaire \u00e0 l\u2019installation et au vernissage de l\u2019exposition.’) + ‘</p>’;
+    html += ‘</article>’;
   }
 
   // Actions culturelles
   if (data.actionsCulturelles.actif) {
     n = nextArticle();
-    html += '<article class="article no-break">';
-    html += '<h3>Article ' + n + ' \u2014 Actions culturelles</h3>';
-    html += '<p>' + escapeHtml_(data.actionsCulturelles.details || 'Des actions de m\u00e9diation culturelle pourront \u00eatre organis\u00e9es autour de l\u2019exposition (rencontres avec le public, ateliers, visites guid\u00e9es), avec ou sans la pr\u00e9sence de l\u2019Exposant. Les modalit\u00e9s seront d\u00e9finies d\u2019un commun accord.') + '</p>';
-    html += '</article>';
+    html += ‘<article class="article no-break">’;
+    html += ‘<h3>Article ‘ + n + ‘ \u2013 Actions culturelles</h3>’;
+    html += ‘<p>’ + escapeHtml_(data.actionsCulturelles.details || ‘Des actions de m\u00e9diation culturelle pourront \u00eatre organis\u00e9es autour de l\u2019exposition (rencontres avec le public, ateliers, visites guid\u00e9es), avec ou sans la pr\u00e9sence de l\u2019Exposant. Les modalit\u00e9s seront d\u00e9finies d\u2019un commun accord.’) + ‘</p>’;
+    html += ‘</article>’;
   }
 
   // === Articles personnalisés ===
   var articlesPerso = data.articlesPerso || [];
-  if (typeof articlesPerso === 'string') {
+  if (typeof articlesPerso === ‘string’) {
     try { articlesPerso = JSON.parse(articlesPerso); } catch(e) { articlesPerso = []; }
   }
   if (Array.isArray(articlesPerso)) {
@@ -733,140 +750,143 @@ function generateConventionHtml(data, logos) {
       var artPerso = articlesPerso[ap];
       if (artPerso.titre || artPerso.contenu) {
         n = nextArticle();
-        html += '<article class="article no-break">';
-        html += '<h3>Article ' + n + ' \u2014 ' + escapeHtml_(artPerso.titre || 'Article suppl\u00e9mentaire') + '</h3>';
-        html += '<p>' + escapeHtml_(artPerso.contenu || '') + '</p>';
-        html += '</article>';
+        html += ‘<article class="article no-break">’;
+        html += ‘<h3>Article ‘ + n + ‘ - ‘ + escapeHtml_(artPerso.titre || ‘Article suppl\u00e9mentaire’) + ‘</h3>’;
+        html += formatArticleTextToHtml_(artPerso.contenu || ‘’);
+        html += ‘</article>’;
       }
     }
   }
 
-  // Article — Résiliation (toujours présent)
+  // Article - Résiliation (toujours présent)
   n = nextArticle();
-  html += '<article class="article no-break">';
-  html += '<h3>Article ' + n + ' \u2014 R\u00e9siliation</h3>';
-  var customText = getStdOverrideText_(articlesStd, 'resiliation');
+  html += ‘<article class="article no-break">’;
+  html += ‘<h3>Article ‘ + n + ‘ - R\u00e9siliation</h3>’;
+  var customText = getStdOverrideText_(articlesStd, ‘resiliation’);
   if (customText) {
     html += formatArticleTextToHtml_(customText);
   } else {
-    html += '<p>Toute rupture de cette convention, hors cas de force majeure, engendrera de la part de la partie défaillante, une compensation estimée sur la base du montant des frais engagés par l’autre partie. Une annulation générée par des mesures COVID sera considérée comme force majeure et n’engendrera pas de compensation pour l’Exposant.</p>';
+    html += ‘<p>Toute rupture de cette convention, hors cas de force majeure, engendrera de la part de la partie d\u00e9faillante, une compensation estim\u00e9e sur la base du montant des frais engag\u00e9s par l\u2019autre partie. Une annulation g\u00e9n\u00e9r\u00e9e par des mesures COVID sera consid\u00e9r\u00e9e comme force majeure et n\u2019engendrera pas de compensation pour l\u2019Exposant.</p>’;
   }
-  html += '</article>';
+  html += ‘</article>’;
 
-  // Article — Assurances
+  // Article - Assurances
   n = nextArticle();
-  html += '<article class="article no-break">';
-  html += '<h3>Article ' + n + ' \u2014 Assurances</h3>';
-  var customText = getStdOverrideText_(articlesStd, 'assurances');
+  // Assurances + Attribution de compétences + Signatures (groupés pour garantir ≥1 article sur la dernière page)
+  html += ‘<div class="no-break">’;
+  html += ‘<article class="article">’;
+  html += ‘<h3>Article ‘ + n + ‘ - Assurances</h3>’;
+  var customText = getStdOverrideText_(articlesStd, ‘assurances’);
   if (customText) {
     html += formatArticleTextToHtml_(customText);
   } else {
-    html += '<p>L’Organisateur déclare avoir souscrit les assurances nécessaires à la couverture des risques liés au transport et à l’exposition des œuvres de l’Exposant.</p>';
+    html += ‘<p>L\u2019Organisateur d\u00e9clare avoir souscrit les assurances n\u00e9cessaires \u00e0 la couverture des risques li\u00e9s au transport et \u00e0 l\u2019exposition des \u0153uvres de l\u2019Exposant.</p>’;
   }
-  html += '</article>';
-  // Article — Attribution de compétences + Signatures
-  // Groupés ensemble pour que la signature ne soit jamais seule sur une page
+  html += ‘</article>’;
+
   n = nextArticle();
-  html += '<div class="no-break">';
-  html += '<article class="article">';
-  html += '<h3>Article ' + n + ' — Attribution de compétences</h3>';
-  var customText = getStdOverrideText_(articlesStd, 'competences');
+  html += ‘<article class="article">’;
+  html += ‘<h3>Article ‘ + n + ‘ \u2013 Attribution de comp\u00e9tences</h3>’;
+  var customText = getStdOverrideText_(articlesStd, ‘competences’);
   if (customText) {
     html += formatArticleTextToHtml_(customText);
   } else {
-    html += '<p>En cas de litige portant sur l’interprétation ou l’application du présent contrat, les parties conviennent de s’en remettre à l’appréciation des tribunaux compétents de la ville de Rennes.</p>';
+    html += ‘<p>En cas de litige portant sur l\u2019interpr\u00e9tation ou l\u2019application du pr\u00e9sent contrat, les parties conviennent de s\u2019en remettre \u00e0 l\u2019appr\u00e9ciation des tribunaux comp\u00e9tents de la ville de Rennes.</p>’;
   }
-  html += '</article>';
+  html += ‘</article>’;
 
   // Signatures
-  html += '<section class="signatures-section">';
-  var nbExemplaires = a2Actif ? '3' : '2';
-  html += '<p class="date-line">Fait \u00e0 Sarzeau en ' + nbExemplaires + ' exemplaires, le ' + escapeHtml_(data.dateSignature) + '.</p>';
-  html += '<div class="signatures">';
-  html += '<div class="signature-box">';
-  html += '<div class="title">Pour la Commune de Sarzeau</div>';
-  html += '<p class="name">M. Jean-Marc DUPEYRAT, Maire</p>';
-  html += '</div>';
+  html += ‘<section class="signatures-section">’;
+  var nbExemplaires = a2Actif ? ‘3’ : ‘2’;
+  html += ‘<p class="date-line">Fait \u00e0 Sarzeau en ‘ + nbExemplaires + ‘ exemplaires, le ‘ + escapeHtml_(data.dateSignature) + ‘.</p>’;
+  html += ‘<div class="signatures">’;
+  html += ‘<div class="signature-box">’;
+  html += ‘<div class="title">Commune de SARZEAU</div>’;
+  html += ‘<p class="name">M. Jean-Marc DUPEYRAT, Maire</p>’;
+  html += ‘</div>’;
   if (a2Actif) {
-    html += '<div class="signature-box">';
-    html += '<div class="title">L\u2019Exposant 1</div>';
-    html += '<p class="name">' + escapeHtml_(data.artiste.nom) + '</p>';
-    html += '</div>';
-    html += '<div class="signature-box">';
-    html += '<div class="title">L\u2019Exposant 2</div>';
-    html += '<p class="name">' + escapeHtml_(a2.nom) + '</p>';
-    html += '</div>';
+    html += ‘<div class="signature-box">’;
+    html += ‘<div class="title">L\u2019Exposant 1</div>’;
+    html += ‘<p class="name">’ + escapeHtml_(data.artiste.nom) + ‘</p>’;
+    html += ‘</div>’;
+    html += ‘<div class="signature-box">’;
+    html += ‘<div class="title">L\u2019Exposant 2</div>’;
+    html += ‘<p class="name">’ + escapeHtml_(a2.nom) + ‘</p>’;
+    html += ‘</div>’;
   } else {
-    html += '<div class="signature-box">';
-    html += '<div class="title">L\u2019Exposant</div>';
-    html += '<p class="name">' + escapeHtml_(data.artiste.nom) + '</p>';
-    html += '</div>';
+    html += ‘<div class="signature-box">’;
+    html += ‘<div class="title">L\u2019EXPOSANT</div>’;
+    html += ‘<p class="name">’ + escapeHtml_(data.artiste.nom) + ‘</p>’;
+    html += ‘</div>’;
   }
-  html += '</div></section>';
-  html += '</div>'; // fin du no-break
+  html += ‘</div></section>’;
+  html += ‘</div>’; // fin du no-break
 
-  html += '</div>'; // fin content-wrapper
-  html += '</td></tr></tbody></table>'; // fin du table articles
+  html += '</td></tr></tbody></table>'; // fin articles-table
 
   html += '</body></html>';
   return html;
 }
 
-// === CSS DE LA CONVENTION ===
+// === CSS DE LA CONVENTION (charte graphique modèle Sarzeau) ===
 function getConventionCSS_() {
   return '<style>' +
-    ':root{--bleu-marine:#1e3a5f;--bleu-clair:#2c5282;--gris-texte:#2d3748;--gris-clair:#e2e8f0;--gris-moyen:#718096;--fond-subtil:#f8fafc}' +
     '*{margin:0;padding:0;box-sizing:border-box}' +
-    'body{font-family:"Segoe UI","Helvetica Neue",Arial,sans-serif;line-height:1.6;color:var(--gris-texte);max-width:21cm;margin:0 auto;padding:1.5cm 2cm;background:#fff;font-size:11pt}' +
-    '@media print{body{width:21cm;padding:0}@page{size:A4;margin:1.5cm 2cm 2cm 2cm}.page-break{page-break-after:always;height:0;margin:0}.no-break{page-break-inside:avoid}}' +
-    /* En-tête page 1 : logo à gauche, infos à droite */
-    '.header-page1{margin-bottom:30px;padding:0}' +
-    '.logo-container{margin-bottom:15px}' +
-    '.logo-page-1{width:66%;max-width:none;height:auto;display:block}' +
-    '.header-info{font-size:9.5pt;color:#666;line-height:1.4}' +
-    '.mairie-title{font-family:Georgia,\"Times New Roman\",serif;font-style:italic;font-size:13pt;color:var(--bleu-marine);margin-bottom:6px}' +
-    '.mairie-details{font-size:9pt;color:#666;margin-bottom:2px}' +
-    '.mairie-web{font-size:9pt;color:var(--bleu-marine);font-style:italic}' +
+    'body{font-family:Arial,Helvetica,sans-serif;line-height:1.5;color:#000;max-width:21cm;margin:0 auto;padding:1.2cm 1.8cm;background:#fff;font-size:10pt}' +
+    '@media print{body{width:21cm;padding:0}@page{size:A4;margin:1.2cm 1.8cm 1.8cm 1.8cm}.page-break{page-break-after:always;height:0;margin:0}.no-break{page-break-inside:avoid}.page-layout{min-height:20cm}}' +
+    /* En-tête page 1 : logo pleine largeur (bannière mairie) */
+    '.header-page1{margin-bottom:0;padding:0}' +
+    '.logo-page-1{width:100%;height:auto;display:block}' +
     /* En-tête pages suivantes */
-    '.header-continuation{display:flex;justify-content:space-between;align-items:center;padding-bottom:15px;margin-bottom:25px;border-bottom:2px solid var(--gris-clair)}' +
+    '.header-continuation{padding-bottom:6px;margin-bottom:0}' +
     '.articles-table{width:100%;border-collapse:collapse;border:none}' +
     '.articles-table td{padding:0;border:none;vertical-align:top}' +
     '.articles-table thead{display:table-header-group}' +
-    '.articles-table thead td{padding-bottom:0}' +
-    '.logo-small{max-width:120px;height:auto}' +
-    '.header-continuation .page-title{font-size:10pt;color:var(--gris-moyen);font-style:italic}' +
+    '.logo-small{max-width:90px;height:auto}' +
+    '.col-logo{width:130px;min-width:130px;vertical-align:top}' +
+    '.articles-table thead .col-content{border-top:1.5px solid #000;border-left:1.5px solid #000;padding-bottom:30px}' +
+    '.articles-table tbody .col-content{border-left:1.5px solid #000;padding:0 16px 14px 16px}' +
+    /* Layout page 1 : cartouche gauche + colonne principale */
+    '.page-layout{display:flex;gap:0;margin-top:8px;align-items:stretch}' +
+    '.cartouche{width:130px;min-width:130px;font-size:7.5pt;color:#aaa;line-height:1.7;padding-right:12px}' +
+    '.cartouche .cartouche-mairie{font-size:9pt;font-weight:bold;color:#888;text-decoration:underline;margin-bottom:1px}' +
+    '.cartouche p{margin:0}' +
+    '.main-column{flex:1;min-width:0;display:flex;flex-direction:column}' +
     /* Titre principal */
-    '.content-wrapper{padding:0 10px}' +
-    '.main-title{text-align:center;margin:30px 0 50px 0}' +
-    '.main-title h1{font-size:22pt;font-weight:300;color:var(--bleu-marine);text-transform:uppercase;letter-spacing:4px;margin-bottom:10px}' +
-    '.main-title .underline{width:80px;height:3px;background:var(--bleu-clair);margin:0 auto}' +
+    '.main-title{text-align:center;margin:0 0 12px 0}' +
+    '.main-title h1{font-size:22pt;font-weight:bold;font-style:normal;color:#000}' +
+    /* Boîte bordée autour du texte de convention */
+    '.convention-body{flex:1;border-top:1.5px solid #000;border-left:1.5px solid #000;padding:14px 16px}' +
     /* Parties */
-    '.parties-section{margin-bottom:40px}' +
-    '.parties-intro{font-weight:600;color:var(--bleu-marine);margin-bottom:20px;font-size:11pt}' +
-    '.party-block{background:var(--fond-subtil);padding:20px 25px;margin-bottom:20px;border-left:4px solid var(--bleu-clair)}' +
-    '.party-block .party-name{font-weight:600;font-size:12pt;color:var(--bleu-marine);margin-bottom:8px}' +
-    '.party-block p{margin:4px 0;font-size:10.5pt}' +
-    '.party-block .designation{margin-top:12px;font-style:italic;color:var(--gris-moyen)}' +
-    '.separator-et{text-align:center;font-style:italic;color:var(--gris-moyen);margin:25px 0;font-size:12pt}' +
+    '.parties-section{margin-bottom:20px}' +
+    '.parties-intro{font-weight:normal;margin-bottom:12px;font-size:10pt}' +
+    '.party-block{margin-bottom:12px}' +
+    '.party-block .party-name{font-weight:bold;font-size:10pt;margin-bottom:2px}' +
+    '.party-block p{margin:2px 0;font-size:10pt}' +
+    '.party-block .designation{margin-top:6px;font-style:italic}' +
+    '.separator-et{text-align:center;font-style:italic;margin:10px 0;font-size:10pt}' +
     /* Clause d accord */
-    '.agreement-clause{text-align:center;font-weight:600;font-size:12pt;color:var(--bleu-marine);margin:40px 0;padding:15px;border-top:1px solid var(--gris-clair);border-bottom:1px solid var(--gris-clair)}' +
+    '.agreement-clause{font-weight:bold;font-size:10pt;text-align:center;margin:18px 0;text-transform:uppercase}' +
     /* Articles */
-    '.article{margin-bottom:25px}' +
-    '.article h3{font-size:11pt;font-weight:600;color:var(--bleu-marine);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;padding-bottom:5px;border-bottom:1px solid var(--gris-clair)}' +
-    '.article p{margin-bottom:10px;text-align:justify}' +
-    '.article ul{margin:10px 0 15px 25px;list-style-type:none}' +
-    '.article ul li{position:relative;padding-left:20px;margin-bottom:8px}' +
-    '.article ul li::before{content:"\\2014";position:absolute;left:0;color:var(--bleu-clair);font-weight:bold}' +
-    '.article .highlight{font-weight:600;color:var(--bleu-marine)}' +
+    '.article{margin-bottom:16px}' +
+    '.article h3{font-size:10pt;font-weight:bold;text-transform:uppercase;margin-bottom:6px}' +
+    '.article p{margin-bottom:7px;text-align:justify}' +
+    '.article ul{margin:6px 0 10px 15px;list-style-type:none}' +
+    '.article ul li{position:relative;padding-left:18px;margin-bottom:4px}' +
+    '.article ul li::before{content:"\\25A0";position:absolute;left:0;font-size:6pt;top:3px}' +
+    '.article .highlight{font-weight:bold}' +
+    /* Fond de page (pleine page) */
+    '.bg-page{position:fixed;bottom:0;left:0;width:100%;z-index:-1;opacity:0.15;pointer-events:none}' +
+    '.bg-page img{width:100%;height:auto;display:block}' +
     /* Signatures */
-    '.signatures-section{margin-top:50px}' +
-    '.date-line{text-align:right;font-style:italic;margin-bottom:40px;color:var(--gris-moyen)}' +
+    '.signatures-section{margin-top:80px}' +
+    '.date-line{text-align:right;font-style:italic;margin-bottom:25px;color:#333}' +
     '.signatures{display:flex;justify-content:space-between;gap:20px}' +
     '.signature-box{flex:1;min-width:0}' +
-    '.signature-box .title{font-size:9pt;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--bleu-marine);padding-bottom:8px;border-bottom:2px solid var(--bleu-clair);margin-bottom:15px}' +
-    '.signature-box .name{font-size:10.5pt;margin-bottom:80px}' +
+    '.signature-box .title{font-size:9pt;font-weight:bold;text-transform:uppercase;padding-bottom:5px;border-bottom:1px solid #000;margin-bottom:10px}' +
+    '.signature-box .name{font-size:10pt;margin-bottom:70px}' +
     /* Utilitaires */
-    '.spacer-small{height:20px}.spacer-medium{height:40px}' +
+    '.spacer-small{height:12px}.spacer-medium{height:25px}' +
   '</style>';
 }
 
@@ -1019,14 +1039,18 @@ function previewConvention(data) {
   return generateConventionHtml(data, logos);
 }
 
-// === CHARGER LES LOGOS DEPUIS LE DOSSIER DRIVE ===
+// === CHARGER LES LOGOS ET LE FOND DE PAGE DEPUIS LE DOSSIER DRIVE ===
+// Fichiers attendus dans le dossier Drive :
+//   logo.jpg       — bannière pleine largeur page 1 (charte graphique Mairie de Sarzeau)
+//   logo2.jpg      — petit logo pour l'en-tête des pages suivantes
+//   pleine page.jpg — image de fond décorative (optionnelle)
 function getLogosBase64_() {
-  var logos = { logo1: '', logo2: '' };
-  
+  var logos = { logo1: '', logo2: '', background: '' };
+
   try {
     var folder = getOrCreateDriveFolder_();
-    
-    // Chercher logo.jpg ou logo.png (page 1)
+
+    // Bannière logo pleine largeur — page 1 (logo.jpg / logo.png)
     var logoNames = ['logo.jpg', 'logo.jpeg', 'logo.png'];
     for (var i = 0; i < logoNames.length; i++) {
       var files = folder.getFilesByName(logoNames[i]);
@@ -1039,8 +1063,8 @@ function getLogosBase64_() {
         break;
       }
     }
-    
-    // Chercher logo2.jpg ou logo2.png (pages suivantes)
+
+    // Petit logo en-tête pages suivantes (logo2.jpg / logo2.png)
     var logo2Names = ['logo2.jpg', 'logo2.jpeg', 'logo2.png'];
     for (var j = 0; j < logo2Names.length; j++) {
       var files2 = folder.getFilesByName(logo2Names[j]);
@@ -1053,10 +1077,24 @@ function getLogosBase64_() {
         break;
       }
     }
+
+    // Image de fond décorative pleine page (pleine page.jpg)
+    var bgNames = ['pleine page.jpg', 'pleine_page.jpg', 'pleine-page.jpg', 'background.jpg', 'fond.jpg'];
+    for (var k = 0; k < bgNames.length; k++) {
+      var filesB = folder.getFilesByName(bgNames[k]);
+      if (filesB.hasNext()) {
+        var fileB = filesB.next();
+        var blobB = fileB.getBlob();
+        var base64B = Utilities.base64Encode(blobB.getBytes());
+        var mimeTypeB = blobB.getContentType();
+        logos.background = 'data:' + mimeTypeB + ';base64,' + base64B;
+        break;
+      }
+    }
   } catch(e) {
-    // Pas grave si les logos ne sont pas trouvés
+    // Pas grave si les images ne sont pas trouvées
   }
-  
+
   return logos;
 }
 

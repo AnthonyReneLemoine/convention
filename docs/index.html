@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Générateur de Conventions — L'Hermine</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+<style>
+/* ============ VARIABLES ============ */
+:root {
+  --marine:#1e3a5f;--marine-light:#2c5282;--marine-lighter:#3b6da8;
+  --accent:#e8913a;--accent-hover:#d47d2a;
+  --bg:#f4f6f9;--bg-card:#fff;
+  --text:#2d3748;--text-light:#718096;--text-lighter:#a0aec0;
+  --border:#e2e8f0;--border-light:#edf2f7;
+  --success:#38a169;--danger:#e53e3e;
+  --radius:10px;--radius-sm:6px;
+  --shadow-sm:0 1px 3px rgba(0,0,0,.08);--shadow:0 4px 12px rgba(0,0,0,.08);
+}
+/* ============ RESET ============ */
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;min-height:100vh}
+
+/* ============ HEADER ============ */
+.app-header{background:linear-gradient(135deg,var(--marine),var(--marine-light));color:#fff;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;box-shadow:var(--shadow);position:sticky;top:0;z-index:100;flex-wrap:wrap;gap:10px}
+.header-left{display:flex;align-items:center;gap:12px}
+.header-left .material-symbols-outlined{font-size:28px;opacity:.85}
+.header-left h1{font-size:17px;font-weight:700}
+.header-subtitle{font-size:11px;opacity:.6}
+.header-actions{display:flex;gap:8px;flex-wrap:wrap}
+
+/* ============ BOUTONS ============ */
+.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border:none;border-radius:var(--radius-sm);font-family:inherit;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;text-decoration:none;white-space:nowrap}
+.btn .material-symbols-outlined{font-size:17px}
+.btn-primary{background:var(--accent);color:#fff}
+.btn-primary:hover{background:var(--accent-hover);transform:translateY(-1px)}
+.btn-secondary{background:#fff;color:var(--marine);border:1.5px solid var(--border)}
+.btn-secondary:hover{border-color:var(--marine)}
+.btn-outline{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.4)}
+.btn-outline:hover{border-color:#fff;background:rgba(255,255,255,.1)}
+.btn-danger{background:#fff5f5;color:var(--danger);border:1px solid #feb2b2}
+.btn-danger:hover{background:var(--danger);color:#fff}
+.btn-success{background:var(--success);color:#fff}
+.btn-success:hover{background:#2f855a}
+.btn-sm{padding:5px 10px;font-size:12px}
+.btn-sm .material-symbols-outlined{font-size:15px}
+
+/* ============ CONTAINER ============ */
+.app-container{max-width:840px;margin:0 auto;padding:20px 16px 110px}
+
+/* ============ CARDS ============ */
+.card{background:var(--bg-card);border-radius:var(--radius);box-shadow:var(--shadow-sm);border:1px solid var(--border-light);margin-bottom:16px;overflow:hidden}
+.card-header{padding:14px 18px;border-bottom:1px solid var(--border-light);display:flex;align-items:center;justify-content:space-between;background:var(--bg)}
+.card-header h2{font-size:13px;font-weight:700;color:var(--marine);display:flex;align-items:center;gap:8px}
+.card-header h2 .material-symbols-outlined{font-size:18px}
+.card-body{padding:18px}
+
+/* ============ FORMULAIRE ============ */
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.form-grid .full{grid-column:1/-1}
+.form-group{display:flex;flex-direction:column;gap:4px}
+.form-group label{font-size:11px;font-weight:600;color:var(--text-light);text-transform:uppercase;letter-spacing:.5px}
+.form-group input,.form-group select,.form-group textarea{padding:9px 12px;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-family:inherit;font-size:13px;color:var(--text);background:#fff;transition:border-color .2s,box-shadow .2s}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{outline:none;border-color:var(--marine-light);box-shadow:0 0 0 3px rgba(44,82,130,.1)}
+.form-group textarea{resize:vertical;min-height:70px}
+
+/* ============ TOGGLE SECTIONS ============ */
+.toggle-section{border:1.5px solid var(--border);border-radius:var(--radius);margin-bottom:12px;overflow:hidden}
+.toggle-section.active{border-color:var(--marine-light)}
+.toggle-header{display:flex;align-items:center;gap:12px;padding:12px 16px;cursor:pointer;user-select:none;transition:background .2s}
+.toggle-header:hover{background:var(--bg)}
+.toggle-switch{position:relative;width:38px;height:20px;flex-shrink:0}
+.toggle-switch input{opacity:0;width:0;height:0;position:absolute}
+.toggle-slider{position:absolute;inset:0;background:#cbd5e0;border-radius:20px;transition:.2s;cursor:pointer}
+.toggle-slider::before{content:'';position:absolute;width:14px;height:14px;left:3px;top:3px;background:#fff;border-radius:50%;transition:.2s}
+.toggle-switch input:checked+.toggle-slider{background:var(--marine-light)}
+.toggle-switch input:checked+.toggle-slider::before{transform:translateX(18px)}
+.toggle-label{font-size:13px;font-weight:600;color:var(--text);flex:1}
+.toggle-content{display:none;padding:14px 16px;border-top:1px solid var(--border-light)}
+.toggle-section.active .toggle-content{display:block}
+
+/* ============ LOGO UPLOAD ============ */
+.logo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.logo-slot{border:2px dashed var(--border);border-radius:var(--radius-sm);padding:14px 10px;text-align:center;position:relative;transition:border-color .2s;min-height:100px;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.logo-slot:hover{border-color:var(--marine-light)}
+.logo-slot.has-img{border-style:solid;border-color:var(--success)}
+.logo-slot input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer}
+.logo-slot .preview{max-width:100%;max-height:55px;object-fit:contain;margin-bottom:6px}
+.logo-slot .slot-label{font-size:10px;font-weight:600;color:var(--marine);margin-bottom:4px}
+.logo-slot .slot-hint{color:var(--text-lighter);font-size:10px}
+.logo-slot .slot-hint .material-symbols-outlined{font-size:22px;display:block;margin-bottom:2px}
+.logo-clear{position:absolute;top:4px;right:4px;background:#fff;border:1px solid var(--border);border-radius:50%;width:20px;height:20px;cursor:pointer;font-size:11px;display:none;align-items:center;justify-content:center;line-height:1}
+.logo-slot.has-img .logo-clear{display:flex}
+
+/* ============ ARTICLES PERSO ============ */
+.articles-list{display:flex;flex-direction:column;gap:10px}
+.ap-item{border:1.5px solid var(--border);border-radius:var(--radius-sm);overflow:hidden}
+.ap-head{display:flex;align-items:center;gap:8px;padding:8px 12px;background:var(--bg);border-bottom:1px solid var(--border-light)}
+.ap-head input{flex:1;border:none;background:transparent;font-family:inherit;font-size:13px;font-weight:600;color:var(--text);outline:none}
+.ap-body{padding:10px 12px}
+.ap-body textarea{width:100%;border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:8px 10px;font-family:inherit;font-size:13px;resize:vertical;min-height:70px}
+
+/* ============ ADVANCED ============ */
+.adv-toggle{text-align:center;margin:8px 0}
+.adv-toggle button{background:none;border:none;color:var(--text-light);font-size:12px;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;gap:4px}
+.adv-toggle button:hover{color:var(--text)}
+.adv-content{display:none}
+.adv-content.open{display:block}
+.adv-item{margin-bottom:14px}
+.adv-item label.adv-label{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:600;color:var(--marine);cursor:pointer;margin-bottom:6px}
+.adv-item textarea{width:100%;border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:8px 10px;font-family:inherit;font-size:12px;resize:vertical;min-height:60px;display:none}
+.adv-item.active textarea{display:block}
+
+/* ============ ACTION BAR ============ */
+.action-bar{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--border);padding:12px 24px;display:flex;align-items:center;justify-content:center;gap:10px;box-shadow:0 -4px 12px rgba(0,0,0,.08);z-index:90;flex-wrap:wrap}
+
+/* ============ MODAL ============ */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:200;display:none;align-items:center;justify-content:center}
+.modal-overlay.open{display:flex}
+.modal{background:#fff;border-radius:var(--radius);width:95vw;height:90vh;max-width:900px;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+.modal-head{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-bottom:1px solid var(--border)}
+.modal-head h2{font-size:15px;font-weight:700;color:var(--marine)}
+.modal-head .modal-acts{display:flex;gap:8px}
+.modal-frame{flex:1;overflow:hidden}
+.modal-frame iframe{width:100%;height:100%;border:none}
+
+/* ============ TOAST ============ */
+.toast{position:fixed;bottom:75px;left:50%;transform:translateX(-50%);background:var(--marine);color:#fff;padding:10px 22px;border-radius:20px;font-size:13px;font-weight:500;opacity:0;transition:opacity .3s;z-index:300;pointer-events:none}
+.toast.show{opacity:1}
+
+/* ============ RESPONSIVE ============ */
+@media(max-width:640px){
+  .form-grid{grid-template-columns:1fr}
+  .logo-grid{grid-template-columns:1fr 1fr}
+  .action-bar{padding:10px 12px;gap:6px}
+  .action-bar .btn{padding:7px 10px;font-size:12px}
+  .header-left h1{font-size:14px}
+  .btn-outline .btn-label{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- ============ HEADER ============ -->
+<header class="app-header">
+  <div class="header-left">
+    <span class="material-symbols-outlined">article</span>
+    <div>
+      <h1>Conventions d'exposition — L'Hermine</h1>
+      <div class="header-subtitle">Générateur hors ligne — GitHub Pages</div>
+    </div>
+  </div>
+  <div class="header-actions">
+    <button class="btn btn-outline" onclick="resetForm()">
+      <span class="material-symbols-outlined">restart_alt</span>
+      <span class="btn-label">Réinitialiser</span>
+    </button>
+    <button class="btn btn-outline" onclick="document.getElementById('jsonInput').click()">
+      <span class="material-symbols-outlined">upload_file</span>
+      <span class="btn-label">Importer JSON</span>
+    </button>
+    <input type="file" id="jsonInput" accept=".json" style="display:none" onchange="onImportJSON(event)">
+    <button class="btn btn-outline" onclick="exportJSON()">
+      <span class="material-symbols-outlined">download</span>
+      <span class="btn-label">Sauvegarder JSON</span>
+    </button>
+  </div>
+</header>
+
+<!-- ============ MAIN ============ -->
+<div class="app-container">
+
+  <!-- LOGOS -->
+  <div class="card">
+    <div class="card-header"><h2><span class="material-symbols-outlined">image</span> Images de la convention</h2></div>
+    <div class="card-body">
+      <div class="logo-grid">
+        <div class="logo-slot" id="slotLogo1">
+          <div class="slot-label">Bannière page 1</div>
+          <div class="slot-hint" id="hintLogo1"><span class="material-symbols-outlined">add_photo_alternate</span>logo.jpg</div>
+          <input type="file" accept="image/*" onchange="onLogoUpload(event,'logo1','slotLogo1','hintLogo1')">
+          <button class="logo-clear" onclick="clearLogo('logo1','slotLogo1','hintLogo1')">&times;</button>
+        </div>
+        <div class="logo-slot" id="slotLogo2">
+          <div class="slot-label">Logo pages suivantes</div>
+          <div class="slot-hint" id="hintLogo2"><span class="material-symbols-outlined">add_photo_alternate</span>logo2.jpg</div>
+          <input type="file" accept="image/*" onchange="onLogoUpload(event,'logo2','slotLogo2','hintLogo2')">
+          <button class="logo-clear" onclick="clearLogo('logo2','slotLogo2','hintLogo2')">&times;</button>
+        </div>
+        <div class="logo-slot" id="slotBg">
+          <div class="slot-label">Fond de page</div>
+          <div class="slot-hint" id="hintBg"><span class="material-symbols-outlined">add_photo_alternate</span>pleine page.jpg</div>
+          <input type="file" accept="image/*" onchange="onLogoUpload(event,'background','slotBg','hintBg')">
+          <button class="logo-clear" onclick="clearLogo('background','slotBg','hintBg')">&times;</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ARTISTE 1 -->
+  <div class="card">
+    <div class="card-header"><h2><span class="material-symbols-outlined">person</span> Artiste / Exposant</h2></div>
+    <div class="card-body">
+      <div class="form-grid">
+        <div class="form-group"><label>Nom</label><input type="text" id="nom" placeholder="Nom de l'artiste"></div>
+        <div class="form-group"><label>SIRET / N° identification</label><input type="text" id="siret" placeholder="Ex : 123 456 789 00012"></div>
+        <div class="form-group full"><label>Adresse</label><textarea id="adresse" rows="2" placeholder="Adresse complète (chaque ligne sera affichée séparément)"></textarea></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ARTISTE 2 -->
+  <div class="toggle-section" id="sec_a2">
+    <div class="toggle-header" onclick="toggleSection('sec_a2','a2actif')">
+      <div class="toggle-switch"><input type="checkbox" id="a2actif"><span class="toggle-slider"></span></div>
+      <span class="toggle-label">Artiste 2 (exposition conjointe)</span>
+    </div>
+    <div class="toggle-content">
+      <div class="form-grid">
+        <div class="form-group"><label>Nom</label><input type="text" id="a2nom" placeholder="Nom"></div>
+        <div class="form-group"><label>SIRET / N° identification</label><input type="text" id="a2siret" placeholder="SIRET"></div>
+        <div class="form-group full"><label>Adresse</label><textarea id="a2adresse" rows="2" placeholder="Adresse"></textarea></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EXPOSITION -->
+  <div class="card">
+    <div class="card-header"><h2><span class="material-symbols-outlined">palette</span> Exposition</h2></div>
+    <div class="card-body">
+      <div class="form-grid">
+        <div class="form-group full"><label>Lieu</label><input type="text" id="lieu" value="Espace Culturel L'Hermine"></div>
+        <div class="form-group"><label>Date de début</label><input type="date" id="expoDebut"></div>
+        <div class="form-group"><label>Date de fin</label><input type="date" id="expoFin"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CALENDRIER -->
+  <div class="card">
+    <div class="card-header"><h2><span class="material-symbols-outlined">calendar_month</span> Calendrier</h2></div>
+    <div class="card-body">
+      <div class="form-grid">
+        <div class="form-group"><label>Installation — Date</label><input type="date" id="installDate"></div>
+        <div class="form-group"><label>Installation — Heure</label><input type="time" id="installHeure"></div>
+        <div class="form-group"><label>Vernissage — Date</label><input type="date" id="vernissageDate"></div>
+        <div class="form-group"><label>Vernissage — Heure</label><input type="time" id="vernissageHeure"></div>
+        <div class="form-group"><label>Démontage — Date</label><input type="date" id="demontageDate"></div>
+        <div class="form-group"><label>Démontage — Heure</label><input type="time" id="demontageHeure"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DROITS -->
+  <div class="card">
+    <div class="card-header"><h2><span class="material-symbols-outlined">euro</span> Droits de présentation</h2></div>
+    <div class="card-body">
+      <div class="form-grid">
+        <div class="form-group"><label>Montant (€ TTC)</label><input type="text" id="montant" placeholder="Ex : 500"></div>
+        <div class="form-group"><label>TVA</label>
+          <select id="tva">
+            <option value="Non assujetti">Non assujetti (art. 293B du CGI)</option>
+            <option value="TVA 5.5%">TVA applicable 5,5 %</option>
+            <option value="TVA 10%">TVA applicable 10 %</option>
+            <option value="TVA 20%">TVA applicable 20 %</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TRANSPORT -->
+  <div class="toggle-section" id="sec_transport">
+    <div class="toggle-header" onclick="toggleSection('sec_transport','transportActif')">
+      <div class="toggle-switch"><input type="checkbox" id="transportActif"><span class="toggle-slider"></span></div>
+      <span class="toggle-label">Transport des œuvres</span>
+    </div>
+    <div class="toggle-content">
+      <div class="form-group"><label>Détails</label><textarea id="transportDetails" rows="3" placeholder="Modalités de transport..."></textarea></div>
+    </div>
+  </div>
+
+  <!-- HÉBERGEMENT -->
+  <div class="toggle-section" id="sec_hebergement">
+    <div class="toggle-header" onclick="toggleSection('sec_hebergement','hebergementActif')">
+      <div class="toggle-switch"><input type="checkbox" id="hebergementActif"><span class="toggle-slider"></span></div>
+      <span class="toggle-label">Hébergement</span>
+    </div>
+    <div class="toggle-content">
+      <div class="form-group"><label>Détails</label><textarea id="hebergementDetails" rows="3" placeholder="Modalités d'hébergement..."></textarea></div>
+    </div>
+  </div>
+
+  <!-- ACTIONS CULTURELLES -->
+  <div class="toggle-section" id="sec_actions">
+    <div class="toggle-header" onclick="toggleSection('sec_actions','actionsActif')">
+      <div class="toggle-switch"><input type="checkbox" id="actionsActif"><span class="toggle-slider"></span></div>
+      <span class="toggle-label">Actions culturelles</span>
+    </div>
+    <div class="toggle-content">
+      <div class="form-group"><label>Détails</label><textarea id="actionsDetails" rows="3" placeholder="Détails des actions culturelles..."></textarea></div>
+    </div>
+  </div>
+
+  <!-- SIGNATURE -->
+  <div class="card">
+    <div class="card-header"><h2><span class="material-symbols-outlined">draw</span> Signature</h2></div>
+    <div class="card-body">
+      <div class="form-grid">
+        <div class="form-group"><label>Date de signature</label><input type="date" id="dateSignature"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ARTICLES PERSONNALISÉS -->
+  <div class="card">
+    <div class="card-header">
+      <h2><span class="material-symbols-outlined">post_add</span> Articles supplémentaires</h2>
+      <button class="btn btn-secondary btn-sm" onclick="addArticlePerso()">
+        <span class="material-symbols-outlined">add</span> Ajouter
+      </button>
+    </div>
+    <div class="card-body">
+      <div class="articles-list" id="articlesList"></div>
+      <p id="noArticlesMsg" style="color:var(--text-lighter);font-size:12px;text-align:center;padding:10px 0">Aucun article supplémentaire. Cliquez « Ajouter » pour en créer un.</p>
+    </div>
+  </div>
+
+  <!-- ARTICLES STANDARDS — personnalisation avancée -->
+  <div class="card">
+    <div class="card-body">
+      <div class="adv-toggle">
+        <button onclick="toggleAdvanced()">
+          <span class="material-symbols-outlined" id="advIcon">expand_more</span>
+          Personnalisation avancée des articles standards
+        </button>
+      </div>
+      <div class="adv-content" id="advContent">
+        <p style="font-size:11px;color:var(--text-light);margin-bottom:14px">Cochez un article pour remplacer son texte par défaut. Laissez décoché pour garder le texte standard.</p>
+        <div id="advList"></div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /app-container -->
+
+<!-- ============ ACTION BAR ============ -->
+<div class="action-bar">
+  <button class="btn btn-secondary" onclick="showPreview()">
+    <span class="material-symbols-outlined">visibility</span> Prévisualiser
+  </button>
+  <button class="btn btn-primary" onclick="downloadHTML()">
+    <span class="material-symbols-outlined">code</span> Télécharger HTML
+  </button>
+  <button class="btn btn-success" onclick="downloadPDF()">
+    <span class="material-symbols-outlined">picture_as_pdf</span> Imprimer / PDF
+  </button>
+</div>
+
+<!-- ============ MODAL PREVIEW ============ -->
+<div class="modal-overlay" id="previewOverlay" onclick="if(event.target===this)closePreview()">
+  <div class="modal">
+    <div class="modal-head">
+      <h2>Prévisualisation</h2>
+      <div class="modal-acts">
+        <button class="btn btn-primary btn-sm" onclick="downloadHTML()"><span class="material-symbols-outlined">code</span> HTML</button>
+        <button class="btn btn-success btn-sm" onclick="downloadPDF()"><span class="material-symbols-outlined">picture_as_pdf</span> PDF</button>
+        <button class="btn btn-secondary btn-sm" onclick="closePreview()"><span class="material-symbols-outlined">close</span></button>
+      </div>
+    </div>
+    <div class="modal-frame"><iframe id="previewFrame"></iframe></div>
+  </div>
+</div>
+
+<!-- ============ TOAST ============ -->
+<div class="toast" id="toast"></div>
+
+<!-- ======================================================================
+     JAVASCRIPT
+     ====================================================================== -->
+<script>
+/* ============ ÉTAT ============ */
+const logos = { logo1: '', logo2: '', background: '' };
+let apCounter = 0;
+
+/* ============ UTILITAIRES ============ */
+function $(id) { return document.getElementById(id); }
+function val(id) { return ($(id) || {}).value || ''; }
+function setVal(id, v) { var e = $(id); if (e) e.value = v || ''; }
+function isChecked(id) { return ($(id) || {}).checked || false; }
+function setChecked(id, v) { var e = $(id); if (e) e.checked = !!v; }
+
+function escHtml(t) {
+  if (!t) return '';
+  return String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;');
+}
+
+const MOIS = ['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];
+const JOURS = ['dimanche','lundi','mardi','mercredi','jeudi','vendredi','samedi'];
+
+function formatDate(s) {
+  if (!s) return '';
+  var d = new Date(s + 'T12:00:00');
+  if (isNaN(d.getTime())) return s;
+  return JOURS[d.getDay()] + ' ' + d.getDate() + ' ' + MOIS[d.getMonth()] + ' ' + d.getFullYear();
+}
+
+function formatTime(s) {
+  if (!s) return '';
+  return s.replace(':', 'h');
+}
+
+function toast(msg) {
+  var t = $('toast'); t.textContent = msg; t.classList.add('show');
+  setTimeout(function(){ t.classList.remove('show'); }, 2500);
+}
+
+/* ============ LOGOS ============ */
+function onLogoUpload(ev, key, slotId, hintId) {
+  var file = ev.target.files[0]; if (!file) return;
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    logos[key] = e.target.result;
+    var slot = $(slotId);
+    slot.classList.add('has-img');
+    var existing = slot.querySelector('.preview');
+    if (existing) existing.remove();
+    var img = document.createElement('img');
+    img.className = 'preview'; img.src = e.target.result;
+    slot.insertBefore(img, slot.firstChild);
+    $(hintId).style.display = 'none';
+    autoSave();
+  };
+  reader.readAsDataURL(file);
+}
+
+function clearLogo(key, slotId, hintId) {
+  logos[key] = '';
+  var slot = $(slotId);
+  slot.classList.remove('has-img');
+  var existing = slot.querySelector('.preview');
+  if (existing) existing.remove();
+  $(hintId).style.display = '';
+  var input = slot.querySelector('input[type=file]');
+  if (input) input.value = '';
+  autoSave();
+}
+
+/* ============ RESET FORMULAIRE ============ */
+function resetForm() {
+  if (!confirm('Réinitialiser tous les champs du formulaire ?\n(Les logos ne seront pas effacés)')) return;
+
+  // Champs texte / date / heure
+  ['nom','siret','a2nom','a2siret','montant','transportDetails','hebergementDetails','actionsDetails'].forEach(function(id){ setVal(id,''); });
+  ['adresse','a2adresse'].forEach(function(id){ setVal(id,''); });
+  ['expoDebut','expoFin','installDate','installHeure','vernissageDate','vernissageHeure','demontageDate','demontageHeure','dateSignature'].forEach(function(id){ setVal(id,''); });
+  setVal('lieu', "Espace Culturel L'Hermine");
+  setVal('tva', 'Non assujetti');
+
+  // Toggle sections : décocher + masquer
+  [['sec_a2','a2actif'],['sec_transport','transportActif'],['sec_hebergement','hebergementActif'],['sec_actions','actionsActif']].forEach(function(pair){
+    setChecked(pair[1], false);
+    $(pair[0]).classList.remove('active');
+  });
+
+  // Articles personnalisés : tout supprimer
+  $('articlesList').innerHTML = '';
+  $('noArticlesMsg').style.display = '';
+  apCounter = 0;
+
+  // Articles standards : décocher et vider
+  STD_ARTICLES.forEach(function(a) {
+    var item = $('adv_' + a.key);
+    if (!item) return;
+    var cb = item.querySelector('input[type=checkbox]');
+    if (cb) cb.checked = false;
+    var ta = item.querySelector('textarea');
+    if (ta) ta.value = '';
+    item.classList.remove('active');
+  });
+
+  autoSave();
+  toast('Formulaire réinitialisé');
+}
+
+/* ============ TOGGLE SECTIONS ============ */
+function toggleSection(secId, cbId) {
+  var sec = $(secId), cb = $(cbId);
+  cb.checked = !cb.checked;
+  sec.classList.toggle('active', cb.checked);
+  autoSave();
+}
+
+/* ============ ARTICLES PERSONNALISÉS ============ */
+function addArticlePerso(titre, contenu) {
+  titre = titre || ''; contenu = contenu || '';
+  var idx = apCounter++;
+  var div = document.createElement('div');
+  div.className = 'ap-item'; div.id = 'ap' + idx;
+  div.innerHTML =
+    '<div class="ap-head">' +
+      '<input type="text" placeholder="Titre de l\'article" value="' + escHtml(titre) + '" oninput="autoSave()">' +
+      '<button class="btn btn-danger btn-sm" onclick="removeAP(\'ap' + idx + '\')">' +
+        '<span class="material-symbols-outlined">delete</span>' +
+      '</button>' +
+    '</div>' +
+    '<div class="ap-body">' +
+      '<textarea placeholder="Contenu de l\'article..." oninput="autoSave()">' + escHtml(contenu) + '</textarea>' +
+    '</div>';
+  $('articlesList').appendChild(div);
+  $('noArticlesMsg').style.display = 'none';
+  autoSave();
+}
+
+function removeAP(id) {
+  var el = $(id); if (el) el.remove();
+  if (!document.querySelector('.ap-item')) $('noArticlesMsg').style.display = '';
+  autoSave();
+}
+
+function getArticlesPerso() {
+  return Array.from(document.querySelectorAll('.ap-item')).map(function(item) {
+    return {
+      titre: (item.querySelector('.ap-head input') || {}).value || '',
+      contenu: (item.querySelector('.ap-body textarea') || {}).value || ''
+    };
+  }).filter(function(a) { return a.titre || a.contenu; });
+}
+
+/* ============ ARTICLES STANDARDS AVANCÉS ============ */
+var STD_ARTICLES = [
+  { key: 'objet', label: 'Article — Objet' },
+  { key: 'obligationsExposant', label: 'Article — Obligations de l\'Exposant' },
+  { key: 'obligationsOrganisateur', label: 'Article — Obligations de l\'Organisateur' },
+  { key: 'duree', label: 'Article — Durée' },
+  { key: 'installation', label: 'Article — Installation et vernissage' },
+  { key: 'droits', label: 'Article — Droits de présentation' },
+  { key: 'resiliation', label: 'Article — Résiliation' },
+  { key: 'assurances', label: 'Article — Assurances' },
+  { key: 'competences', label: 'Article — Attribution de compétences' }
+];
+
+function buildAdvList() {
+  var html = '';
+  STD_ARTICLES.forEach(function(a) {
+    html += '<div class="adv-item" id="adv_' + a.key + '">' +
+      '<label class="adv-label"><input type="checkbox" onchange="toggleAdv(\'' + a.key + '\')">' + escHtml(a.label) + '</label>' +
+      '<textarea placeholder="Texte personnalisé..." oninput="autoSave()"></textarea>' +
+    '</div>';
+  });
+  $('advList').innerHTML = html;
+}
+
+function toggleAdv(key) {
+  var item = $('adv_' + key);
+  var cb = item.querySelector('input[type=checkbox]');
+  item.classList.toggle('active', cb.checked);
+  autoSave();
+}
+
+function toggleAdvanced() {
+  var c = $('advContent'), icon = $('advIcon');
+  c.classList.toggle('open');
+  icon.textContent = c.classList.contains('open') ? 'expand_less' : 'expand_more';
+}
+
+function getArticlesStd() {
+  var result = {};
+  STD_ARTICLES.forEach(function(a) {
+    var item = $('adv_' + a.key);
+    var cb = item.querySelector('input[type=checkbox]');
+    if (cb.checked) {
+      var txt = (item.querySelector('textarea') || {}).value || '';
+      if (txt.trim()) result[a.key] = { actif: true, texte: txt.trim() };
+    }
+  });
+  return result;
+}
+
+/* ============ COLLECTE DONNÉES ============ */
+function collectFormData() {
+  return {
+    artiste: { nom: val('nom'), adresse: val('adresse'), siret: val('siret') },
+    artiste2: { actif: isChecked('a2actif'), nom: val('a2nom'), adresse: val('a2adresse'), siret: val('a2siret') },
+    expo: { debut: val('expoDebut'), fin: val('expoFin'), lieu: val('lieu') || 'Espace Culturel L\u2019Hermine' },
+    installation: { date: val('installDate'), heure: val('installHeure') },
+    vernissage: { date: val('vernissageDate'), heure: val('vernissageHeure') },
+    demontage: { date: val('demontageDate'), heure: val('demontageHeure') },
+    droits: { montant: val('montant'), tva: val('tva') },
+    transport: { actif: isChecked('transportActif'), details: val('transportDetails') },
+    hebergement: { actif: isChecked('hebergementActif'), details: val('hebergementDetails') },
+    actionsCulturelles: { actif: isChecked('actionsActif'), details: val('actionsDetails') },
+    dateSignature: val('dateSignature'),
+    articlesPerso: getArticlesPerso(),
+    articlesStd: getArticlesStd()
+  };
+}
+
+/* ============ PEUPLEMENT FORMULAIRE ============ */
+function populateForm(d) {
+  if (!d) return;
+  setVal('nom', (d.artiste||{}).nom);
+  setVal('adresse', (d.artiste||{}).adresse);
+  setVal('siret', (d.artiste||{}).siret);
+
+  var a2 = d.artiste2 || {};
+  setChecked('a2actif', a2.actif); setVal('a2nom', a2.nom); setVal('a2adresse', a2.adresse); setVal('a2siret', a2.siret);
+  $('sec_a2').classList.toggle('active', !!a2.actif);
+
+  setVal('lieu', (d.expo||{}).lieu);
+  setVal('expoDebut', (d.expo||{}).debut);
+  setVal('expoFin', (d.expo||{}).fin);
+
+  setVal('installDate', (d.installation||{}).date);
+  setVal('installHeure', (d.installation||{}).heure);
+  setVal('vernissageDate', (d.vernissage||{}).date);
+  setVal('vernissageHeure', (d.vernissage||{}).heure);
+  setVal('demontageDate', (d.demontage||{}).date);
+  setVal('demontageHeure', (d.demontage||{}).heure);
+
+  setVal('montant', (d.droits||{}).montant);
+  setVal('tva', (d.droits||{}).tva);
+
+  var tr = d.transport || {};
+  setChecked('transportActif', tr.actif); setVal('transportDetails', tr.details);
+  $('sec_transport').classList.toggle('active', !!tr.actif);
+
+  var hb = d.hebergement || {};
+  setChecked('hebergementActif', hb.actif); setVal('hebergementDetails', hb.details);
+  $('sec_hebergement').classList.toggle('active', !!hb.actif);
+
+  var ac = d.actionsCulturelles || {};
+  setChecked('actionsActif', ac.actif); setVal('actionsDetails', ac.details);
+  $('sec_actions').classList.toggle('active', !!ac.actif);
+
+  setVal('dateSignature', d.dateSignature);
+
+  // Articles personnalisés
+  $('articlesList').innerHTML = '';
+  apCounter = 0;
+  (d.articlesPerso || []).forEach(function(a) { addArticlePerso(a.titre, a.contenu); });
+  $('noArticlesMsg').style.display = (d.articlesPerso||[]).length ? 'none' : '';
+
+  // Articles standards
+  var std = d.articlesStd || {};
+  STD_ARTICLES.forEach(function(a) {
+    var item = $('adv_' + a.key);
+    var cb = item.querySelector('input[type=checkbox]');
+    var ta = item.querySelector('textarea');
+    var data = std[a.key];
+    if (data && typeof data === 'object' && data.actif) {
+      cb.checked = true; ta.value = data.texte || ''; item.classList.add('active');
+    } else if (typeof data === 'string' && data.trim()) {
+      cb.checked = true; ta.value = data; item.classList.add('active');
+    } else {
+      cb.checked = false; ta.value = ''; item.classList.remove('active');
+    }
+  });
+
+  // Logos
+  if (d.logos) {
+    ['logo1','logo2','background'].forEach(function(k) {
+      if (d.logos[k]) {
+        logos[k] = d.logos[k];
+        var map = { logo1: ['slotLogo1','hintLogo1'], logo2: ['slotLogo2','hintLogo2'], background: ['slotBg','hintBg'] };
+        var ids = map[k];
+        var slot = $(ids[0]);
+        slot.classList.add('has-img');
+        var existing = slot.querySelector('.preview');
+        if (existing) existing.remove();
+        var img = document.createElement('img');
+        img.className = 'preview'; img.src = d.logos[k];
+        slot.insertBefore(img, slot.firstChild);
+        $(ids[1]).style.display = 'none';
+      }
+    });
+  }
+}
+
+/* ============ SAUVEGARDE AUTO (localStorage) ============ */
+var saveTimer = null;
+function autoSave() {
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(function() {
+    try {
+      var d = collectFormData();
+      d.logos = logos;
+      localStorage.setItem('hermine_convention', JSON.stringify(d));
+    } catch(e) { /* quota exceeded, ignore */ }
+  }, 500);
+}
+
+function loadFromStorage() {
+  try {
+    var s = localStorage.getItem('hermine_convention');
+    if (s) {
+      var d = JSON.parse(s);
+      if (d.logos) { logos.logo1 = d.logos.logo1 || ''; logos.logo2 = d.logos.logo2 || ''; logos.background = d.logos.background || ''; }
+      populateForm(d);
+    }
+  } catch(e) {}
+}
+
+/* ============ JSON IMPORT / EXPORT ============ */
+function exportJSON() {
+  var d = collectFormData();
+  d.logos = logos;
+  var blob = new Blob([JSON.stringify(d, null, 2)], { type: 'application/json' });
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url;
+  a.download = 'convention_' + (d.artiste.nom || 'export').replace(/[^a-zA-Z0-9\u00C0-\u024F]/g, '_') + '.json';
+  a.click();
+  URL.revokeObjectURL(url);
+  toast('JSON sauvegardé');
+}
+
+function onImportJSON(ev) {
+  var file = ev.target.files[0]; if (!file) return;
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    try {
+      var d = JSON.parse(e.target.result);
+      if (d.logos) { logos.logo1 = d.logos.logo1 || ''; logos.logo2 = d.logos.logo2 || ''; logos.background = d.logos.background || ''; }
+      populateForm(d);
+      autoSave();
+      toast('JSON importé avec succès');
+    } catch(err) {
+      toast('Erreur : fichier JSON invalide');
+    }
+  };
+  reader.readAsText(file);
+  ev.target.value = '';
+}
+
+/* ============ GÉNÉRATION HTML CONVENTION ============ */
+function getStdOverride(articlesStd, key) {
+  if (!articlesStd) return '';
+  var item = articlesStd[key];
+  if (!item) return '';
+  if (typeof item === 'string') return item.trim();
+  if (typeof item === 'object' && item.actif) return (item.texte || '').trim();
+  return '';
+}
+
+function fmtArticleHtml(text) {
+  if (!text) return '';
+  var s = String(text).replace(/\r\n/g, '\n').replace(/\r/g, '\n').trim();
+  if (!s) return '';
+  var lines = s.split('\n'), out = [], para = [], list = [];
+  function flushP() { if (para.length) { out.push('<p>' + escHtml(para.join('\n')).replace(/\n/g,'<br>') + '</p>'); para = []; } }
+  function flushL() { if (list.length) { out.push('<ul>' + list.map(function(i){ return '<li>' + escHtml(i) + '</li>'; }).join('') + '</ul>'); list = []; } }
+  for (var i = 0; i < lines.length; i++) {
+    var t = lines[i], tr = t.trim();
+    if (!tr) { flushP(); flushL(); continue; }
+    var bull = false, item = '';
+    if (tr.indexOf('- ') === 0) { bull = true; item = tr.substring(2).trim(); }
+    else if (tr.indexOf('\u2022 ') === 0) { bull = true; item = tr.substring(2).trim(); }
+    else if (tr.indexOf('* ') === 0) { bull = true; item = tr.substring(2).trim(); }
+    if (bull) { flushP(); list.push(item); } else { flushL(); para.push(t); }
+  }
+  flushP(); flushL();
+  return out.join('');
+}
+
+function generateConventionHtml(data) {
+  var logo1Src = logos.logo1 || 'logo.jpg';
+  var logo2Src = logos.logo2 || 'logo2.jpg';
+  var bgSrc = logos.background || '';
+  var articlesStd = data.articlesStd || {};
+  var articleNum = 0;
+  function next() { return ++articleNum; }
+
+  var h = '<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><title>Convention d\u2019exposition \u2014 ' + escHtml(data.artiste.nom) + '</title>';
+  // CSS
+  h += '<style>';
+  h += '*{margin:0;padding:0;box-sizing:border-box}';
+  h += 'body{font-family:Arial,Helvetica,sans-serif;line-height:1.5;color:#000;max-width:21cm;margin:0 auto;padding:1.2cm 1.8cm;background:#fff;font-size:10pt}';
+  h += '@media print{body{width:21cm;padding:0}@page{size:A4;margin:1.2cm 1.8cm 1.8cm 1.8cm}.page-break{page-break-after:always;height:0;margin:0}.no-break{page-break-inside:avoid}.page-layout{min-height:20cm}}';
+  h += '.header-page1{margin-bottom:0;padding:0}';
+  h += '.logo-page-1{width:100%;height:auto;display:block}';
+  h += '.header-continuation{padding-bottom:6px;margin-bottom:0}';
+  h += '.articles-table{width:100%;border-collapse:collapse;border:none}';
+  h += '.articles-table td{padding:0;border:none;vertical-align:top}';
+  h += '.articles-table thead{display:table-header-group}';
+  h += '.logo-small{max-width:90px;height:auto}';
+  h += '.col-logo{width:130px;min-width:130px;vertical-align:top}';
+  h += '.articles-table thead .col-content{border-top:1.5px solid #000;border-left:1.5px solid #000;padding-bottom:30px}';
+  h += '.articles-table tbody .col-content{border-left:1.5px solid #000;padding:0 16px 14px 16px}';
+  h += '.page-layout{display:flex;gap:0;margin-top:8px;align-items:stretch}';
+  h += '.cartouche{width:130px;min-width:130px;font-size:7.5pt;color:#aaa;line-height:1.7;padding-right:12px}';
+  h += '.cartouche .cartouche-mairie{font-size:9pt;font-weight:bold;color:#888;text-decoration:underline;margin-bottom:1px}';
+  h += '.cartouche p{margin:0}';
+  h += '.main-column{flex:1;min-width:0;display:flex;flex-direction:column}';
+  h += '.main-title{text-align:center;margin:0 0 12px 0}';
+  h += '.main-title h1{font-size:22pt;font-weight:bold;font-style:normal;color:#000}';
+  h += '.convention-body{flex:1;border-top:1.5px solid #000;border-left:1.5px solid #000;padding:14px 16px}';
+  h += '.parties-section{margin-bottom:20px}';
+  h += '.parties-intro{font-weight:normal;margin-bottom:12px;font-size:10pt}';
+  h += '.party-block{margin-bottom:12px}';
+  h += '.party-block .party-name{font-weight:bold;font-size:10pt;margin-bottom:2px}';
+  h += '.party-block p{margin:2px 0;font-size:10pt}';
+  h += '.party-block .designation{margin-top:6px;font-style:italic}';
+  h += '.separator-et{text-align:center;font-style:italic;margin:10px 0;font-size:10pt}';
+  h += '.agreement-clause{font-weight:bold;font-size:10pt;text-align:center;margin:18px 0;text-transform:uppercase}';
+  h += '.article{margin-bottom:16px}';
+  h += '.article h3{font-size:10pt;font-weight:bold;text-transform:uppercase;margin-bottom:6px}';
+  h += '.article p{margin-bottom:7px;text-align:justify}';
+  h += '.article ul{margin:6px 0 10px 15px;list-style-type:none}';
+  h += '.article ul li{position:relative;padding-left:18px;margin-bottom:4px}';
+  h += '.article ul li::before{content:"\\25A0";position:absolute;left:0;font-size:6pt;top:3px}';
+  h += '.article .highlight{font-weight:bold}';
+  h += '.bg-page{position:fixed;bottom:0;left:0;width:100%;z-index:-1;opacity:0.15;pointer-events:none}';
+  h += '.bg-page img{width:100%;height:auto;display:block}';
+  h += '.signatures-section{margin-top:80px}';
+  h += '.date-line{text-align:right;font-style:italic;margin-bottom:25px;color:#333}';
+  h += '.signatures{display:flex;justify-content:space-between;gap:20px}';
+  h += '.signature-box{flex:1;min-width:0}';
+  h += '.signature-box .title{font-size:9pt;font-weight:bold;text-transform:uppercase;padding-bottom:5px;border-bottom:1px solid #000;margin-bottom:10px}';
+  h += '.signature-box .name{font-size:10pt;margin-bottom:70px}';
+  h += '.spacer-small{height:12px}.spacer-medium{height:25px}';
+  h += '</style></head><body>';
+
+  // Fond de page
+  if (bgSrc) h += '<div class="bg-page"><img src="' + bgSrc + '" alt=""></div>';
+
+  // PAGE 1
+  h += '<header class="header-page1">';
+  h += '<img src="' + logo1Src + '" alt="Mairie de Sarzeau" class="logo-page-1">';
+  h += '</header>';
+
+  h += '<div class="page-layout">';
+  h += '<aside class="cartouche">';
+  h += '<p class="cartouche-mairie">Mairie de Sarzeau</p>';
+  h += '<p>Place Richemont - BP 14</p>';
+  h += '<p>56370 Sarzeau</p>';
+  h += '<p>T\u00e9l. : 02 97 41 85 15</p>';
+  h += '<p>www.sarzeau.fr</p>';
+  h += '</aside>';
+  h += '<div class="main-column">';
+  h += '<div class="main-title"><h1>Convention d\u2019exposition</h1></div>';
+  h += '<div class="convention-body">';
+
+  // Parties
+  h += '<section class="parties-section">';
+  h += '<p class="parties-intro">Entre les soussign\u00e9s,</p>';
+
+  var a2 = data.artiste2 || {};
+  var a2Actif = a2.actif === true && !!(a2.nom);
+
+  h += '<div class="party-block">';
+  h += '<p class="party-name">' + escHtml(data.artiste.nom) + '</p>';
+  var addrLines = String(data.artiste.adresse || '').split(/\r?\n/);
+  for (var i = 0; i < addrLines.length; i++) { if (addrLines[i].trim()) h += '<p>' + escHtml(addrLines[i].trim()) + '</p>'; }
+  if (data.artiste.siret) h += '<p>Num\u00e9ro SIRET : ' + escHtml(data.artiste.siret) + '</p>';
+  if (a2Actif) {
+    h += '<p class="designation">Ci-apr\u00e8s d\u00e9sign\u00e9 \u00ab <strong>l\u2019Exposant 1</strong> \u00bb,</p>';
+  } else {
+    h += '<p class="designation">Ci-apr\u00e8s d\u00e9sign\u00e9 \u00ab <strong>l\u2019Exposant</strong> \u00bb, d\u2019une part</p>';
+  }
+  h += '</div>';
+
+  if (a2Actif) {
+    h += '<p class="separator-et">Et</p>';
+    h += '<div class="party-block">';
+    h += '<p class="party-name">' + escHtml(a2.nom) + '</p>';
+    if (a2.adresse) {
+      var a2l = String(a2.adresse).split(/\r?\n/);
+      for (var j = 0; j < a2l.length; j++) { if (a2l[j].trim()) h += '<p>' + escHtml(a2l[j].trim()) + '</p>'; }
+    }
+    if (a2.siret) h += '<p>Num\u00e9ro SIRET : ' + escHtml(a2.siret) + '</p>';
+    h += '<p class="designation">Ci-apr\u00e8s d\u00e9sign\u00e9 \u00ab <strong>l\u2019Exposant 2</strong> \u00bb, d\u2019une part</p>';
+    h += '</div>';
+  }
+
+  h += '<p class="separator-et">Et</p>';
+  h += '<div class="party-block">';
+  h += '<p class="party-name">COMMUNE DE SARZEAU \u2013 ESPACE CULTUREL L\u2019HERMINE</p>';
+  h += '<p>Place Richemont - BP 14 - 56370 SARZEAU</p>';
+  h += '<p>T\u00e9l. : 02 97 48 29 40</p>';
+  h += '<p>E.mail : lhermine@sarzeau.fr</p>';
+  h += '<p>Num\u00e9ro SIRET : 215 602 400 00016</p>';
+  h += '<p>Code NAF/APE : 8411Z</p>';
+  h += '<p>Licence d\u2019entrepreneur de spectacles n\u00b0 : PLATESV-D-2022-008045</p>';
+  h += '<p>Repr\u00e9sent\u00e9e par : Monsieur Jean-Marc Dupeyrat en sa qualit\u00e9 de Maire</p>';
+  h += '<p class="designation">Ci-apr\u00e8s, d\u00e9sign\u00e9e \u00ab <strong>l\u2019Organisateur</strong> \u00bb, d\u2019autre part.</p>';
+  h += '</div></section></div></div></div>';
+
+  h += '<div class="page-break"></div>';
+
+  // PAGES 2+ — table 2 colonnes : col-logo | col-content (bordures sur <td>)
+  h += '<table class="articles-table"><thead><tr>';
+  h += '<td class="col-logo"><div class="header-continuation"><img src="' + logo2Src + '" alt="Logo" class="logo-small"></div></td>';
+  h += '<td class="col-content col-head"></td>';
+  h += '</tr></thead>';
+  h += '<tbody><tr>';
+  h += '<td class="col-logo"></td>';
+  h += '<td class="col-content col-body">';
+  h += '<div class="agreement-clause">IL A ETE ARRETE ET CONVENU CE QUI SUIT</div>';
+
+  // Article 1 — Objet
+  var n = next();
+  h += '<article class="article no-break"><h3>Article ' + n + ' - Objet</h3>';
+  var ct = getStdOverride(articlesStd, 'objet');
+  if (ct) { h += fmtArticleHtml(ct); }
+  else {
+    h += '<p>La pr\u00e9sente convention a pour but de d\u00e9finir les modalit\u00e9s d\u2019accueil de l\u2019exposition des \u0153uvres de l\u2019Exposant.</p>';
+    h += '<p>Lieu : ' + escHtml(data.expo.lieu) + '</p>';
+    h += '<p>Dates de l\u2019exposition : du ' + escHtml(formatDate(data.expo.debut)) + ' au ' + escHtml(formatDate(data.expo.fin)) + '</p>';
+  }
+  h += '</article>';
+
+  // Article 2 — Obligations Exposant
+  n = next();
+  h += '<article class="article no-break"><h3>Article ' + n + ' - Obligations de l\u2019Exposant</h3>';
+  ct = getStdOverride(articlesStd, 'obligationsExposant');
+  if (ct) { h += fmtArticleHtml(ct); }
+  else {
+    h += '<p>L\u2019Exposant s\u2019engage \u00e0 fournir l\u2019exposition conform\u00e9ment \u00e0 ce qui avait \u00e9t\u00e9 d\u00e9cid\u00e9 avec l\u2019Organisateur. L\u2019Exposant en outre s\u2019engage \u00e0 communiquer \u00e0 l\u2019organisateur une estimation de la valeur d\u2019assurance (clou \u00e0 clou) de l\u2019exposition. En cas de non-respect de cet article, la collectivit\u00e9 ne prendra pas en charge l\u2019assurance des biens expos\u00e9s.</p>';
+  }
+  h += '</article>';
+
+  // Article 3 — Obligations Organisateur
+  n = next();
+  h += '<article class="article no-break"><h3>Article ' + n + ' - Obligations de l\u2019Organisateur</h3>';
+  ct = getStdOverride(articlesStd, 'obligationsOrganisateur');
+  if (ct) { h += fmtArticleHtml(ct); }
+  else {
+    h += '<p>L\u2019Organisateur s\u2019engage \u00e0 faciliter l\u2019accueil de l\u2019exposition par :</p>';
+    h += '<ul><li>la mise \u00e0 disposition gratuite de locaux ad\u00e9quats,</li>';
+    h += '<li>la mise \u00e0 disposition gratuite d\u2019une personne pour aider \u00e0 l\u2019installation et au d\u00e9montage de l\u2019exposition.</li></ul>';
+  }
+  h += '</article>';
+
+  // Article 4 — Durée
+  n = next();
+  h += '<article class="article no-break"><h3>Article ' + n + ' \u2013 Dur\u00e9e</h3>';
+  ct = getStdOverride(articlesStd, 'duree');
+  if (ct) { h += fmtArticleHtml(ct); }
+  else {
+    h += '<p>La pr\u00e9sente convention est conclue pour toute la dur\u00e9e de la pr\u00e9sentation de l\u2019exposition dans les locaux de l\u2019Organisateur, de son installation \u00e0 son d\u00e9montage.</p>';
+  }
+  h += '</article>';
+
+  // Article 5 — Installation
+  n = next();
+  h += '<article class="article no-break"><h3>Article ' + n + ' - Installation et vernissage</h3>';
+  ct = getStdOverride(articlesStd, 'installation');
+  if (ct) { h += fmtArticleHtml(ct); }
+  else {
+    h += '<p>L\u2019Organisateur et l\u2019Exposant installeront l\u2019exposition le ' + escHtml(formatDate(data.installation.date)) + ' \u00e0 ' + escHtml(formatTime(data.installation.heure)) + ' \u00e0 l\u2019Hermine \u00e0 Sarzeau. Le vernissage de l\u2019exposition sera le ' + escHtml(formatDate(data.vernissage.date)) + ' \u00e0 ' + escHtml(formatTime(data.vernissage.heure)) + ' \u00e0 l\u2019Hermine.</p>';
+    h += '<p>Le d\u00e9montage \u00e9tant le dernier jour de la pr\u00e9sentation public, soit le ' + escHtml(formatDate(data.demontage.date)) + ' \u00e0 ' + escHtml(formatTime(data.demontage.heure)) + '.</p>';
+  }
+  h += '</article>';
+
+  // Article 6 — Droits
+  n = next();
+  h += '<article class="article no-break"><h3>Article ' + n + ' \u2013 Droits de pr\u00e9sentation public</h3>';
+  ct = getStdOverride(articlesStd, 'droits');
+  if (ct) { h += fmtArticleHtml(ct); }
+  else {
+    h += '<p>L\u2019Organisateur versera la somme de ' + escHtml(data.droits.montant) + ' euros TTC \u00e0 l\u2019Exposant pour les droits de pr\u00e9sentation publique de son exposition \u00e0 l\u2019Hermine.</p>';
+    if (data.droits.tva === 'Non assujetti') {
+      h += '<p>TVA non applicable conform\u00e9ment \u00e0 l\u2019article 293B du CGI. ';
+    } else if (data.droits.tva) {
+      h += '<p>' + escHtml(data.droits.tva) + '. ';
+    } else { h += '<p>'; }
+    h += 'Le r\u00e8glement des sommes dues \u00e0 l\u2019Exposant sera effectu\u00e9 apr\u00e8s d\u00e9p\u00f4t d\u2019une facture sur le portail d\u00e9mat\u00e9rialis\u00e9 Chorus Pro, par virement bancaire sur le compte de l\u2019Exposant dans les 30 jours suivant la date de fin d\u2019exposition mentionn\u00e9e \u00e0 l\u2019article 1 du pr\u00e9sent contrat. Aucun acompte ne peut \u00eatre vers\u00e9 \u00e0 la signature du pr\u00e9sent contrat</p>';
+  }
+  h += '</article>';
+
+  // Transport
+  if (data.transport.actif) {
+    n = next();
+    h += '<article class="article no-break"><h3>Article ' + n + ' - Transport des \u0153uvres</h3>';
+    h += '<p>' + escHtml(data.transport.details || 'Le transport des \u0153uvres est \u00e0 la charge de l\u2019Organisateur. Les modalit\u00e9s seront d\u00e9finies en concertation entre les deux parties.') + '</p></article>';
+  }
+
+  // Hébergement
+  if (data.hebergement.actif) {
+    n = next();
+    h += '<article class="article no-break"><h3>Article ' + n + ' - H\u00e9bergement</h3>';
+    h += '<p>' + escHtml(data.hebergement.details || 'L\u2019Organisateur prend en charge l\u2019h\u00e9bergement de l\u2019Exposant pour la dur\u00e9e n\u00e9cessaire \u00e0 l\u2019installation et au vernissage de l\u2019exposition.') + '</p></article>';
+  }
+
+  // Actions culturelles
+  if (data.actionsCulturelles.actif) {
+    n = next();
+    h += '<article class="article no-break"><h3>Article ' + n + ' \u2013 Actions culturelles</h3>';
+    h += '<p>' + escHtml(data.actionsCulturelles.details || 'Des actions de m\u00e9diation culturelle pourront \u00eatre organis\u00e9es autour de l\u2019exposition (rencontres avec le public, ateliers, visites guid\u00e9es), avec ou sans la pr\u00e9sence de l\u2019Exposant. Les modalit\u00e9s seront d\u00e9finies d\u2019un commun accord.') + '</p></article>';
+  }
+
+  // Articles personnalisés
+  var ap = data.articlesPerso || [];
+  for (var k = 0; k < ap.length; k++) {
+    if (ap[k].titre || ap[k].contenu) {
+      n = next();
+      h += '<article class="article no-break"><h3>Article ' + n + ' - ' + escHtml(ap[k].titre || 'Article suppl\u00e9mentaire') + '</h3>';
+      h += fmtArticleHtml(ap[k].contenu || '');
+      h += '</article>';
+    }
+  }
+
+  // Résiliation
+  n = next();
+  h += '<article class="article no-break"><h3>Article ' + n + ' - R\u00e9siliation</h3>';
+  ct = getStdOverride(articlesStd, 'resiliation');
+  if (ct) { h += fmtArticleHtml(ct); }
+  else {
+    h += '<p>Toute rupture de cette convention, hors cas de force majeure, engendrera de la part de la partie d\u00e9faillante, une compensation estim\u00e9e sur la base du montant des frais engag\u00e9s par l\u2019autre partie. Une annulation g\u00e9n\u00e9r\u00e9e par des mesures COVID sera consid\u00e9r\u00e9e comme force majeure et n\u2019engendrera pas de compensation pour l\u2019Exposant.</p>';
+  }
+  h += '</article>';
+
+  // Assurances + Attribution compétences + Signatures (groupés, ≥1 article garanti sur dernière page)
+  h += '<div class="no-break">';
+  h += '<article class="article"><h3>Article ' + n + ' - Assurances</h3>';
+  ct = getStdOverride(articlesStd, 'assurances');
+  if (ct) { h += fmtArticleHtml(ct); }
+  else {
+    h += '<p>L\u2019Organisateur d\u00e9clare avoir souscrit les assurances n\u00e9cessaires \u00e0 la couverture des risques li\u00e9s au transport et \u00e0 l\u2019exposition des \u0153uvres de l\u2019Exposant.</p>';
+  }
+  h += '</article>';
+
+  n = next();
+  h += '<article class="article"><h3>Article ' + n + ' \u2013 Attribution de comp\u00e9tences</h3>';
+  ct = getStdOverride(articlesStd, 'competences');
+  if (ct) { h += fmtArticleHtml(ct); }
+  else {
+    h += '<p>En cas de litige portant sur l\u2019interpr\u00e9tation ou l\u2019application du pr\u00e9sent contrat, les parties conviennent de s\u2019en remettre \u00e0 l\u2019appr\u00e9ciation des tribunaux comp\u00e9tents de la ville de Rennes.</p>';
+  }
+  h += '</article>';
+
+  // Signatures
+  h += '<section class="signatures-section">';
+  var nbEx = a2Actif ? '3' : '2';
+  h += '<p class="date-line">Fait \u00e0 Sarzeau en ' + nbEx + ' exemplaires, le ' + escHtml(formatDate(data.dateSignature)) + '.</p>';
+  h += '<div class="signatures">';
+  h += '<div class="signature-box"><div class="title">Commune de SARZEAU</div><p class="name">M. Jean-Marc DUPEYRAT, Maire</p></div>';
+  if (a2Actif) {
+    h += '<div class="signature-box"><div class="title">L\u2019Exposant 1</div><p class="name">' + escHtml(data.artiste.nom) + '</p></div>';
+    h += '<div class="signature-box"><div class="title">L\u2019Exposant 2</div><p class="name">' + escHtml(a2.nom) + '</p></div>';
+  } else {
+    h += '<div class="signature-box"><div class="title">L\u2019EXPOSANT</div><p class="name">' + escHtml(data.artiste.nom) + '</p></div>';
+  }
+  h += '</section></div>'; // fin no-break
+  h += '</td></tr></tbody></table>'; // fin articles-table
+  h += '</body></html>';
+  return h;
+}
+
+/* ============ ACTIONS ============ */
+function showPreview() {
+  var html = generateConventionHtml(collectFormData());
+  var frame = $('previewFrame');
+  frame.srcdoc = html;
+  $('previewOverlay').classList.add('open');
+}
+
+function closePreview() {
+  $('previewOverlay').classList.remove('open');
+}
+
+function downloadHTML() {
+  var d = collectFormData();
+  var html = generateConventionHtml(d);
+  var blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url;
+  a.download = 'Convention_' + (d.artiste.nom || 'export').replace(/[^a-zA-Z0-9\u00C0-\u024F\s-]/g, '').replace(/\s+/g, '_') + '.html';
+  a.click();
+  URL.revokeObjectURL(url);
+  toast('HTML t\u00e9l\u00e9charg\u00e9');
+}
+
+function downloadPDF() {
+  var html = generateConventionHtml(collectFormData());
+  var w = window.open('', '_blank');
+  if (!w) { toast('Veuillez autoriser les pop-ups'); return; }
+  w.document.write(html);
+  w.document.close();
+  w.focus();
+  setTimeout(function() { w.print(); }, 600);
+}
+
+/* ============ AUTO-SAVE SUR CHAQUE CHAMP ============ */
+function bindAutoSave() {
+  document.querySelectorAll('input[type=text],input[type=date],input[type=time],textarea,select').forEach(function(el) {
+    el.addEventListener('input', autoSave);
+    el.addEventListener('change', autoSave);
+  });
+}
+
+/* ============ INIT ============ */
+window.addEventListener('DOMContentLoaded', function() {
+  buildAdvList();
+  loadFromStorage();
+  bindAutoSave();
+});
+</script>
+</body>
+</html>
