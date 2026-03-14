@@ -834,7 +834,7 @@ function getConventionCSS_() {
   return '<style>' +
     '*{margin:0;padding:0;box-sizing:border-box}' +
     'body{font-family:Arial,Helvetica,sans-serif;line-height:1.5;color:#000;max-width:21cm;margin:0 auto;padding:1.2cm 1.8cm;background:#fff;font-size:10pt}' +
-    '@media print{body{width:21cm;padding:0}@page{size:A4;margin:1.2cm 1.8cm 1.8cm 1.8cm}.page-break{page-break-after:always;height:0;margin:0}.no-break{page-break-inside:avoid}}' +
+    '@media print{body{width:21cm;padding:0}@page{size:A4;margin:1.2cm 1.8cm 1.8cm 1.8cm}.page-break{page-break-after:always;height:0;margin:0}.no-break{page-break-inside:avoid}.page-layout{min-height:20cm}}' +
     /* En-tête page 1 : logo pleine largeur (bannière mairie) */
     '.header-page1{margin-bottom:0;padding:0}' +
     '.logo-page-1{width:100%;height:auto;display:block}' +
@@ -847,17 +847,17 @@ function getConventionCSS_() {
     '.logo-small{max-width:90px;height:auto}' +
     '.header-continuation .page-title{font-size:9pt;color:#555;font-style:italic}' +
     /* Layout page 1 : cartouche gauche + colonne principale */
-    '.page-layout{display:flex;gap:0;margin-top:8px}' +
+    '.page-layout{display:flex;gap:0;margin-top:8px;align-items:stretch}' +
     '.cartouche{width:130px;min-width:130px;font-size:7.5pt;color:#aaa;line-height:1.7;padding-right:12px}' +
     '.cartouche .cartouche-mairie{font-size:9pt;font-weight:bold;color:#888;text-decoration:underline;margin-bottom:1px}' +
     '.cartouche p{margin:0}' +
-    '.main-column{flex:1;min-width:0}' +
-    '.content-wrapper{padding:0}' +
+    '.main-column{flex:1;min-width:0;display:flex;flex-direction:column}' +
+    '.content-wrapper{border-top:1.5px solid #000;border-left:1.5px solid #000;padding:14px 16px}' +
     /* Titre principal */
     '.main-title{text-align:center;margin:0 0 12px 0}' +
     '.main-title h1{font-size:22pt;font-weight:bold;font-style:normal;color:#000}' +
     /* Boîte bordée autour du texte de convention */
-    '.convention-body{border-top:1.5px solid #000;border-left:1.5px solid #000;padding:14px 16px}' +
+    '.convention-body{flex:1;border-top:1.5px solid #000;border-left:1.5px solid #000;padding:14px 16px}' +
     /* Parties */
     '.parties-section{margin-bottom:20px}' +
     '.parties-intro{font-weight:normal;margin-bottom:12px;font-size:10pt}' +
