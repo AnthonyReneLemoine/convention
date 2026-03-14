@@ -843,7 +843,7 @@ function getConventionCSS_() {
     '.articles-table{width:100%;border-collapse:collapse;border:none}' +
     '.articles-table td{padding:0;border:none;vertical-align:top}' +
     '.articles-table thead{display:table-header-group}' +
-    '.articles-table thead td{padding-bottom:0}' +
+    '.articles-table thead td{padding-bottom:30px}' +
     '.logo-small{max-width:90px;height:auto}' +
     '.content-border-top{margin-left:130px;border-top:1.5px solid #000;margin-bottom:0}' +
     /* Layout page 1 : cartouche gauche + colonne principale */
