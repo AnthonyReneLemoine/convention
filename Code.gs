@@ -857,7 +857,7 @@ function getConventionCSS_() {
     '.main-title{text-align:center;margin:0 0 12px 0}' +
     '.main-title h1{font-size:22pt;font-weight:bold;font-style:normal;color:#000}' +
     /* Boîte bordée autour du texte de convention */
-    '.convention-body{border-top:1.5px solid #000;border-left:1.5px solid #000;border-right:1.5px solid #000;padding:14px 16px}' +
+    '.convention-body{border-top:1.5px solid #000;border-left:1.5px solid #000;padding:14px 16px}' +
     /* Parties */
     '.parties-section{margin-bottom:20px}' +
     '.parties-intro{font-weight:normal;margin-bottom:12px;font-size:10pt}' +
