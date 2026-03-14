@@ -843,16 +843,16 @@ function getConventionCSS_() {
     '.articles-table{width:100%;border-collapse:collapse;border:none}' +
     '.articles-table td{padding:0;border:none;vertical-align:top}' +
     '.articles-table thead{display:table-header-group}' +
-    '.articles-table thead td{padding-bottom:30px}' +
+    '.articles-table thead td{padding-bottom:0}' +
     '.logo-small{max-width:90px;height:auto}' +
-    '.content-border-top{margin-left:130px;border-top:1.5px solid #000;margin-bottom:0}' +
+    '.content-border-top{margin-left:130px;border-top:1.5px solid #000;border-left:1.5px solid #000;padding-bottom:30px}' +
     /* Layout page 1 : cartouche gauche + colonne principale */
     '.page-layout{display:flex;gap:0;margin-top:8px;align-items:stretch}' +
     '.cartouche{width:130px;min-width:130px;font-size:7.5pt;color:#aaa;line-height:1.7;padding-right:12px}' +
     '.cartouche .cartouche-mairie{font-size:9pt;font-weight:bold;color:#888;text-decoration:underline;margin-bottom:1px}' +
     '.cartouche p{margin:0}' +
     '.main-column{flex:1;min-width:0;display:flex;flex-direction:column}' +
-    '.content-wrapper{border-left:1.5px solid #000;padding:30px 16px 14px 16px;margin-left:130px}' +
+    '.content-wrapper{border-left:1.5px solid #000;padding:0 16px 14px 16px;margin-left:130px}' +
     /* Titre principal */
     '.main-title{text-align:center;margin:0 0 12px 0}' +
     '.main-title h1{font-size:22pt;font-weight:bold;font-style:normal;color:#000}' +
