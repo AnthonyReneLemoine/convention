@@ -548,8 +548,17 @@ function generateConventionHtml(data, logos) {
   html += '<img src="' + logo1Src + '" alt="Mairie de Sarzeau — Espace Culturel L\'Hermine" class="logo-page-1">';
   html += '</header>';
 
-  html += '<div class="content-wrapper">';
+  html += '<div class="page-layout">';
+  html += '<aside class="cartouche">';
+  html += '<p class="cartouche-mairie">Mairie de Sarzeau</p>';
+  html += '<p>Place Richemont - BP 14</p>';
+  html += '<p>56370 Sarzeau</p>';
+  html += '<p>T\u00e9l. : 02 97 41 85 15</p>';
+  html += '<p>www.sarzeau.fr</p>';
+  html += '</aside>';
+  html += '<div class="main-column">';
   html += '<div class="main-title"><h1>Convention d\u2019exposition</h1></div>';
+  html += '<div class="convention-body">';
 
   // Parties
   html += '<section class="parties-section">';
@@ -600,7 +609,7 @@ function generateConventionHtml(data, logos) {
   html += '<p>Licence d\u2019entrepreneur de spectacles n\u00b0 : PLATESV-D-2022-008045</p>';
   html += '<p>Repr\u00e9sent\u00e9e par : Monsieur Jean-Marc Dupeyrat en sa qualit\u00e9 de Maire</p>';
   html += '<p class="designation">Ci-apr\u00e8s, d\u00e9sign\u00e9e \u00ab <strong>l\u2019Organisateur</strong> \u00bb, d\u2019autre part.</p>';
-  html += '</div></section></div>';
+  html += '</div></section></div></div></div>';
 
   html += '<div class="page-break"></div>';
 
@@ -837,10 +846,18 @@ function getConventionCSS_() {
     '.articles-table thead td{padding-bottom:0}' +
     '.logo-small{max-width:90px;height:auto}' +
     '.header-continuation .page-title{font-size:9pt;color:#555;font-style:italic}' +
-    /* Titre principal */
+    /* Layout page 1 : cartouche gauche + colonne principale */
+    '.page-layout{display:flex;gap:0;margin-top:8px}' +
+    '.cartouche{width:130px;min-width:130px;font-size:7.5pt;color:#aaa;line-height:1.7;padding-right:12px}' +
+    '.cartouche .cartouche-mairie{font-size:9pt;font-weight:bold;color:#888;text-decoration:underline;margin-bottom:1px}' +
+    '.cartouche p{margin:0}' +
+    '.main-column{flex:1;min-width:0}' +
     '.content-wrapper{padding:0}' +
-    '.main-title{text-align:center;margin:12px 0 20px 0}' +
-    '.main-title h1{font-size:14pt;font-weight:bold;font-style:italic;color:#000}' +
+    /* Titre principal */
+    '.main-title{text-align:center;margin:0 0 12px 0}' +
+    '.main-title h1{font-size:22pt;font-weight:bold;font-style:normal;color:#000}' +
+    /* Boîte bordée autour du texte de convention */
+    '.convention-body{border:1.5px solid #000;padding:14px 16px}' +
     /* Parties */
     '.parties-section{margin-bottom:20px}' +
     '.parties-intro{font-weight:normal;margin-bottom:12px;font-size:10pt}' +

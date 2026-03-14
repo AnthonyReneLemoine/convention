@@ -747,9 +747,15 @@ function generateConventionHtml(data) {
   h += '.articles-table thead td{padding-bottom:0}';
   h += '.logo-small{max-width:90px;height:auto}';
   h += '.header-continuation .page-title{font-size:9pt;color:#555;font-style:italic}';
+  h += '.page-layout{display:flex;gap:0;margin-top:8px}';
+  h += '.cartouche{width:130px;min-width:130px;font-size:7.5pt;color:#aaa;line-height:1.7;padding-right:12px}';
+  h += '.cartouche .cartouche-mairie{font-size:9pt;font-weight:bold;color:#888;text-decoration:underline;margin-bottom:1px}';
+  h += '.cartouche p{margin:0}';
+  h += '.main-column{flex:1;min-width:0}';
   h += '.content-wrapper{padding:0}';
-  h += '.main-title{text-align:center;margin:12px 0 20px 0}';
-  h += '.main-title h1{font-size:14pt;font-weight:bold;font-style:italic;color:#000}';
+  h += '.main-title{text-align:center;margin:0 0 12px 0}';
+  h += '.main-title h1{font-size:22pt;font-weight:bold;font-style:normal;color:#000}';
+  h += '.convention-body{border:1.5px solid #000;padding:14px 16px}';
   h += '.parties-section{margin-bottom:20px}';
   h += '.parties-intro{font-weight:normal;margin-bottom:12px;font-size:10pt}';
   h += '.party-block{margin-bottom:12px}';
@@ -784,8 +790,17 @@ function generateConventionHtml(data) {
   h += '<img src="' + logo1Src + '" alt="Mairie de Sarzeau" class="logo-page-1">';
   h += '</header>';
 
-  h += '<div class="content-wrapper">';
+  h += '<div class="page-layout">';
+  h += '<aside class="cartouche">';
+  h += '<p class="cartouche-mairie">Mairie de Sarzeau</p>';
+  h += '<p>Place Richemont - BP 14</p>';
+  h += '<p>56370 Sarzeau</p>';
+  h += '<p>T\u00e9l. : 02 97 41 85 15</p>';
+  h += '<p>www.sarzeau.fr</p>';
+  h += '</aside>';
+  h += '<div class="main-column">';
   h += '<div class="main-title"><h1>Convention d\u2019exposition</h1></div>';
+  h += '<div class="convention-body">';
 
   // Parties
   h += '<section class="parties-section">';
@@ -830,7 +845,7 @@ function generateConventionHtml(data) {
   h += '<p>Licence d\u2019entrepreneur de spectacles n\u00b0 : PLATESV-D-2022-008045</p>';
   h += '<p>Repr\u00e9sent\u00e9e par : Monsieur Jean-Marc Dupeyrat en sa qualit\u00e9 de Maire</p>';
   h += '<p class="designation">Ci-apr\u00e8s, d\u00e9sign\u00e9e \u00ab <strong>l\u2019Organisateur</strong> \u00bb, d\u2019autre part.</p>';
-  h += '</div></section></div>';
+  h += '</div></section></div></div></div>';
 
   h += '<div class="page-break"></div>';
 
