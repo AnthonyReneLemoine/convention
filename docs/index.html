@@ -153,6 +153,10 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);lin
     </div>
   </div>
   <div class="header-actions">
+    <button class="btn btn-outline" onclick="resetForm()">
+      <span class="material-symbols-outlined">restart_alt</span>
+      <span class="btn-label">Réinitialiser</span>
+    </button>
     <button class="btn btn-outline" onclick="document.getElementById('jsonInput').click()">
       <span class="material-symbols-outlined">upload_file</span>
       <span class="btn-label">Importer JSON</span>
@@ -442,6 +446,43 @@ function clearLogo(key, slotId, hintId) {
   var input = slot.querySelector('input[type=file]');
   if (input) input.value = '';
   autoSave();
+}
+
+/* ============ RESET FORMULAIRE ============ */
+function resetForm() {
+  if (!confirm('Réinitialiser tous les champs du formulaire ?\n(Les logos ne seront pas effacés)')) return;
+
+  // Champs texte / date / heure
+  ['nom','siret','a2nom','a2siret','montant','transportDetails','hebergementDetails','actionsDetails'].forEach(function(id){ setVal(id,''); });
+  ['adresse','a2adresse'].forEach(function(id){ setVal(id,''); });
+  ['expoDebut','expoFin','installDate','installHeure','vernissageDate','vernissageHeure','demontageDate','demontageHeure','dateSignature'].forEach(function(id){ setVal(id,''); });
+  setVal('lieu', "Espace Culturel L'Hermine");
+  setVal('tva', 'Non assujetti');
+
+  // Toggle sections : décocher + masquer
+  [['sec_a2','a2actif'],['sec_transport','transportActif'],['sec_hebergement','hebergementActif'],['sec_actions','actionsActif']].forEach(function(pair){
+    setChecked(pair[1], false);
+    $(pair[0]).classList.remove('active');
+  });
+
+  // Articles personnalisés : tout supprimer
+  $('articlesList').innerHTML = '';
+  $('noArticlesMsg').style.display = '';
+  apCounter = 0;
+
+  // Articles standards : décocher et vider
+  STD_ARTICLES.forEach(function(a) {
+    var item = $('adv_' + a.key);
+    if (!item) return;
+    var cb = item.querySelector('input[type=checkbox]');
+    if (cb) cb.checked = false;
+    var ta = item.querySelector('textarea');
+    if (ta) ta.value = '';
+    item.classList.remove('active');
+  });
+
+  autoSave();
+  toast('Formulaire réinitialisé');
 }
 
 /* ============ TOGGLE SECTIONS ============ */
