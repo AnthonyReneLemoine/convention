@@ -880,7 +880,7 @@ function getConventionCSS_() {
     '.bg-page{position:fixed;bottom:0;left:0;width:100%;z-index:-1;opacity:0.15;pointer-events:none}' +
     '.bg-page img{width:100%;height:auto;display:block}' +
     /* Signatures */
-    '.signatures-section{margin-top:30px}' +
+    '.signatures-section{margin-top:80px}' +
     '.date-line{text-align:right;font-style:italic;margin-bottom:25px;color:#333}' +
     '.signatures{display:flex;justify-content:space-between;gap:20px}' +
     '.signature-box{flex:1;min-width:0}' +
