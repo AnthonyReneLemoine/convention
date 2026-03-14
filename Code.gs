@@ -852,7 +852,7 @@ function getConventionCSS_() {
     '.cartouche .cartouche-mairie{font-size:9pt;font-weight:bold;color:#888;text-decoration:underline;margin-bottom:1px}' +
     '.cartouche p{margin:0}' +
     '.main-column{flex:1;min-width:0;display:flex;flex-direction:column}' +
-    '.content-wrapper{border-top:1.5px solid #000;border-left:1.5px solid #000;padding:14px 16px}' +
+    '.content-wrapper{border-top:1.5px solid #000;border-left:1.5px solid #000;padding:14px 16px;margin-left:130px}' +
     /* Titre principal */
     '.main-title{text-align:center;margin:0 0 12px 0}' +
     '.main-title h1{font-size:22pt;font-weight:bold;font-style:normal;color:#000}' +
