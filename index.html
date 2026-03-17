@@ -3,171 +3,131 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <base target="_top">
+  <title>Conventions d'exposition — L'Hermine</title>
 
-  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
 
   <style>
     /* ============== VARIABLES ============== */
     :root {
-      --marine: #1e3a5f;
-      --marine-light: #2c5282;
+      --marine:         #1e3a5f;
+      --marine-light:   #2c5282;
       --marine-lighter: #3b6da8;
-      --accent: #e8913a;
-      --accent-hover: #d47d2a;
-      --bg: #f4f6f9;
-      --bg-card: #ffffff;
-      --text: #2d3748;
-      --text-light: #718096;
-      --text-lighter: #a0aec0;
-      --border: #e2e8f0;
-      --border-light: #edf2f7;
-      --success: #38a169;
-      --success-bg: #f0fff4;
-      --danger: #e53e3e;
-      --danger-bg: #fff5f5;
-      --warning: #dd6b20;
-      --warning-bg: #fffaf0;
-      --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
-      --shadow: 0 4px 12px rgba(0,0,0,0.08);
-      --shadow-lg: 0 8px 30px rgba(0,0,0,0.12);
-      --radius: 10px;
-      --radius-sm: 6px;
-      --transition: 0.2s ease;
+      --accent:         #c2892a;
+      --accent-hover:   #a87220;
+      --bg:             #f2f4f7;
+      --bg-card:        #ffffff;
+      --text:           #1a2535;
+      --text-light:     #5a6a80;
+      --text-lighter:   #9aabbf;
+      --border:         #dde3ec;
+      --border-light:   #edf1f6;
+      --success:        #2e7d52;
+      --success-bg:     #edf7f2;
+      --danger:         #c0392b;
+      --danger-bg:      #fdf2f0;
+      --warning:        #b5700e;
+      --warning-bg:     #fef8ee;
+      --shadow-sm:      0 1px 3px rgba(30,58,95,0.07);
+      --shadow:         0 4px 16px rgba(30,58,95,0.09);
+      --shadow-lg:      0 12px 40px rgba(30,58,95,0.14);
+      --radius:         10px;
+      --radius-sm:      6px;
+      --transition:     0.18s ease;
     }
 
-    /* ============== RESET & BASE ============== */
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    /* ============== RESET ============== */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
-      font-family: 'DM Sans', -apple-system, sans-serif;
+      font-family: 'DM Sans', system-ui, sans-serif;
       background: var(--bg);
       color: var(--text);
       line-height: 1.6;
       min-height: 100vh;
     }
 
-    /* ============== LAYOUT ============== */
+    /* ============== HEADER ============== */
     .app-header {
       background: linear-gradient(135deg, var(--marine) 0%, var(--marine-light) 100%);
       color: white;
-      padding: 20px 30px;
+      padding: 18px 28px;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      gap: 12px;
       box-shadow: var(--shadow);
       position: sticky;
       top: 0;
       z-index: 100;
     }
-
     .app-header h1 {
-      font-size: 18px;
-      font-weight: 700;
-      letter-spacing: 0.5px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .app-header h1 .material-symbols-outlined {
-      font-size: 26px;
-      opacity: 0.85;
-    }
-
-    .header-subtitle {
-      font-size: 12px;
-      opacity: 0.7;
-      font-weight: 400;
-      margin-left: 36px;
-    }
-
-    .header-actions {
-      display: flex;
-      gap: 10px;
-    }
-
-    .app-container {
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 25px 20px;
-    }
-
-    /* ============== SYNC INDICATOR (permanent) ============== */
-    .sync-bar {
-      height: 3px;
-      background: transparent;
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 200;
-      transition: background 0.3s;
-    }
-    .sync-bar.loading {
-      background: linear-gradient(90deg, var(--accent) 0%, transparent 50%, var(--accent) 100%);
-      background-size: 200% 100%;
-      animation: shimmer 1.5s infinite;
-    }
-    @keyframes shimmer { 0% { background-position: -200% 0 } 100% { background-position: 200% 0 } }
-
-    .sync-indicator {
-      display: flex;
-      align-items: center;
-      gap: 7px;
-      padding: 5px 14px;
-      border-radius: 20px;
-      font-size: 12px;
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 17px;
       font-weight: 600;
-      transition: all 0.3s ease;
-      background: rgba(255,255,255,0.1);
-      white-space: nowrap;
+      letter-spacing: 0.2px;
+      display: flex;
+      align-items: center;
+      gap: 9px;
     }
-    .sync-dot {
-      width: 9px;
-      height: 9px;
-      border-radius: 50%;
-      transition: background 0.3s;
-      flex-shrink: 0;
+    .app-header h1 .material-symbols-outlined { font-size: 22px; opacity: 0.8; }
+    .header-subtitle {
+      font-size: 11px;
+      opacity: 0.65;
+      font-weight: 400;
+      margin-left: 31px;
+      letter-spacing: 0.3px;
     }
-    .sync-indicator.ok .sync-dot { background: #68d391; box-shadow: 0 0 6px rgba(104,211,145,0.6); }
-    .sync-indicator.ok .sync-text { color: #c6f6d5; }
-    .sync-indicator.loading .sync-dot {
-      background: var(--accent);
-      animation: pulse-dot 1s infinite;
-    }
-    .sync-indicator.loading .sync-text { color: #feebc8; }
-    .sync-indicator.error .sync-dot { background: #fc8181; box-shadow: 0 0 6px rgba(252,129,129,0.6); }
-    .sync-indicator.error .sync-text { color: #fed7d7; }
-    @keyframes pulse-dot { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+    .header-actions { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
 
-    .sync-text { font-size: 11px; letter-spacing: 0.3px; }
+    .version-badge {
+      font-size: 10px;
+      opacity: 0.5;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      padding: 3px 8px;
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 20px;
+    }
+
+    /* Boutons header form vs liste */
+    .header-form-actions, .header-list-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .header-form-actions.hidden, .header-list-actions.hidden { display: none !important; }
 
     /* ============== BOUTONS ============== */
     .btn {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      padding: 9px 18px;
+      gap: 5px;
+      padding: 8px 16px;
       border: none;
       border-radius: var(--radius-sm);
       font-family: inherit;
-      font-size: 13px;
+      font-size: 12.5px;
       font-weight: 600;
       cursor: pointer;
       transition: all var(--transition);
       text-decoration: none;
+      white-space: nowrap;
     }
-    .btn .material-symbols-outlined { font-size: 18px; }
+    .btn .material-symbols-outlined { font-size: 16px; }
 
-    .btn-primary {
-      background: var(--accent);
-      color: white;
-    }
+    .btn-primary   { background: var(--accent); color: white; }
     .btn-primary:hover { background: var(--accent-hover); transform: translateY(-1px); box-shadow: var(--shadow); }
+
+    .btn-outline {
+      background: transparent;
+      color: white;
+      border: 1.5px solid rgba(255,255,255,0.35);
+    }
+    .btn-outline:hover { border-color: white; background: rgba(255,255,255,0.1); }
 
     .btn-secondary {
       background: white;
@@ -176,28 +136,25 @@
     }
     .btn-secondary:hover { border-color: var(--marine-light); background: var(--bg); }
 
-    .btn-outline {
-      background: transparent;
-      color: white;
-      border: 1.5px solid rgba(255,255,255,0.4);
-    }
-    .btn-outline:hover { border-color: white; background: rgba(255,255,255,0.1); }
-
-    .btn-danger {
-      background: var(--danger-bg);
-      color: var(--danger);
-      border: 1px solid #feb2b2;
-    }
+    .btn-danger { background: var(--danger-bg); color: var(--danger); border: 1px solid #f3b8b3; }
     .btn-danger:hover { background: var(--danger); color: white; }
 
-    .btn-success {
-      background: var(--success);
-      color: white;
-    }
-    .btn-success:hover { background: #2f855a; }
+    .btn-success { background: var(--success); color: white; }
+    .btn-success:hover { background: #235e3d; }
 
     .btn-sm { padding: 6px 12px; font-size: 12px; }
-    .btn-sm .material-symbols-outlined { font-size: 16px; }
+    .btn-sm .material-symbols-outlined { font-size: 15px; }
+
+    /* ============== LAYOUT ============== */
+    .app-container {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 24px 20px;
+    }
+
+    /* ============== VUES ============== */
+    .view { display: none; }
+    .view.active { display: block; }
 
     /* ============== CARDS ============== */
     .card {
@@ -207,54 +164,47 @@
       border: 1px solid var(--border-light);
       overflow: hidden;
       transition: box-shadow var(--transition);
+      margin-bottom: 18px;
     }
-    .card:hover { box-shadow: var(--shadow); }
-
     .card-header {
-      padding: 16px 20px;
+      padding: 14px 20px;
       border-bottom: 1px solid var(--border-light);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      background: var(--bg);
+      background: linear-gradient(to right, #f8fafd, var(--bg-card));
     }
     .card-header h2 {
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 700;
       color: var(--marine);
       display: flex;
       align-items: center;
       gap: 8px;
+      letter-spacing: 0.3px;
     }
-    .card-header h2 .material-symbols-outlined { font-size: 20px; color: var(--marine-lighter); }
-
+    .card-header h2 .material-symbols-outlined { font-size: 18px; color: var(--marine-lighter); }
     .card-body { padding: 20px; }
 
     /* ============== FORMULAIRE ============== */
-    .form-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-    }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
     .form-grid .full-width { grid-column: 1 / -1; }
-
     .form-group { display: flex; flex-direction: column; gap: 5px; }
     .form-group label {
-      font-size: 12px;
-      font-weight: 600;
+      font-size: 11px;
+      font-weight: 700;
       color: var(--text-light);
       text-transform: uppercase;
-      letter-spacing: 0.5px;
+      letter-spacing: 0.6px;
     }
-
     .form-group input,
     .form-group select,
     .form-group textarea {
-      padding: 10px 14px;
+      padding: 9px 13px;
       border: 1.5px solid var(--border);
       border-radius: var(--radius-sm);
       font-family: inherit;
-      font-size: 14px;
+      font-size: 13.5px;
       color: var(--text);
       transition: border-color var(--transition), box-shadow var(--transition);
       background: white;
@@ -266,62 +216,52 @@
       border-color: var(--marine-light);
       box-shadow: 0 0 0 3px rgba(44, 82, 130, 0.1);
     }
+    .form-group textarea { resize: vertical; min-height: 80px; }
 
-    .form-group textarea {
-      resize: vertical;
-      min-height: 80px;
-    }
-
-    /* ============== TOGGLE / CHECKBOX OPTIONNEL ============== */
+    /* ============== TOGGLE SECTIONS OPTIONNELLES ============== */
     .optional-section {
       border: 1.5px solid var(--border);
       border-radius: var(--radius);
-      margin-bottom: 12px;
+      margin-bottom: 10px;
       overflow: hidden;
       transition: border-color var(--transition);
     }
-    .optional-section.active { border-color: var(--marine-light); }
+    .optional-section.active { border-color: var(--marine-lighter); }
 
     .optional-header {
       display: flex;
       align-items: center;
       gap: 12px;
-      padding: 14px 18px;
+      padding: 12px 16px;
       cursor: pointer;
       user-select: none;
+      background: white;
       transition: background var(--transition);
     }
     .optional-header:hover { background: var(--bg); }
 
-    .optional-content {
+    .optional-body {
       display: none;
-      padding: 16px 20px;
-      border-top: 1px solid var(--border);
+      padding: 14px 16px;
+      border-top: 1px solid var(--border-light);
     }
-    .optional-content.active { display: block; }
+    .optional-section.active .optional-body { display: block; }
 
-    .toggle-switch {
-      position: relative;
-      width: 42px;
-      height: 24px;
-      flex-shrink: 0;
-    }
+    .toggle-switch { position: relative; width: 40px; height: 22px; flex-shrink: 0; }
     .toggle-switch input { display: none; }
     .toggle-slider {
       position: absolute;
       inset: 0;
       background: var(--border);
-      border-radius: 24px;
+      border-radius: 22px;
       transition: background var(--transition);
       cursor: pointer;
     }
     .toggle-slider::after {
       content: '';
       position: absolute;
-      top: 3px;
-      left: 3px;
-      width: 18px;
-      height: 18px;
+      top: 3px; left: 3px;
+      width: 16px; height: 16px;
       background: white;
       border-radius: 50%;
       transition: transform var(--transition);
@@ -331,127 +271,42 @@
     .toggle-switch input:checked + .toggle-slider::after { transform: translateX(18px); }
 
     .optional-label {
-      font-size: 14px;
+      font-size: 13.5px;
       font-weight: 600;
       color: var(--text);
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 7px;
     }
-    .optional-label .material-symbols-outlined { font-size: 20px; color: var(--text-light); }
+    .optional-label .material-symbols-outlined { font-size: 18px; color: var(--text-light); }
 
-    .optional-body {
-      padding: 0 18px 16px;
-      display: none;
-    }
-    .optional-section.active .optional-body { display: block; }
-
-    /* ============== TABLEAU HISTORIQUE ============== */
-    .table-wrapper { overflow-x: auto; }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 13px;
-    }
-    thead th {
-      text-align: left;
-      padding: 10px 14px;
-      font-size: 11px;
-      font-weight: 700;
-      color: var(--text-light);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      border-bottom: 2px solid var(--border);
-      white-space: nowrap;
-    }
-    tbody tr {
-      border-bottom: 1px solid var(--border-light);
-      transition: background var(--transition);
-    }
-    tbody tr:hover { background: var(--bg); }
-    tbody td { padding: 12px 14px; }
-
-    .status-badge {
+    /* Sections à toggle via checkbox dans card-header */
+    .optional-content { display: none; padding: 16px 20px; border-top: 1px solid var(--border-light); }
+    .optional-content.active { display: block; }
+    .toggle-label {
       display: inline-flex;
       align-items: center;
-      gap: 4px;
-      padding: 3px 10px;
-      border-radius: 20px;
-      font-size: 11px;
+      gap: 6px;
+      font-size: 12px;
       font-weight: 600;
-    }
-    .status-brouillon { background: var(--warning-bg); color: var(--warning); }
-    .status-genere { background: var(--success-bg); color: var(--success); }
-    .status-erreur { background: var(--danger-bg); color: var(--danger); }
-
-    .row-actions {
-      display: flex;
-      gap: 4px;
-    }
-    .row-actions .btn-icon {
-      width: 32px;
-      height: 32px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border: none;
-      border-radius: var(--radius-sm);
-      background: transparent;
       color: var(--text-light);
       cursor: pointer;
-      transition: all var(--transition);
-    }
-    .row-actions .btn-icon:hover { background: var(--bg); color: var(--marine); }
-    .row-actions .btn-icon.danger:hover { background: var(--danger-bg); color: var(--danger); }
-    .row-actions .btn-icon .material-symbols-outlined { font-size: 18px; }
-
-    /* ============== VUES ============== */
-    .view { display: none; }
-    .view.active { display: block; }
-
-    /* ============== SECTIONS DU FORMULAIRE ============== */
-    .form-section {
-      margin-bottom: 20px;
-    }
-    .form-section-title {
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--marine);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      padding-bottom: 8px;
-      margin-bottom: 14px;
-      border-bottom: 2px solid var(--border);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .form-section-title .material-symbols-outlined { font-size: 18px; }
-
-    /* ============== EMPTY STATE ============== */
-    .empty-state {
-      text-align: center;
-      padding: 50px 20px;
-      color: var(--text-lighter);
     }
 
     /* ============== ARTICLES PERSONNALISÉS ============== */
     .custom-article {
       border: 1.5px solid var(--border);
       border-radius: var(--radius);
-      margin-bottom: 12px;
+      margin-bottom: 10px;
       overflow: hidden;
-      position: relative;
       transition: border-color var(--transition);
     }
-    .custom-article:hover { border-color: var(--marine-light); }
-
+    .custom-article:hover { border-color: var(--marine-lighter); }
     .custom-article-header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 10px 14px;
+      padding: 9px 13px;
       background: var(--bg);
       border-bottom: 1px solid var(--border-light);
     }
@@ -463,115 +318,149 @@
       letter-spacing: 0.5px;
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
     }
-    .custom-article-header .article-number .material-symbols-outlined { font-size: 16px; }
-
-    .custom-article-body { padding: 14px; }
-    .custom-article-body .form-group { margin-bottom: 12px; }
+    .custom-article-body { padding: 12px 14px; }
+    .custom-article-body .form-group { margin-bottom: 10px; }
     .custom-article-body .form-group:last-child { margin-bottom: 0; }
-    .empty-state .material-symbols-outlined { font-size: 48px; margin-bottom: 12px; opacity: 0.5; }
+
+    /* ============== TABLEAU LISTE ============== */
+    .table-wrapper { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    thead th {
+      text-align: left;
+      padding: 10px 14px;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-light);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border-bottom: 2px solid var(--border);
+      white-space: nowrap;
+    }
+    tbody tr { border-bottom: 1px solid var(--border-light); transition: background var(--transition); }
+    tbody tr:hover { background: var(--bg); }
+    tbody td { padding: 11px 14px; vertical-align: middle; }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 9px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 700;
+    }
+    .status-brouillon { background: var(--warning-bg); color: var(--warning); }
+    .status-genere    { background: var(--success-bg); color: var(--success); }
+
+    .row-actions { display: flex; gap: 3px; }
+    .btn-icon {
+      width: 30px; height: 30px;
+      display: flex; align-items: center; justify-content: center;
+      border: none;
+      border-radius: var(--radius-sm);
+      background: transparent;
+      color: var(--text-light);
+      cursor: pointer;
+      transition: all var(--transition);
+    }
+    .btn-icon:hover { background: var(--bg); color: var(--marine); }
+    .btn-icon.danger:hover { background: var(--danger-bg); color: var(--danger); }
+    .btn-icon .material-symbols-outlined { font-size: 17px; }
+
+    /* ============== EMPTY STATE ============== */
+    .empty-state {
+      text-align: center;
+      padding: 50px 20px;
+      color: var(--text-lighter);
+    }
+    .empty-state .material-symbols-outlined { font-size: 48px; margin-bottom: 10px; opacity: 0.45; display: block; }
     .empty-state p { font-size: 14px; margin-bottom: 16px; }
 
-    /* ============== MODAL PREVIEW ============== */
+    /* ============== MODAL APERÇU ============== */
     .modal-overlay {
       display: none;
       position: fixed;
       inset: 0;
-      background: rgba(0,0,0,0.5);
+      background: rgba(0,0,0,0.55);
       z-index: 500;
       justify-content: center;
       align-items: center;
       padding: 20px;
     }
     .modal-overlay.active { display: flex; }
-
     .modal {
       background: white;
       border-radius: var(--radius);
       box-shadow: var(--shadow-lg);
       width: 100%;
-      max-width: 900px;
-      max-height: 90vh;
+      max-width: 920px;
+      max-height: 92vh;
       display: flex;
       flex-direction: column;
     }
     .modal-header {
-      padding: 16px 20px;
+      padding: 14px 20px;
       border-bottom: 1px solid var(--border);
       display: flex;
       align-items: center;
       justify-content: space-between;
     }
-    .modal-header h3 { font-size: 15px; color: var(--marine); }
-    .modal-body {
-      flex: 1;
-      overflow: auto;
-      padding: 0;
-    }
-    .modal-body iframe {
-      width: 100%;
-      height: 70vh;
-      border: none;
-    }
+    .modal-header h3 { font-size: 14px; font-weight: 700; color: var(--marine); display: flex; align-items: center; gap: 7px; }
+    .modal-body { flex: 1; overflow: auto; }
+    .modal-body iframe { width: 100%; height: 70vh; border: none; }
     .modal-footer {
-      padding: 14px 20px;
+      padding: 12px 20px;
       border-top: 1px solid var(--border);
       display: flex;
       justify-content: flex-end;
-      gap: 10px;
+      gap: 8px;
     }
 
     /* ============== TOAST ============== */
     .toast {
       position: fixed;
-      bottom: 20px;
-      right: 20px;
-      padding: 12px 20px;
+      bottom: 22px;
+      right: 22px;
+      padding: 11px 20px;
       border-radius: var(--radius-sm);
       font-size: 13px;
       font-weight: 600;
       color: white;
-      z-index: 600;
-      transform: translateY(100px);
+      z-index: 700;
+      transform: translateY(80px);
       opacity: 0;
-      transition: all 0.3s ease;
+      transition: all 0.28s ease;
+      max-width: 340px;
+      box-shadow: var(--shadow);
     }
     .toast.show { transform: translateY(0); opacity: 1; }
     .toast.success { background: var(--success); }
-    .toast.error { background: var(--danger); }
-
-    /* ============== BOUTONS FORMULAIRE DANS LE HEADER ============== */
-    .header-form-actions {
-      display: none;
-      align-items: center;
-      gap: 6px;
-      flex-wrap: wrap;
-    }
-    .header-form-actions.visible { display: flex; }
-
-    .btn-success-outline {
-      background: transparent;
-      color: #c6f6d5;
-      border: 1.5px solid rgba(104,211,145,0.5);
-    }
-    .btn-success-outline:hover { background: var(--success); color: white; border-color: var(--success); }
+    .toast.error   { background: var(--danger); }
 
     /* ============== RESPONSIVE ============== */
     @media (max-width: 640px) {
       .form-grid { grid-template-columns: 1fr; }
-      .app-header { padding: 14px 16px; flex-wrap: wrap; gap: 10px; }
-      .app-header h1 { font-size: 15px; }
+      .app-header { padding: 12px 14px; flex-wrap: wrap; }
+      .app-header h1 { font-size: 14px; }
       .header-subtitle { display: none; }
-      .app-container { padding: 16px 12px; }
-      .header-form-actions { gap: 4px; }
-      .header-form-actions .btn-sm span.btn-label { display: none; }
+      .app-container { padding: 14px 10px; }
+      .header-form-actions .btn-label { display: none; }
     }
+
+    /* ============== PRINT (export PDF navigateur) ============== */
+    @media print {
+      body > *:not(#printArea) { display: none !important; }
+      #printArea { display: block !important; }
+    }
+    #printArea { display: none; }
   </style>
 </head>
 <body>
 
-  <div class="sync-bar" id="syncBar"></div>
+  <!-- ============ ZONE D'IMPRESSION ============ -->
+  <div id="printArea"></div>
 
   <!-- ============ HEADER ============ -->
   <header class="app-header">
@@ -583,48 +472,43 @@
       <div class="header-subtitle">Espace Culturel l'Hermine — Sarzeau</div>
     </div>
     <div class="header-actions">
-      <div class="sync-indicator ok" id="syncIndicator">
-        <span class="sync-dot"></span>
-        <span class="sync-text" id="syncText">Sync OK</span>
-      </div>
+      <span class="version-badge">v1.2.0</span>
 
-      <!-- Boutons contextuels formulaire (visibles en vue form uniquement) -->
-      <div class="header-form-actions" id="headerFormActions">
-        <button class="btn btn-outline btn-sm" onclick="showView('list')" title="Annuler">
+      <!-- Boutons vue formulaire -->
+      <div class="header-form-actions hidden" id="headerFormActions">
+        <button class="btn btn-outline btn-sm" onclick="showView('list')">
           <span class="material-symbols-outlined">close</span>
-          <span class="btn-label"> Annuler</span>
+          <span class="btn-label">Annuler</span>
         </button>
         <button class="btn btn-outline btn-sm" onclick="exportJson()" title="Exporter JSON">
           <span class="material-symbols-outlined">download</span>
-          <span class="btn-label"> Export JSON</span>
+          <span class="btn-label">Export JSON</span>
         </button>
-        <button class="btn btn-outline btn-sm" onclick="document.getElementById('jsonFileInput').click()" title="Importer JSON">
+        <label class="btn btn-outline btn-sm" title="Importer JSON" style="cursor:pointer">
           <span class="material-symbols-outlined">upload</span>
-          <span class="btn-label"> Import JSON</span>
-        </button>
-        <button class="btn btn-outline btn-sm" onclick="previewConvention()" title="Prévisualiser">
+          <span class="btn-label">Import JSON</span>
+          <input type="file" id="jsonFileInput" accept=".json" style="display:none" onchange="handleJsonImport(this)">
+        </label>
+        <button class="btn btn-outline btn-sm" onclick="previewConvention()">
           <span class="material-symbols-outlined">visibility</span>
-          <span class="btn-label"> Aperçu</span>
+          <span class="btn-label">Aperçu</span>
         </button>
-        <button class="btn btn-primary btn-sm" onclick="saveConvention()" title="Enregistrer">
+        <button class="btn btn-secondary btn-sm" onclick="saveConvention()">
           <span class="material-symbols-outlined">save</span>
-          <span class="btn-label"> Enregistrer</span>
+          <span class="btn-label">Enregistrer</span>
         </button>
-        <button class="btn btn-success btn-sm" onclick="saveAndGenerate()" title="Enregistrer &amp; Générer">
+        <button class="btn btn-primary btn-sm" onclick="saveAndGenerate()">
           <span class="material-symbols-outlined">picture_as_pdf</span>
-          <span class="btn-label"> Enregistrer &amp; Générer</span>
+          <span class="btn-label">Enregistrer &amp; Générer</span>
         </button>
       </div>
 
-      <!-- Boutons contextuels liste (visibles en vue liste / hors form) -->
-      <div class="header-list-actions" id="headerListActions" style="display:flex;align-items:center;gap:6px;">
-        <button class="btn btn-outline btn-sm" onclick="importFromDrive()" id="btnImport" title="Scanner le dossier Drive et importer les conventions manquantes">
-          <span class="material-symbols-outlined">cloud_download</span> Import Drive
-        </button>
-        <button class="btn btn-outline btn-sm" onclick="showView('list')" id="btnList">
+      <!-- Boutons vue liste -->
+      <div class="header-list-actions" id="headerListActions">
+        <button class="btn btn-outline btn-sm" onclick="showView('list')">
           <span class="material-symbols-outlined">list</span> Historique
         </button>
-        <button class="btn btn-primary btn-sm" onclick="newConvention()" id="btnNew">
+        <button class="btn btn-primary btn-sm" onclick="newConvention()">
           <span class="material-symbols-outlined">add</span> Nouvelle
         </button>
       </div>
@@ -638,8 +522,17 @@
       <div class="card">
         <div class="card-header">
           <h2><span class="material-symbols-outlined">history</span> Historique des conventions</h2>
+          <div style="display:flex;gap:6px;">
+            <button class="btn btn-secondary btn-sm" onclick="exportAllJson()" title="Sauvegarder toutes les conventions">
+              <span class="material-symbols-outlined">cloud_download</span> Exporter tout
+            </button>
+            <label class="btn btn-secondary btn-sm" style="cursor:pointer;" title="Restaurer un export de sauvegarde">
+              <span class="material-symbols-outlined">cloud_upload</span> Importer sauvegarde
+              <input type="file" id="backupFileInput" accept=".json" style="display:none" onchange="handleBackupImport(this)">
+            </label>
+          </div>
         </div>
-        <div class="card-body">
+        <div class="card-body" style="padding:0;">
           <div id="listContent">
             <div class="empty-state">
               <span class="material-symbols-outlined">folder_open</span>
@@ -656,15 +549,15 @@
     <!-- ============ VUE FORMULAIRE ============ -->
     <div class="view" id="viewForm">
 
-      <!-- Artiste -->
-      <div class="card form-section">
+      <!-- Artiste 1 -->
+      <div class="card">
         <div class="card-header">
           <h2><span class="material-symbols-outlined">person</span> Informations de l'Exposant</h2>
         </div>
         <div class="card-body">
           <div class="form-grid">
             <div class="form-group full-width">
-              <label>Nom complet</label>
+              <label>Nom complet *</label>
               <input type="text" id="fArtisteNom" placeholder="Prénom NOM">
             </div>
             <div class="form-group full-width">
@@ -679,14 +572,15 @@
         </div>
       </div>
 
-      <!-- Second Exposant (optionnel — convention tripartite) -->
-      <div class="card form-section">
-        <div class="card-header optional-header" onclick="toggleSection('SecondExposant')" style="cursor:pointer">
+      <!-- Artiste 2 (optionnel — tripartite) -->
+      <div class="card">
+        <div class="card-header optional-header" onclick="toggleCardSection('SecondExposant')" style="cursor:pointer">
           <h2><span class="material-symbols-outlined">person_add</span> Second Exposant
-            <span style="font-size:10pt;font-weight:400;margin-left:10px;color:#718096;">(optionnel — convention tripartite)</span>
+            <span style="font-size:10pt;font-weight:400;margin-left:10px;color:var(--text-lighter)">(optionnel — tripartite)</span>
           </h2>
           <label class="toggle-label" onclick="event.stopPropagation()">
-            <input type="checkbox" id="fSecondExposantActif" onchange="document.getElementById('sectionSecondExposant').classList.toggle('active',this.checked)">
+            <input type="checkbox" id="fSecondExposantActif"
+              onchange="document.getElementById('sectionSecondExposant').classList.toggle('active',this.checked)">
             Activer
           </label>
         </div>
@@ -709,30 +603,30 @@
       </div>
 
       <!-- Exposition -->
-      <div class="card form-section">
+      <div class="card">
         <div class="card-header">
-          <h2><span class="material-symbols-outlined">palette</span> Exposition</h2>
+          <h2><span class="material-symbols-outlined">palette</span> Exposition *</h2>
         </div>
         <div class="card-body">
           <div class="form-grid">
             <div class="form-group">
-              <label>Date de début</label>
+              <label>Date de début *</label>
               <input type="date" id="fExpoDebut">
             </div>
             <div class="form-group">
-              <label>Date de fin</label>
+              <label>Date de fin *</label>
               <input type="date" id="fExpoFin">
             </div>
             <div class="form-group full-width">
               <label>Lieu</label>
-              <input type="text" id="fExpoLieu" value="Espace Culturel L'Hermine" placeholder="Espace Culturel L'Hermine">
+              <input type="text" id="fExpoLieu" value="Espace Culturel L'Hermine">
             </div>
           </div>
         </div>
       </div>
 
       <!-- Calendrier -->
-      <div class="card form-section">
+      <div class="card">
         <div class="card-header">
           <h2><span class="material-symbols-outlined">calendar_month</span> Calendrier</h2>
         </div>
@@ -766,14 +660,15 @@
         </div>
       </div>
 
-      <!-- Conditions financières (optionnel) -->
-      <div class="card form-section">
-        <div class="card-header optional-header" onclick="toggleSection('ConditionsFinancieres')" style="cursor:pointer">
+      <!-- Conditions financières -->
+      <div class="card">
+        <div class="card-header optional-header" onclick="toggleCardSection('ConditionsFinancieres')" style="cursor:pointer">
           <h2><span class="material-symbols-outlined">euro</span> Conditions financières
-            <span style="font-size:10pt;font-weight:400;margin-left:10px;color:#718096;">(optionnel — mise à disposition gratuite)</span>
+            <span style="font-size:10pt;font-weight:400;margin-left:10px;color:var(--text-lighter)">(optionnel)</span>
           </h2>
           <label class="toggle-label" onclick="event.stopPropagation()">
-            <input type="checkbox" id="fConditionsFinancieresActif" onchange="document.getElementById('sectionConditionsFinancieres').classList.toggle('active',this.checked)">
+            <input type="checkbox" id="fConditionsFinancieresActif"
+              onchange="document.getElementById('sectionConditionsFinancieres').classList.toggle('active',this.checked)">
             Activer
           </label>
         </div>
@@ -787,9 +682,9 @@
               <label>TVA</label>
               <select id="fDroitsTva">
                 <option value="Non assujetti">Non assujetti (art. 293 B CGI)</option>
-                <option value="TVA 5.5%">TVA 5,5%</option>
-                <option value="TVA 10%">TVA 10%</option>
-                <option value="TVA 20%">TVA 20%</option>
+                <option value="TVA 5.5%">TVA 5,5 %</option>
+                <option value="TVA 10%">TVA 10 %</option>
+                <option value="TVA 20%">TVA 20 %</option>
               </select>
             </div>
           </div>
@@ -797,273 +692,98 @@
       </div>
 
       <!-- Articles optionnels -->
-      <div class="card form-section">
+      <div class="card">
         <div class="card-header">
           <h2><span class="material-symbols-outlined">tune</span> Articles optionnels</h2>
         </div>
-        <div class="card-body" style="padding: 16px;">
-          <!-- Transport -->
+        <div class="card-body" style="padding:14px;">
+
           <div class="optional-section" id="sectionTransport">
-            <div class="optional-header" onclick="toggleSection('Transport')">
+            <div class="optional-header" onclick="toggleOptSection('Transport')">
               <label class="toggle-switch">
                 <input type="checkbox" id="fTransportActif">
                 <span class="toggle-slider"></span>
               </label>
-              <span class="optional-label">
-                <span class="material-symbols-outlined">local_shipping</span>
-                Transport des œuvres
-              </span>
+              <span class="optional-label"><span class="material-symbols-outlined">local_shipping</span> Transport des œuvres</span>
             </div>
             <div class="optional-body">
               <div class="form-group">
                 <label>Détails / modalités</label>
-                <textarea id="fTransportDetails" placeholder="Ex : Le transport des œuvres est pris en charge par l'Organisateur depuis l'atelier de l'artiste..."></textarea>
+                <textarea id="fTransportDetails" placeholder="Le transport des œuvres est pris en charge par…"></textarea>
               </div>
             </div>
           </div>
 
-          <!-- Hébergement -->
           <div class="optional-section" id="sectionHebergement">
-            <div class="optional-header" onclick="toggleSection('Hebergement')">
+            <div class="optional-header" onclick="toggleOptSection('Hebergement')">
               <label class="toggle-switch">
                 <input type="checkbox" id="fHebergementActif">
                 <span class="toggle-slider"></span>
               </label>
-              <span class="optional-label">
-                <span class="material-symbols-outlined">hotel</span>
-                Hébergement de l'artiste
-              </span>
+              <span class="optional-label"><span class="material-symbols-outlined">hotel</span> Hébergement de l'artiste</span>
             </div>
             <div class="optional-body">
               <div class="form-group">
                 <label>Détails / modalités</label>
-                <textarea id="fHebergementDetails" placeholder="Ex : L'Organisateur prend en charge l'hébergement de l'Exposant pour 2 nuitées..."></textarea>
+                <textarea id="fHebergementDetails" placeholder="L'Organisateur prend en charge l'hébergement…"></textarea>
               </div>
             </div>
           </div>
 
-          <!-- Actions culturelles -->
           <div class="optional-section" id="sectionActionsCulturelles">
-            <div class="optional-header" onclick="toggleSection('ActionsCulturelles')">
+            <div class="optional-header" onclick="toggleOptSection('ActionsCulturelles')">
               <label class="toggle-switch">
                 <input type="checkbox" id="fActionsCulturellesActif">
                 <span class="toggle-slider"></span>
               </label>
-              <span class="optional-label">
-                <span class="material-symbols-outlined">groups</span>
-                Actions culturelles
-              </span>
+              <span class="optional-label"><span class="material-symbols-outlined">groups</span> Actions culturelles</span>
             </div>
             <div class="optional-body">
               <div class="form-group">
                 <label>Détails / modalités</label>
-                <textarea id="fActionsCulturellesDetails" placeholder="Ex : Visite guidée avec les scolaires, rencontre publique avec l'artiste le jour du vernissage..."></textarea>
+                <textarea id="fActionsCulturellesDetails" placeholder="Visites guidées, ateliers, rencontre publique…"></textarea>
               </div>
             </div>
           </div>
+
         </div>
       </div>
 
-            <!-- Articles standards : personnalisation exceptionnelle du texte -->
-      <div class="card form-section">
+      <!-- Articles standards — personnalisation exceptionnelle -->
+      <div class="card">
         <div class="card-header">
-          <h2><span class="material-symbols-outlined">edit_note</span> Articles (texte exceptionnel)</h2>
+          <h2><span class="material-symbols-outlined">edit_note</span> Articles — texte exceptionnel</h2>
         </div>
-        <div class="card-body" style="padding: 16px;">
+        <div class="card-body" style="padding:14px;">
+          <p style="font-size:12px;color:var(--text-light);margin-bottom:12px;">
+            Activez un article uniquement si vous souhaitez remplacer son texte standard par un texte personnalisé.
+          </p>
 
-          <div class="optional-section" id="sectionStd_objet">
-            <div class="optional-header" onclick="toggleStdArticle('objet')">
-              <label class="toggle-switch">
-                <input type="checkbox" id="fStd_objetActif">
-                <span class="toggle-slider"></span>
-              </label>
-              <span class="optional-label">
-                <span class="material-symbols-outlined">article</span>
-                Article — Objet
-              </span>
-            </div>
-            <div class="optional-body">
-              <div class="form-group">
-                <label>Texte (laisser vide = texte par défaut)</label>
-                <textarea id="fStd_objetTexte" placeholder="Saisir le texte complet de l'article."></textarea>
-              </div>
-            </div>
-          </div>
-
-          <div class="optional-section" id="sectionStd_obligationsExposant">
-            <div class="optional-header" onclick="toggleStdArticle('obligationsExposant')">
-              <label class="toggle-switch">
-                <input type="checkbox" id="fStd_obligationsExposantActif">
-                <span class="toggle-slider"></span>
-              </label>
-              <span class="optional-label">
-                <span class="material-symbols-outlined">article</span>
-                Article — Obligations de l’Exposant
-              </span>
-            </div>
-            <div class="optional-body">
-              <div class="form-group">
-                <label>Texte (laisser vide = texte par défaut)</label>
-                <textarea id="fStd_obligationsExposantTexte" placeholder="Saisir le texte complet de l'article."></textarea>
-              </div>
-            </div>
-          </div>
-
-          <div class="optional-section" id="sectionStd_obligationsOrganisateur">
-            <div class="optional-header" onclick="toggleStdArticle('obligationsOrganisateur')">
-              <label class="toggle-switch">
-                <input type="checkbox" id="fStd_obligationsOrganisateurActif">
-                <span class="toggle-slider"></span>
-              </label>
-              <span class="optional-label">
-                <span class="material-symbols-outlined">article</span>
-                Article — Obligations de l’Organisateur
-              </span>
-            </div>
-            <div class="optional-body">
-              <div class="form-group">
-                <label>Texte (laisser vide = texte par défaut)</label>
-                <textarea id="fStd_obligationsOrganisateurTexte" placeholder="Saisir le texte complet de l'article."></textarea>
-              </div>
-            </div>
-          </div>
-
-          <div class="optional-section" id="sectionStd_duree">
-            <div class="optional-header" onclick="toggleStdArticle('duree')">
-              <label class="toggle-switch">
-                <input type="checkbox" id="fStd_dureeActif">
-                <span class="toggle-slider"></span>
-              </label>
-              <span class="optional-label">
-                <span class="material-symbols-outlined">article</span>
-                Article — Durée
-              </span>
-            </div>
-            <div class="optional-body">
-              <div class="form-group">
-                <label>Texte (laisser vide = texte par défaut)</label>
-                <textarea id="fStd_dureeTexte" placeholder="Saisir le texte complet de l'article."></textarea>
-              </div>
-            </div>
-          </div>
-
-          <div class="optional-section" id="sectionStd_installation">
-            <div class="optional-header" onclick="toggleStdArticle('installation')">
-              <label class="toggle-switch">
-                <input type="checkbox" id="fStd_installationActif">
-                <span class="toggle-slider"></span>
-              </label>
-              <span class="optional-label">
-                <span class="material-symbols-outlined">article</span>
-                Article — Installation, vernissage et démontage
-              </span>
-            </div>
-            <div class="optional-body">
-              <div class="form-group">
-                <label>Texte (laisser vide = texte par défaut)</label>
-                <textarea id="fStd_installationTexte" placeholder="Saisir le texte complet de l'article."></textarea>
-              </div>
-            </div>
-          </div>
-
-          <div class="optional-section" id="sectionStd_droits">
-            <div class="optional-header" onclick="toggleStdArticle('droits')">
-              <label class="toggle-switch">
-                <input type="checkbox" id="fStd_droitsActif">
-                <span class="toggle-slider"></span>
-              </label>
-              <span class="optional-label">
-                <span class="material-symbols-outlined">article</span>
-                Article — Droits de présentation publique
-              </span>
-            </div>
-            <div class="optional-body">
-              <div class="form-group">
-                <label>Texte (laisser vide = texte par défaut)</label>
-                <textarea id="fStd_droitsTexte" placeholder="Saisir le texte complet de l'article."></textarea>
-              </div>
-            </div>
-          </div>
-
-          <div class="optional-section" id="sectionStd_resiliation">
-            <div class="optional-header" onclick="toggleStdArticle('resiliation')">
-              <label class="toggle-switch">
-                <input type="checkbox" id="fStd_resiliationActif">
-                <span class="toggle-slider"></span>
-              </label>
-              <span class="optional-label">
-                <span class="material-symbols-outlined">article</span>
-                Article — Résiliation
-              </span>
-            </div>
-            <div class="optional-body">
-              <div class="form-group">
-                <label>Texte (laisser vide = texte par défaut)</label>
-                <textarea id="fStd_resiliationTexte" placeholder="Saisir le texte complet de l'article."></textarea>
-              </div>
-            </div>
-          </div>
-
-          <div class="optional-section" id="sectionStd_assurances">
-            <div class="optional-header" onclick="toggleStdArticle('assurances')">
-              <label class="toggle-switch">
-                <input type="checkbox" id="fStd_assurancesActif">
-                <span class="toggle-slider"></span>
-              </label>
-              <span class="optional-label">
-                <span class="material-symbols-outlined">article</span>
-                Article — Assurances
-              </span>
-            </div>
-            <div class="optional-body">
-              <div class="form-group">
-                <label>Texte (laisser vide = texte par défaut)</label>
-                <textarea id="fStd_assurancesTexte" placeholder="Saisir le texte complet de l'article."></textarea>
-              </div>
-            </div>
-          </div>
-
-          <div class="optional-section" id="sectionStd_competences">
-            <div class="optional-header" onclick="toggleStdArticle('competences')">
-              <label class="toggle-switch">
-                <input type="checkbox" id="fStd_competencesActif">
-                <span class="toggle-slider"></span>
-              </label>
-              <span class="optional-label">
-                <span class="material-symbols-outlined">article</span>
-                Article — Attribution de compétences
-              </span>
-            </div>
-            <div class="optional-body">
-              <div class="form-group">
-                <label>Texte (laisser vide = texte par défaut)</label>
-                <textarea id="fStd_competencesTexte" placeholder="Saisir le texte complet de l'article."></textarea>
-              </div>
-            </div>
-          </div>
+          <div id="stdArticlesContainer"></div>
 
         </div>
       </div>
-
 
       <!-- Articles personnalisés -->
-      <div class="card form-section">
+      <div class="card">
         <div class="card-header">
-          <h2><span class="material-symbols-outlined">post_add</span> Articles personnalisés</h2>
-          <button class="btn btn-sm btn-primary" onclick="addCustomArticle()">
+          <h2><span class="material-symbols-outlined">add_box</span> Articles personnalisés supplémentaires</h2>
+          <button class="btn btn-secondary btn-sm" onclick="addCustomArticle()">
             <span class="material-symbols-outlined">add</span> Ajouter
           </button>
         </div>
-        <div class="card-body" id="customArticlesContainer">
-          <div class="empty-state" id="noCustomArticles" style="padding: 20px 0;">
-            <span class="material-symbols-outlined" style="font-size: 32px;">article</span>
-            <p style="margin-top: 8px; font-size: 13px;">Aucun article personnalisé</p>
+        <div class="card-body" style="padding:14px;">
+          <div id="customArticlesContainer">
+            <div class="empty-state" style="padding:20px 0;">
+              <span class="material-symbols-outlined" style="font-size:32px;">article</span>
+              <p style="font-size:13px;">Aucun article personnalisé</p>
+            </div>
           </div>
         </div>
       </div>
 
-      <!-- Signature -->
-      <div class="card form-section">
+      <!-- Date de signature -->
+      <div class="card">
         <div class="card-header">
           <h2><span class="material-symbols-outlined">draw</span> Signature</h2>
         </div>
@@ -1077,24 +797,49 @@
         </div>
       </div>
 
+      <!-- Boutons bas de page -->
+      <div style="display:flex;gap:10px;justify-content:flex-end;padding-bottom:20px;flex-wrap:wrap;">
+        <button class="btn btn-secondary" onclick="showView('list')">
+          <span class="material-symbols-outlined">close</span> Annuler
+        </button>
+        <button class="btn btn-secondary" onclick="exportJson()">
+          <span class="material-symbols-outlined">download</span> Export JSON
+        </button>
+        <button class="btn btn-secondary" onclick="previewConvention()">
+          <span class="material-symbols-outlined">visibility</span> Aperçu
+        </button>
+        <button class="btn btn-secondary" onclick="saveConvention()">
+          <span class="material-symbols-outlined">save</span> Enregistrer
+        </button>
+        <button class="btn btn-primary" onclick="saveAndGenerate()">
+          <span class="material-symbols-outlined">picture_as_pdf</span> Enregistrer &amp; Générer
+        </button>
+      </div>
 
-    </div>
-  </div>
+    </div><!-- fin viewForm -->
 
-  <!-- ============ MODAL PREVIEW ============ -->
+  </div><!-- fin app-container -->
+
+  <!-- ============ MODAL APERÇU ============ -->
   <div class="modal-overlay" id="previewModal">
     <div class="modal">
       <div class="modal-header">
-        <h3>Prévisualisation de la convention</h3>
-        <button class="btn btn-sm btn-secondary" onclick="closePreview()">
-          <span class="material-symbols-outlined">close</span>
-        </button>
+        <h3><span class="material-symbols-outlined">visibility</span> Aperçu de la convention</h3>
+        <button class="btn-icon" onclick="closePreview()"><span class="material-symbols-outlined">close</span></button>
       </div>
       <div class="modal-body">
-        <iframe id="previewFrame"></iframe>
+        <iframe id="previewFrame" title="Aperçu convention"></iframe>
       </div>
       <div class="modal-footer">
-        <button class="btn btn-secondary" onclick="closePreview()">Fermer</button>
+        <button class="btn btn-secondary" onclick="exportHtmlFromPreview()">
+          <span class="material-symbols-outlined">code</span> Exporter HTML
+        </button>
+        <button class="btn btn-primary" onclick="printFromPreview()">
+          <span class="material-symbols-outlined">print</span> Imprimer / PDF
+        </button>
+        <button class="btn btn-secondary" onclick="closePreview()">
+          <span class="material-symbols-outlined">close</span> Fermer
+        </button>
       </div>
     </div>
   </div>
@@ -1102,927 +847,1163 @@
   <!-- ============ TOAST ============ -->
   <div class="toast" id="toast"></div>
 
-  <!-- Input caché pour import JSON -->
-  <input type="file" id="jsonFileInput" accept=".json" style="display:none" onchange="handleJsonImport(this)">
-
   <script>
-    // ============== STATE ==============
-    var currentId = null;
-    var conventions = [];
+  /* ====================================================
+     CONVENTIONS D'EXPOSITION — L'HERMINE
+     GitHub Pages standalone — v1.2.0
+     ===================================================== */
+
+  // ====== ÉTAT GLOBAL ======
+  var currentId       = null;
+  var conventions     = [];   // tableau en mémoire (persisté dans localStorage)
+  var _lastPreviewHtml = '';  // HTML généré pour export depuis la modal
+
+  var STD_ARTICLE_KEYS = [
+    'objet','obligationsExposant','obligationsOrganisateur',
+    'duree','installation','droits','resiliation','assurances','competences'
+  ];
+  var STD_ARTICLE_LABELS = {
+    objet:                    'Article — Objet',
+    obligationsExposant:      'Article — Obligations de l\'Exposant',
+    obligationsOrganisateur:  'Article — Obligations de l\'Organisateur',
+    duree:                    'Article — Durée',
+    installation:             'Article — Installation, vernissage et démontage',
+    droits:                   'Article — Droits de présentation publique',
+    resiliation:              'Article — Résiliation',
+    assurances:               'Article — Assurances',
+    competences:              'Article — Attribution de compétences',
+  };
+
+  // ====== INITIALISATION ======
+  document.addEventListener('DOMContentLoaded', function() {
+    buildStdArticlesUI();
+    loadConventions();
 
-    // ============== INIT ==============
-    document.addEventListener('DOMContentLoaded', function() {
-      loadConventions();
-    });
-
-    // ============== ARTICLES PERSONNALISÉS ==============
-    var customArticles = []; // [{titre: '', contenu: ''}, ...]
-    var customArticleCounter = 0;
-
-    function addCustomArticle(titre, contenu) {
-      customArticleCounter++;
-      var idx = customArticleCounter;
-      customArticles.push({ idx: idx, titre: titre || '', contenu: contenu || '' });
-      renderCustomArticles();
-    }
-
-    function removeCustomArticle(idx) {
-      customArticles = customArticles.filter(function(a) { return a.idx !== idx; });
-      renderCustomArticles();
-    }
-
-    function renderCustomArticles() {
-      var container = document.getElementById('customArticlesContainer');
-      var emptyMsg = document.getElementById('noCustomArticles');
-
-      if (!customArticles.length) {
-        container.innerHTML = '';
-        container.appendChild(emptyMsg);
-        emptyMsg.style.display = 'block';
-        return;
-      }
-
-      var html = '';
-      for (var i = 0; i < customArticles.length; i++) {
-        var a = customArticles[i];
-        html += '<div class="custom-article" data-idx="' + a.idx + '">';
-        html += '<div class="custom-article-header">';
-        html += '<span class="article-number"><span class="material-symbols-outlined">article</span> Article personnalis\u00e9 #' + (i + 1) + '</span>';
-        html += '<button class="btn-icon danger" title="Supprimer" onclick="removeCustomArticle(' + a.idx + ')"><span class="material-symbols-outlined">delete</span></button>';
-        html += '</div>';
-        html += '<div class="custom-article-body">';
-        html += '<div class="form-group">';
-        html += '<label>Titre de l\u2019article</label>';
-        html += '<input type="text" class="custom-article-titre" data-idx="' + a.idx + '" value="' + escapeAttr(a.titre) + '" placeholder="Ex : Vente des \u0153uvres, Communication, Droits d\u2019auteur\u2026">';
-        html += '</div>';
-        html += '<div class="form-group">';
-        html += '<label>Contenu</label>';
-        html += '<textarea class="custom-article-contenu" data-idx="' + a.idx + '" rows="4" placeholder="R\u00e9digez le contenu de l\u2019article\u2026">' + escapeHtml(a.contenu) + '</textarea>';
-        html += '</div>';
-        html += '</div></div>';
-      }
-
-      container.innerHTML = html;
-
-      // Synchroniser les valeurs quand on tape
-      container.querySelectorAll('.custom-article-titre').forEach(function(el) {
-        el.addEventListener('input', function() {
-          var idx = parseInt(this.dataset.idx);
-          var article = customArticles.find(function(a) { return a.idx === idx; });
-          if (article) article.titre = this.value;
-        });
-      });
-      container.querySelectorAll('.custom-article-contenu').forEach(function(el) {
-        el.addEventListener('input', function() {
-          var idx = parseInt(this.dataset.idx);
-          var article = customArticles.find(function(a) { return a.idx === idx; });
-          if (article) article.contenu = this.value;
-        });
-      });
-    }
-
-    function getCustomArticlesData() {
-      // Relire les valeurs actuelles depuis le DOM au cas où
-      document.querySelectorAll('.custom-article-titre').forEach(function(el) {
-        var idx = parseInt(el.dataset.idx);
-        var article = customArticles.find(function(a) { return a.idx === idx; });
-        if (article) article.titre = el.value;
-      });
-      document.querySelectorAll('.custom-article-contenu').forEach(function(el) {
-        var idx = parseInt(el.dataset.idx);
-        var article = customArticles.find(function(a) { return a.idx === idx; });
-        if (article) article.contenu = el.value;
-      });
-      return customArticles.filter(function(a) { return a.titre.trim() || a.contenu.trim(); })
-        .map(function(a) { return { titre: a.titre.trim(), contenu: a.contenu.trim() }; });
-    }
-
-    function escapeAttr(str) {
-      if (!str) return '';
-      return String(str).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-    }
-
-    // ============== NAVIGATION ==============
-    function showView(name) {
-      document.querySelectorAll('.view').forEach(function(v) { v.classList.remove('active'); });
-      document.getElementById('view' + name.charAt(0).toUpperCase() + name.slice(1)).classList.add('active');
-      // Basculer les boutons du header selon la vue
-      var isForm = (name === 'form');
-      var formActions = document.getElementById('headerFormActions');
-      var listActions = document.getElementById('headerListActions');
-      if (formActions) formActions.classList.toggle('visible', isForm);
-      if (listActions) listActions.style.display = isForm ? 'none' : 'flex';
-      if (name === 'list') loadConventions();
-    }
-
-    // ============== SYNC ==============
-    var _syncCheckPending = false;
-    
-    function setSync(state, message) {
-      // Barre de progression
-      var bar = document.getElementById('syncBar');
-      bar.className = 'sync-bar' + (state === 'loading' ? ' loading' : '');
-      
-      // Voyant permanent
-      var indicator = document.getElementById('syncIndicator');
-      var text = document.getElementById('syncText');
-      
-      if (state === 'loading') {
-        indicator.className = 'sync-indicator loading';
-        text.textContent = message || 'Sync\u2026';
-        _syncCheckPending = false;
-      } else if (state === 'ok') {
-        indicator.className = 'sync-indicator ok';
-        text.textContent = message || 'Sync OK';
-        // Lancer une vérification Drive en arrière-plan (une seule fois)
-        if (!_syncCheckPending && !message) {
-          _syncCheckPending = true;
-          checkDriveSyncStatus();
-        }
-      } else if (state === 'error') {
-        indicator.className = 'sync-indicator error';
-        text.textContent = message || 'Erreur sync';
-        _syncCheckPending = false;
-      }
-    }
-
-    // ============== TOAST ==============
-    function showToast(msg, type) {
-      var toast = document.getElementById('toast');
-      toast.textContent = msg;
-      toast.className = 'toast ' + (type || 'success') + ' show';
-      setTimeout(function() { toast.classList.remove('show'); }, 3000);
-    }
-
-    // ============== CHARGER LES CONVENTIONS ==============
-    function loadConventions() {
-      setSync('loading', 'Chargement\u2026');
-      google.script.run
-        .withSuccessHandler(function(data) {
-          conventions = data || [];
-          renderList();
-          // Vérifier la sync Drive en arrière-plan
-          checkDriveSyncStatus();
-        })
-        .withFailureHandler(function(err) {
-          showToast('Erreur de chargement : ' + err.message, 'error');
-          setSync('error', 'Erreur chargement');
-        })
-        .getConventions();
-    }
-
-    // ============== VÉRIFIER SYNC DRIVE ==============
-    function checkDriveSyncStatus() {
-      google.script.run
-        .withSuccessHandler(function(result) {
-          if (result && result.success) {
-            var msg = 'Sync OK \u2014 ' + result.sheetCount + ' conv. / ' + result.driveCount + ' fichier' + (result.driveCount > 1 ? 's' : '');
-            setSync('ok', msg);
-          } else {
-            setSync('error', 'Erreur sync Drive');
-          }
-        })
-        .withFailureHandler(function() {
-          setSync('ok', 'Sync OK');
-        })
-        .checkDriveSync();
-    }
-
-    // ============== RENDU LISTE ==============
-    function renderList() {
-      var container = document.getElementById('listContent');
-      if (!conventions.length) {
-        container.innerHTML = '<div class="empty-state">' +
-          '<span class="material-symbols-outlined">folder_open</span>' +
-          '<p>Aucune convention enregistrée</p>' +
-          '<button class="btn btn-primary" onclick="newConvention()">' +
-          '<span class="material-symbols-outlined">add</span> Créer une convention</button></div>';
-        return;
-      }
-
-      var html = '<div class="table-wrapper"><table><thead><tr>' +
-        '<th>Artiste</th><th>Dates expo</th><th>Création</th><th>Statut</th><th>Actions</th>' +
-        '</tr></thead><tbody>';
-
-      conventions.forEach(function(c) {
-        var statut = c.statut || 'Brouillon';
-        var statusClass = statut.indexOf('Généré') !== -1 ? 'status-genere' 
-                        : statut === 'Erreur' ? 'status-erreur'
-                        : 'status-brouillon';
-        html += '<tr>';
-        html += '<td><strong>' + escapeHtml(c.artiste.nom || '—') + '</strong></td>';
-        html += '<td>' + escapeHtml(c.expo.debut || '') + ' → ' + escapeHtml(c.expo.fin || '') + '</td>';
-        html += '<td style="color:var(--text-light);font-size:12px">' + escapeHtml(c.dateCreation || '') + '</td>';
-        html += '<td><span class="status-badge ' + statusClass + '">' + escapeHtml(c.statut) + '</span></td>';
-        html += '<td><div class="row-actions">';
-        html += '<button class="btn-icon" title="Modifier" onclick="editConvention(\'' + c.id + '\')"><span class="material-symbols-outlined">edit</span></button>';
-        html += '<button class="btn-icon" title="Prévisualiser" onclick="previewFromList(\'' + c.id + '\')"><span class="material-symbols-outlined">visibility</span></button>';
-        html += '<button class="btn-icon" title="Générer HTML" onclick="generateFromList(\'' + c.id + '\')"><span class="material-symbols-outlined">code</span></button>';
-        html += '<button class="btn-icon" title="Générer PDF" onclick="generatePdfFromList(\'' + c.id + '\')"><span class="material-symbols-outlined">picture_as_pdf</span></button>';
-        if (c.lienPdf) {
-          html += '<button class="btn-icon" title="Ouvrir HTML" onclick="openHtmlInBrowser(\'' + c.id + '\')"><span class="material-symbols-outlined">open_in_new</span></button>';
-        }
-        html += '<button class="btn-icon danger" title="Supprimer" onclick="deleteConvention(\'' + c.id + '\')"><span class="material-symbols-outlined">delete</span></button>';
-        html += '</div></td>';
-        html += '</tr>';
-      });
-
-      html += '</tbody></table></div>';
-      container.innerHTML = html;
-    }
-
-    // ============== NOUVELLE CONVENTION ==============
-    function newConvention() {
-      currentId = null;
-      resetForm();
-      showView('form');
-    }
-
-    // ============== ÉDITER ==============
-    function editConvention(id) {
-      var c = conventions.find(function(x) { return x.id === id; });
-      if (!c) return;
-      currentId = id;
-      fillForm(c);
-      showView('form');
-    }
-
-    // ============== REMPLIR LE FORMULAIRE ==============
-    function fillForm(c) {
-      document.getElementById('fArtisteNom').value = c.artiste.nom || '';
-      document.getElementById('fArtisteAdresse').value = c.artiste.adresse || '';
-      document.getElementById('fArtisteSiret').value = c.artiste.siret || '';
-      // Second exposant
-      var a2 = c.artiste2 || {};
-      var a2Actif = a2.actif === true || a2.actif === 'true';
-      document.getElementById('fSecondExposantActif').checked = a2Actif;
-      document.getElementById('sectionSecondExposant').classList.toggle('active', a2Actif);
-      document.getElementById('fArtiste2Nom').value = a2.nom || '';
-      document.getElementById('fArtiste2Adresse').value = a2.adresse || '';
-      document.getElementById('fArtiste2Siret').value = a2.siret || '';
-      document.getElementById('fExpoDebut').value = toInputDate(c.expo.debut);
-      document.getElementById('fExpoFin').value = toInputDate(c.expo.fin);
-      document.getElementById('fExpoLieu').value = c.expo.lieu || "Espace Culturel L'Hermine";
-      document.getElementById('fInstallDate').value = toInputDate(c.installation.date);
-      document.getElementById('fInstallHeure').value = c.installation.heure || '09:00';
-      document.getElementById('fVernissageDate').value = toInputDate(c.vernissage.date);
-      document.getElementById('fVernissageHeure').value = c.vernissage.heure || '18:00';
-      document.getElementById('fDemontageDate').value = toInputDate(c.demontage.date);
-      document.getElementById('fDemontageHeure').value = c.demontage.heure || '09:00';
-      document.getElementById('fDroitsMontant').value = c.droits.montant || '';
-      document.getElementById('fDroitsTva').value = c.droits.tva || 'Non assujetti';
-      // Toggle conditions financières
-      var condActif = c.droits.actif === true || c.droits.actif === 'true' || (c.droits.actif === undefined && !!(c.droits.montant));
-      document.getElementById('fConditionsFinancieresActif').checked = condActif;
-      document.getElementById('sectionConditionsFinancieres').classList.toggle('active', condActif);
-      document.getElementById('fDateSignature').value = toInputDate(c.dateSignature);
-
-      // Sections optionnelles
-      setOptional('Transport', c.transport.actif === 'Oui' || c.transport.actif === true, c.transport.details);
-      setOptional('Hebergement', c.hebergement.actif === 'Oui' || c.hebergement.actif === true, c.hebergement.details);
-      setOptional('ActionsCulturelles', c.actionsCulturelles.actif === 'Oui' || c.actionsCulturelles.actif === true, c.actionsCulturelles.details);
-
-      // Articles standards (texte exceptionnel)
-      if (typeof STD_ARTICLE_KEYS !== 'undefined') {
-        var ctxStd = getStdCtxFromConvention_(c);
-        var std = {};
-        if (c.articlesStd) {
-          try {
-            std = typeof c.articlesStd === 'string' ? JSON.parse(c.articlesStd) : (c.articlesStd || {});
-          } catch(e) { std = {}; }
-        }
-        STD_ARTICLE_KEYS.forEach(function(key) {
-          var item = (std && typeof std === 'object') ? (std[key] || {}) : {};
-          var hasCustom = ((item.actif === true) || (item.actif === 'Oui')) && !!(item.texte && String(item.texte).trim());
-          var resolvedText = hasCustom ? String(item.texte) : getStdDefaultText_(key, ctxStd);
-          // Préremplir toujours le textarea avec le texte actuellement en vigueur dans la convention
-          // (texte personnalisé si présent, sinon texte par défaut pré-calculé avec les valeurs de la convention).
-          setStdArticle(key, hasCustom, resolvedText);
-        });
-      }
-
-
-      // Articles personnalisés
-      customArticles = [];
-      customArticleCounter = 0;
-      if (c.articlesPerso && c.articlesPerso.length) {
-        var articles;
-        try {
-          articles = typeof c.articlesPerso === 'string' ? JSON.parse(c.articlesPerso) : c.articlesPerso;
-        } catch(e) { articles = []; }
-        if (Array.isArray(articles)) {
-          articles.forEach(function(a) {
-            addCustomArticle(a.titre || '', a.contenu || '');
-          });
-        }
-      } else {
-        renderCustomArticles();
-      }
-    }
-
-    // Convertir dd/MM/yyyy → yyyy-MM-dd pour les inputs type="date"
-    function toInputDate(val) {
-      if (!val) return '';
-      var str = String(val).trim();
-      // Déjà au format yyyy-MM-dd ?
-      if (/^\d{4}-\d{2}-\d{2}$/.test(str)) return str;
-      // Format dd/MM/yyyy ?
-      var parts = str.match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
-      if (parts) return parts[3] + '-' + parts[2] + '-' + parts[1];
-      // Format long français : "lundi 9 février 2026"
-      var moisFr = {'janvier':'01','f\u00e9vrier':'02','mars':'03','avril':'04','mai':'05','juin':'06',
-                    'juillet':'07','ao\u00fbt':'08','septembre':'09','octobre':'10','novembre':'11','d\u00e9cembre':'12'};
-      var longMatch = str.match(/\w+\s+(\d{1,2})\s+(\w+)\s+(\d{4})/);
-      if (longMatch && moisFr[longMatch[2]]) {
-        var dd = ('0' + longMatch[1]).slice(-2);
-        return longMatch[3] + '-' + moisFr[longMatch[2]] + '-' + dd;
-      }
-      // Essayer de parser comme Date
-      try {
-        var d = new Date(str);
-        if (!isNaN(d.getTime())) {
-          var mm = ('0' + (d.getMonth() + 1)).slice(-2);
-          var dd2 = ('0' + d.getDate()).slice(-2);
-          return d.getFullYear() + '-' + mm + '-' + dd2;
-        }
-      } catch(e) {}
-      return str;
-    }
-
-    function setOptional(name, active, details) {
-      var checkbox = document.getElementById('f' + name + 'Actif');
-      var section = document.getElementById('section' + name);
-      var detailsField = document.getElementById('f' + name + 'Details');
-      checkbox.checked = active;
-      if (active) {
-        section.classList.add('active');
-      } else {
-        section.classList.remove('active');
-      }
-      if (detailsField) detailsField.value = details || '';
-    }
-
-    // ============== RESET FORMULAIRE ==============
-    function resetForm() {
-      var fields = ['fArtisteNom', 'fArtisteAdresse', 'fArtisteSiret',
-        'fArtiste2Nom', 'fArtiste2Adresse', 'fArtiste2Siret',
-        'fExpoDebut', 'fExpoFin', 'fInstallDate', 'fVernissageDate', 'fDemontageDate',
-        'fDroitsMontant', 'fDateSignature',
-        'fTransportDetails', 'fHebergementDetails', 'fActionsCulturellesDetails'];
-      fields.forEach(function(id) {
-        var el = document.getElementById(id);
-        if (el) el.value = '';
-      });
-      document.getElementById('fSecondExposantActif').checked = false;
-      document.getElementById('sectionSecondExposant').classList.remove('active');
-      document.getElementById('fConditionsFinancieresActif').checked = true;
-      document.getElementById('sectionConditionsFinancieres').classList.add('active');
-      document.getElementById('fExpoLieu').value = "Espace Culturel L'Hermine";
-      document.getElementById('fInstallHeure').value = '09:00';
-      document.getElementById('fVernissageHeure').value = '18:00';
-      document.getElementById('fDemontageHeure').value = '09:00';
-      document.getElementById('fDroitsTva').value = 'Non assujetti';
-
-      ['Transport', 'Hebergement', 'ActionsCulturelles'].forEach(function(name) {
-        setOptional(name, false, '');
-      });
-
-      // Reset articles standards (texte exceptionnel)
-      if (typeof STD_ARTICLE_KEYS !== 'undefined') {
-        STD_ARTICLE_KEYS.forEach(function(key) { setStdArticle(key, false, ''); });
-      }
-
-      // Reset articles personnalisés
-      customArticles = [];
-      customArticleCounter = 0;
-      renderCustomArticles();
-    }
-
-    // ============== TOGGLE SECTION OPTIONNELLE ==============
-    function toggleSection(name) {
-      var checkbox = document.getElementById('f' + name + 'Actif');
-      var section = document.getElementById('section' + name);
-      checkbox.checked = !checkbox.checked;
-      section.classList.toggle('active', checkbox.checked);
-    }
-
-
-    // ============== ARTICLES STANDARDS (TEXTE PERSONNALISÉ) ==============
-    var STD_ARTICLE_KEYS = ['objet','obligationsExposant','obligationsOrganisateur','duree','installation','droits','resiliation','assurances','competences'];
-
-    function normalizeStdText_(s) {
-      return String(s || '')
-        .replace(/\r\n/g, '\n')
-        .split('\n')
-        .map(function(l){ return l.replace(/\s+$/,''); })
-        .join('\n')
-        .trim();
-    }
-
-    function getStdCtxFromConvention_(c) {
-      c = c || {};
-      return {
-        expoLieu: (c.expo && c.expo.lieu) ? String(c.expo.lieu) : "Espace Culturel L'Hermine",
-        expoDebut: (c.expo && c.expo.debut) ? String(c.expo.debut) : '',
-        expoFin: (c.expo && c.expo.fin) ? String(c.expo.fin) : '',
-        installDate: (c.installation && c.installation.date) ? String(c.installation.date) : '',
-        installHeure: (c.installation && c.installation.heure) ? String(c.installation.heure) : '',
-        vernDate: (c.vernissage && c.vernissage.date) ? String(c.vernissage.date) : '',
-        vernHeure: (c.vernissage && c.vernissage.heure) ? String(c.vernissage.heure) : '',
-        demDate: (c.demontage && c.demontage.date) ? String(c.demontage.date) : '',
-        demHeure: (c.demontage && c.demontage.heure) ? String(c.demontage.heure) : '',
-        droitsMontant: (c.droits && c.droits.montant) ? String(c.droits.montant) : '',
-        droitsTva: (c.droits && c.droits.tva) ? String(c.droits.tva) : ''
-      };
-    }
-
-    function getStdCtxFromForm_() {
-      function formatDateFr(dateStr) {
-        if (!dateStr) return '';
-        var parts = String(dateStr).split('-');
-        if (parts.length !== 3) return String(dateStr);
-        return parts[2] + '/' + parts[1] + '/' + parts[0];
-      }
-      return {
-        expoLieu: (document.getElementById('fExpoLieu').value || '').trim() || "Espace Culturel L'Hermine",
-        expoDebut: formatDateFr(document.getElementById('fExpoDebut').value),
-        expoFin: formatDateFr(document.getElementById('fExpoFin').value),
-        installDate: formatDateFr(document.getElementById('fInstallDate').value),
-        installHeure: document.getElementById('fInstallHeure').value || '',
-        vernDate: formatDateFr(document.getElementById('fVernissageDate').value),
-        vernHeure: document.getElementById('fVernissageHeure').value || '',
-        demDate: formatDateFr(document.getElementById('fDemontageDate').value),
-        demHeure: document.getElementById('fDemontageHeure').value || '',
-        droitsMontant: document.getElementById('fDroitsMontant').value || '',
-        droitsTva: document.getElementById('fDroitsTva').value || ''
-      };
-    }
-
-    function getStdDefaultText_(key, ctx) {
-      ctx = ctx || {};
-      switch (key) {
-        case 'objet':
-          return "La présente convention a pour but de définir les modalités d’accueil de l’exposition des œuvres de l’Exposant.\n\n" +
-                 "Lieu : " + (ctx.expoLieu || '') + "\n" +
-                 "Dates de l’exposition : du " + (ctx.expoDebut || '') + " au " + (ctx.expoFin || '');
-        case 'obligationsExposant':
-          return "L’Exposant s’engage à fournir l’exposition conformément à ce qui avait été décidé avec l’Organisateur.\n\n" +
-                 "L’Exposant en outre s’engage à communiquer à l’organisateur une estimation de la valeur d’assurance (clou à clou) de l’exposition. En cas de non-respect de cet article, la collectivité ne prendra pas en charge l’assurance des biens exposés.";
-        case 'obligationsOrganisateur':
-          return "L’Organisateur s’engage à faciliter l’accueil de l’exposition par :\n" +
-                 "- La mise à disposition gratuite de locaux adéquats,\n" +
-                 "- La mise à disposition gratuite d’une personne pour aider à l’installation et au démontage de l’exposition.";
-        case 'duree':
-          return "La présente convention est conclue pour toute la durée de la présentation de l’exposition dans les locaux de l’Organisateur, de son installation à son démontage.";
-        case 'installation':
-          return "L’Organisateur et l’Exposant installeront l’exposition le " + (ctx.installDate || '') + " à " + (ctx.installHeure || '') + " à l’Hermine à Sarzeau pour un vernissage de l’exposition le " + (ctx.vernDate || '') + " à " + (ctx.vernHeure || '') + ".\n\n" +
-                 "Le démontage étant le dernier jour de la présentation public, soit le " + (ctx.demDate || '') + " à " + (ctx.demHeure || '') + ".";
-        case 'droits':
-          var tva = '';
-          if (ctx.droitsTva === 'Non assujetti') tva = "TVA non applicable conformément à l’article 293B du CGI.";
-          else if (ctx.droitsTva) tva = String(ctx.droitsTva) + ".";
-          return "L’Organisateur versera la somme de " + (ctx.droitsMontant || '') + " euros TTC à l’Exposant pour les droits de présentation publique de son exposition à l’Hermine.\n\n" +
-                 (tva ? (tva + ' ') : '') +
-                 "Le règlement des sommes dues à l’Exposant sera effectué après dépôt d’une facture sur le portail dématérialisé Chorus Pro, par virement bancaire sur le compte de l’Exposant dans les 30 jours suivant la date de fin d’exposition mentionnée à l’article 1 du présent contrat. Aucun acompte ne peut être versé à la signature du présent contrat.";
-        case 'resiliation':
-          return "Toute rupture de cette convention, hors cas de force majeure, engendrera de la part de la partie défaillante, une compensation estimée sur la base du montant des frais engagés par l’autre partie. Une annulation générée par des mesures COVID sera considérée comme force majeure et n’engendrera pas de compensation pour l’Exposant.";
-        case 'assurances':
-          return "L’Organisateur déclare avoir souscrit les assurances nécessaires à la couverture des risques liés au transport et à l’exposition des œuvres de l’Exposant.";
-        case 'competences':
-          return "En cas de litige portant sur l’interprétation ou l’application du présent contrat, les parties conviennent de s’en remettre à l’appréciation des tribunaux compétents de la ville de Rennes.";
-        default:
-          return '';
-      }
-    }
-
-    function toggleStdArticle(key) {
-      var checkbox = document.getElementById('fStd_' + key + 'Actif');
-      var section = document.getElementById('sectionStd_' + key);
-      if (!checkbox || !section) return;
-      checkbox.checked = !checkbox.checked;
-      section.classList.toggle('active', checkbox.checked);
-    }
-
-    function setStdArticle(key, active, texte) {
-      var checkbox = document.getElementById('fStd_' + key + 'Actif');
-      var section = document.getElementById('sectionStd_' + key);
-      var textarea = document.getElementById('fStd_' + key + 'Texte');
-      if (checkbox) checkbox.checked = !!active;
-      if (textarea) textarea.value = texte || '';
-      if (section) section.classList.toggle('active', !!active);
-    }
-
-    function getStdArticlesData() {
-      var out = {};
-      var ctx = getStdCtxFromForm_();
-
-      STD_ARTICLE_KEYS.forEach(function(key) {
-        var checkbox = document.getElementById('fStd_' + key + 'Actif');
-        var textarea = document.getElementById('fStd_' + key + 'Texte');
-        var active = checkbox ? !!checkbox.checked : false;
-        var texte = textarea ? textarea.value : '';
-
-        // Si non activé, on ne stocke rien.
-        if (!active) {
-          out[key] = { actif: false, texte: '' };
-          return;
-        }
-
-        var t = normalizeStdText_(texte);
-        if (!t) {
-          // vide => texte par défaut
-          out[key] = { actif: false, texte: '' };
-          return;
-        }
-
-        // Ne pas stocker si identique au texte par défaut calculé avec les valeurs courantes.
-        var def = normalizeStdText_(getStdDefaultText_(key, ctx));
-        if (def && t === def) {
-          out[key] = { actif: false, texte: '' };
-          return;
-        }
-
-        out[key] = { actif: true, texte: t };
-      });
-
-      return out;
-    }
-
-
-    // ============== COLLECTER LES DONNÉES ==============
-    function collectData() {
-      // Formater les dates pour affichage dans la convention
-      function formatDateFr(dateStr) {
-        if (!dateStr) return '';
-        var parts = dateStr.split('-');
-        if (parts.length !== 3) return dateStr;
-        return parts[2] + '/' + parts[1] + '/' + parts[0];
-      }
-
-      var conditionsFinancieresActif = document.getElementById('fConditionsFinancieresActif').checked;
-      var artiste2Actif = document.getElementById('fSecondExposantActif').checked;
-      return {
-        id: currentId,
-        artiste: {
-          nom: document.getElementById('fArtisteNom').value.trim(),
-          adresse: document.getElementById('fArtisteAdresse').value.trim(),
-          siret: document.getElementById('fArtisteSiret').value.trim()
-        },
-        artiste2: artiste2Actif ? {
-          actif: true,
-          nom: document.getElementById('fArtiste2Nom').value.trim(),
-          adresse: document.getElementById('fArtiste2Adresse').value.trim(),
-          siret: document.getElementById('fArtiste2Siret').value.trim()
-        } : { actif: false, nom: '', adresse: '', siret: '' },
-        expo: {
-          debut: formatDateFr(document.getElementById('fExpoDebut').value),
-          fin: formatDateFr(document.getElementById('fExpoFin').value),
-          lieu: document.getElementById('fExpoLieu').value.trim()
-        },
-        installation: {
-          date: formatDateFr(document.getElementById('fInstallDate').value),
-          heure: document.getElementById('fInstallHeure').value
-        },
-        vernissage: {
-          date: formatDateFr(document.getElementById('fVernissageDate').value),
-          heure: document.getElementById('fVernissageHeure').value
-        },
-        demontage: {
-          date: formatDateFr(document.getElementById('fDemontageDate').value),
-          heure: document.getElementById('fDemontageHeure').value
-        },
-        droits: conditionsFinancieresActif ? {
-          actif: true,
-          montant: document.getElementById('fDroitsMontant').value,
-          tva: document.getElementById('fDroitsTva').value
-        } : {
-          actif: false,
-          montant: '',
-          tva: ''
-        },
-        transport: {
-          actif: document.getElementById('fTransportActif').checked,
-          details: document.getElementById('fTransportDetails').value.trim()
-        },
-        hebergement: {
-          actif: document.getElementById('fHebergementActif').checked,
-          details: document.getElementById('fHebergementDetails').value.trim()
-        },
-        actionsCulturelles: {
-          actif: document.getElementById('fActionsCulturellesActif').checked,
-          details: document.getElementById('fActionsCulturellesDetails').value.trim()
-        },
-        dateSignature: formatDateFr(document.getElementById('fDateSignature').value),
-        articlesStd: getStdArticlesData(),
-        articlesPerso: getCustomArticlesData(),
-        statut: currentId ? null : 'Brouillon'  // null = conserver le statut existant côté serveur
-      };
-    }
-
-    // ============== VALIDATION ==============
-    function validateForm() {
-      var data = collectData();
-      var errors = [];
-      if (!data.artiste.nom) errors.push('Nom de l\'artiste requis');
-      if (!data.expo.debut || !data.expo.fin) errors.push('Dates de l\'exposition requises');
-      if (errors.length) {
-        showToast(errors.join(' • '), 'error');
-        return null;
-      }
-      return data;
-    }
-
-    // ============== ENREGISTRER ==============
-    function saveConvention() {
-      var data = validateForm();
-      if (!data) return;
-
-      setSync('loading');
-      google.script.run
-        .withSuccessHandler(function(result) {
-          if (result.success) {
-            currentId = result.id;
-            showToast('Convention enregistrée');
-            showView('list');
-          } else {
-            showToast('Erreur : ' + (result.error || ''), 'error');
-          }
-          setSync('ok');
-        })
-        .withFailureHandler(function(err) {
-          showToast('Erreur : ' + err.message, 'error');
-          setSync('error');
-        })
-        .saveConvention(data);
-    }
-
-    // ============== ENREGISTRER & GÉNÉRER ==============
-    function saveAndGenerate() {
-      var data = validateForm();
-      if (!data) return;
-
-      setSync('loading');
-      google.script.run
-        .withSuccessHandler(function(result) {
-          if (result.success) {
-            currentId = result.id;
-            // Maintenant générer le HTML/PDF
-            google.script.run
-              .withSuccessHandler(function(genResult) {
-                setSync('ok');
-                if (genResult.success) {
-                  showToast('Convention générée et sauvegardée sur Drive');
-                  showView('list');
-                } else {
-                  showToast('Erreur génération : ' + (genResult.error || ''), 'error');
-                }
-              })
-              .withFailureHandler(function(err) {
-                showToast('Erreur : ' + err.message, 'error');
-                setSync('error');
-              })
-              .generatePdf(result.id);
-          } else {
-            showToast('Erreur : ' + (result.error || ''), 'error');
-            setSync('error');
-          }
-        })
-        .withFailureHandler(function(err) {
-          showToast('Erreur : ' + err.message, 'error');
-          setSync('error');
-        })
-        .saveConvention(data);
-    }
-
-    // ============== GÉNÉRER HTML DEPUIS LA LISTE ==============
-    function generateFromList(id) {
-      setSync('loading');
-      google.script.run
-        .withSuccessHandler(function(result) {
-          setSync('ok');
-          if (result.success) {
-            showToast('Fichier HTML généré sur Drive');
-            loadConventions();
-          } else {
-            showToast('Erreur : ' + (result.error || ''), 'error');
-          }
-        })
-        .withFailureHandler(function(err) {
-          showToast('Erreur : ' + err.message, 'error');
-          setSync('error');
-        })
-        .generatePdf(id);
-    }
-
-    // ============== GÉNÉRER PDF DEPUIS LA LISTE ==============
-    function generatePdfFromList(id) {
-      setSync('loading', 'G\u00e9n\u00e9ration PDF\u2026');
-      google.script.run
-        .withSuccessHandler(function(result) {
-          setSync('ok');
-          if (result.success) {
-            showToast('PDF g\u00e9n\u00e9r\u00e9 sur Drive');
-            loadConventions();
-            // Proposer le téléchargement
-            if (result.pdfDirectUrl) {
-              window.open(result.pdfDirectUrl, '_blank');
-            }
-          } else {
-            showToast('Erreur : ' + (result.error || ''), 'error');
-          }
-        })
-        .withFailureHandler(function(err) {
-          showToast('Erreur : ' + err.message, 'error');
-          setSync('error');
-        })
-        .generatePdfFile(id);
-    }
-
-    // ============== OUVRIR HTML DANS LE NAVIGATEUR ==============
-    function openHtmlInBrowser(id) {
-      setSync('loading', 'Ouverture\u2026');
-      google.script.run
-        .withSuccessHandler(function(result) {
-          setSync('ok');
-          if (result.success && result.directUrl) {
-            window.open(result.directUrl, '_blank');
-          } else {
-            showToast('Erreur : ' + (result.error || 'URL non disponible'), 'error');
-          }
-        })
-        .withFailureHandler(function(err) {
-          showToast('Erreur : ' + err.message, 'error');
-          setSync('error');
-        })
-        .getHtmlDirectUrl(id);
-    }
-
-    // ============== SUPPRIMER ==============
-    function deleteConvention(id) {
-      if (!confirm('Supprimer cette convention ?')) return;
-      setSync('loading');
-      google.script.run
-        .withSuccessHandler(function(result) {
-          setSync('ok');
-          if (result.success) {
-            showToast('Convention supprimée');
-            loadConventions();
-          }
-        })
-        .withFailureHandler(function(err) {
-          showToast('Erreur : ' + err.message, 'error');
-          setSync('error');
-        })
-        .deleteConvention(id);
-    }
-
-    // ============== PRÉVISUALISATION ==============
-    function previewConvention() {
-      var data = collectData();
-      if (!data.artiste.nom) {
-        showToast('Remplis au moins le nom de l\'artiste', 'error');
-        return;
-      }
-      setSync('loading');
-      google.script.run
-        .withSuccessHandler(function(html) {
-          setSync('ok');
-          var frame = document.getElementById('previewFrame');
-          frame.srcdoc = html;
-          document.getElementById('previewModal').classList.add('active');
-        })
-        .withFailureHandler(function(err) {
-          showToast('Erreur : ' + err.message, 'error');
-          setSync('error');
-        })
-        .previewConvention(data);
-    }
-
-    function previewFromList(id) {
-      var c = conventions.find(function(x) { return x.id === id; });
-      if (!c) return;
-      // Adapter le format pour previewConvention
-      var data = {
-        artiste: c.artiste,
-        expo: c.expo,
-        installation: c.installation,
-        vernissage: c.vernissage,
-        demontage: c.demontage,
-        droits: c.droits,
-        transport: { actif: c.transport.actif === 'Oui', details: c.transport.details },
-        hebergement: { actif: c.hebergement.actif === 'Oui', details: c.hebergement.details },
-        actionsCulturelles: { actif: c.actionsCulturelles.actif === 'Oui', details: c.actionsCulturelles.details },
-        dateSignature: c.dateSignature,
-        articlesPerso: c.articlesPerso
-      };
-      setSync('loading');
-      google.script.run
-        .withSuccessHandler(function(html) {
-          setSync('ok');
-          var frame = document.getElementById('previewFrame');
-          frame.srcdoc = html;
-          document.getElementById('previewModal').classList.add('active');
-        })
-        .withFailureHandler(function(err) {
-          showToast('Erreur : ' + err.message, 'error');
-          setSync('error');
-        })
-        .previewConvention(data);
-    }
-
-    function closePreview() {
-      document.getElementById('previewModal').classList.remove('active');
-      document.getElementById('previewFrame').srcdoc = '';
-    }
-
-    // Fermer modal avec Escape
     document.addEventListener('keydown', function(e) {
       if (e.key === 'Escape') closePreview();
     });
+  });
 
-    // ============== UTILITAIRES ==============
-    function escapeHtml(text) {
-      if (!text) return '';
-      var div = document.createElement('div');
-      div.textContent = text;
-      return div.innerHTML;
+  // ====== LOCALSTORAGE ======
+  function loadConventions() {
+    try {
+      var raw = localStorage.getItem('hermine_conventions');
+      conventions = raw ? JSON.parse(raw) : [];
+    } catch(e) { conventions = []; }
+    renderList();
+  }
+
+  function saveConventionsToStorage() {
+    try {
+      localStorage.setItem('hermine_conventions', JSON.stringify(conventions));
+    } catch(e) {
+      showToast('Erreur de stockage local', 'error');
+    }
+  }
+
+  // ====== GÉNÉRATION D'ID ======
+  function generateId() {
+    var now = new Date();
+    var d = now.getFullYear().toString() +
+      ('0' + (now.getMonth()+1)).slice(-2) +
+      ('0' + now.getDate()).slice(-2);
+    var r = Math.random().toString(36).substring(2,6).toUpperCase();
+    return 'CONV-' + d + '-' + r;
+  }
+
+  // ====== VUES ======
+  function showView(name) {
+    document.querySelectorAll('.view').forEach(function(v) { v.classList.remove('active'); });
+    document.getElementById('view' + name.charAt(0).toUpperCase() + name.slice(1)).classList.add('active');
+
+    var isForm = (name === 'form');
+    document.getElementById('headerFormActions').classList.toggle('hidden', !isForm);
+    document.getElementById('headerListActions').classList.toggle('hidden', isForm);
+
+    if (name === 'list') renderList();
+  }
+
+  // ====== LISTE ======
+  function renderList() {
+    var el = document.getElementById('listContent');
+    if (!conventions.length) {
+      el.innerHTML = '<div class="empty-state">' +
+        '<span class="material-symbols-outlined">folder_open</span>' +
+        '<p>Aucune convention enregistrée</p>' +
+        '<button class="btn btn-primary" onclick="newConvention()">' +
+        '<span class="material-symbols-outlined">add</span> Créer une convention</button></div>';
+      return;
     }
 
-    // ============== IMPORT DRIVE ==============
-    function importFromDrive() {
-      setSync('loading', 'Scan Drive\u2026');
-      google.script.run
-        .withSuccessHandler(function(result) {
-          if (result && result.success) {
-            showToast(result.message || 'Import terminé');
-            if (result.imported > 0) {
-              loadConventions();
-            } else {
-              setSync('ok');
+    // Trier par date de création décroissante
+    var sorted = conventions.slice().reverse();
+
+    var rows = sorted.map(function(c) {
+      var statut = c.statut || 'Brouillon';
+      var badgeCls = statut.toLowerCase().includes('généré') ? 'status-genere' : 'status-brouillon';
+      var nom = escapeHtml(c.artiste && c.artiste.nom ? c.artiste.nom : '—');
+      var debut = c.expo && c.expo.debut ? c.expo.debut : '—';
+      var fin   = c.expo && c.expo.fin   ? c.expo.fin   : '—';
+      return '<tr>' +
+        '<td style="font-weight:600">' + nom + '</td>' +
+        '<td>' + debut + '</td>' +
+        '<td>' + fin + '</td>' +
+        '<td><span class="status-badge ' + badgeCls + '">' + escapeHtml(statut) + '</span></td>' +
+        '<td><div class="row-actions">' +
+          '<button class="btn-icon" title="Modifier" onclick="editConvention(\'' + c.id + '\')">' +
+            '<span class="material-symbols-outlined">edit</span></button>' +
+          '<button class="btn-icon" title="Aperçu" onclick="previewFromList(\'' + c.id + '\')">' +
+            '<span class="material-symbols-outlined">visibility</span></button>' +
+          '<button class="btn-icon" title="Exporter JSON" onclick="exportConventionJson(\'' + c.id + '\')">' +
+            '<span class="material-symbols-outlined">download</span></button>' +
+          '<button class="btn-icon" title="Exporter HTML" onclick="exportHtmlFromList(\'' + c.id + '\')">' +
+            '<span class="material-symbols-outlined">code</span></button>' +
+          '<button class="btn-icon danger" title="Supprimer" onclick="deleteConvention(\'' + c.id + '\')">' +
+            '<span class="material-symbols-outlined">delete</span></button>' +
+        '</div></td>' +
+      '</tr>';
+    }).join('');
+
+    el.innerHTML = '<div class="table-wrapper"><table>' +
+      '<thead><tr>' +
+      '<th>Artiste / Exposant</th>' +
+      '<th>Début expo</th>' +
+      '<th>Fin expo</th>' +
+      '<th>Statut</th>' +
+      '<th>Actions</th>' +
+      '</tr></thead>' +
+      '<tbody>' + rows + '</tbody>' +
+      '</table></div>';
+  }
+
+  // ====== NOUVELLE CONVENTION ======
+  function newConvention() {
+    currentId = null;
+    resetForm();
+    showView('form');
+  }
+
+  // ====== ÉDITER ======
+  function editConvention(id) {
+    var c = conventions.find(function(x) { return x.id === id; });
+    if (!c) return;
+    currentId = id;
+    fillForm(c);
+    showView('form');
+  }
+
+  // ====== SUPPRIMER ======
+  function deleteConvention(id) {
+    if (!confirm('Supprimer cette convention ? Cette action est irréversible.')) return;
+    conventions = conventions.filter(function(c) { return c.id !== id; });
+    saveConventionsToStorage();
+    renderList();
+    showToast('Convention supprimée');
+  }
+
+  // ====== RESET FORMULAIRE ======
+  function resetForm() {
+    var fields = ['fArtisteNom','fArtisteAdresse','fArtisteSiret',
+      'fArtiste2Nom','fArtiste2Adresse','fArtiste2Siret',
+      'fExpoDebut','fExpoFin','fInstallDate','fInstallHeure',
+      'fVernissageDate','fVernissageHeure','fDemontageDate','fDemontageHeure',
+      'fDroitsMontant','fDateSignature',
+      'fTransportDetails','fHebergementDetails','fActionsCulturellesDetails'];
+    fields.forEach(function(id) {
+      var el = document.getElementById(id);
+      if (el) el.value = '';
+    });
+
+    // Valeurs par défaut
+    var instH = document.getElementById('fInstallHeure');
+    if (instH) instH.value = '09:00';
+    var vernH = document.getElementById('fVernissageHeure');
+    if (vernH) vernH.value = '18:00';
+    var demH = document.getElementById('fDemontageHeure');
+    if (demH) demH.value = '09:00';
+    var lieu = document.getElementById('fExpoLieu');
+    if (lieu) lieu.value = "Espace Culturel L'Hermine";
+    var tva = document.getElementById('fDroitsTva');
+    if (tva) tva.value = 'Non assujetti';
+
+    // Checkboxes
+    ['fSecondExposantActif','fConditionsFinancieresActif',
+     'fTransportActif','fHebergementActif','fActionsCulturellesActif'].forEach(function(id) {
+      var el = document.getElementById(id);
+      if (el) el.checked = false;
+    });
+
+    // Sections conditionnelles
+    ['sectionSecondExposant','sectionConditionsFinancieres'].forEach(function(id) {
+      var el = document.getElementById(id);
+      if (el) el.classList.remove('active');
+    });
+    ['sectionTransport','sectionHebergement','sectionActionsCulturelles'].forEach(function(id) {
+      var el = document.getElementById(id);
+      if (el) el.classList.remove('active');
+    });
+
+    // Articles standards
+    STD_ARTICLE_KEYS.forEach(function(key) {
+      var cb = document.getElementById('fStd_' + key + 'Actif');
+      var ta = document.getElementById('fStd_' + key + 'Texte');
+      var sec = document.getElementById('sectionStd_' + key);
+      if (cb) cb.checked = false;
+      if (ta) ta.value = '';
+      if (sec) sec.classList.remove('active');
+    });
+
+    // Articles perso
+    document.getElementById('customArticlesContainer').innerHTML =
+      '<div class="empty-state" style="padding:20px 0;">' +
+      '<span class="material-symbols-outlined" style="font-size:32px;">article</span>' +
+      '<p style="font-size:13px;">Aucun article personnalisé</p></div>';
+  }
+
+  // ====== REMPLIR FORMULAIRE ======
+  function fillForm(data) {
+    resetForm();
+
+    function setVal(id, val) {
+      var el = document.getElementById(id);
+      if (el && val !== undefined && val !== null) el.value = val;
+    }
+    function setChk(id, val) {
+      var el = document.getElementById(id);
+      if (el) el.checked = !!val;
+    }
+    function toggleSection(sectionId, active) {
+      var el = document.getElementById(sectionId);
+      if (el) el.classList.toggle('active', !!active);
+    }
+
+    // Artiste
+    if (data.artiste) {
+      setVal('fArtisteNom', data.artiste.nom);
+      setVal('fArtisteAdresse', data.artiste.adresse);
+      setVal('fArtisteSiret', data.artiste.siret);
+    }
+
+    // Artiste 2
+    if (data.artiste2 && data.artiste2.actif) {
+      setChk('fSecondExposantActif', true);
+      toggleSection('sectionSecondExposant', true);
+      setVal('fArtiste2Nom', data.artiste2.nom);
+      setVal('fArtiste2Adresse', data.artiste2.adresse);
+      setVal('fArtiste2Siret', data.artiste2.siret);
+    }
+
+    // Expo
+    if (data.expo) {
+      setVal('fExpoDebut', frDateToInput(data.expo.debut));
+      setVal('fExpoFin', frDateToInput(data.expo.fin));
+      setVal('fExpoLieu', data.expo.lieu || "Espace Culturel L'Hermine");
+    }
+
+    // Calendrier
+    if (data.installation) {
+      setVal('fInstallDate', frDateToInput(data.installation.date));
+      setVal('fInstallHeure', data.installation.heure || '09:00');
+    }
+    if (data.vernissage) {
+      setVal('fVernissageDate', frDateToInput(data.vernissage.date));
+      setVal('fVernissageHeure', data.vernissage.heure || '18:00');
+    }
+    if (data.demontage) {
+      setVal('fDemontageDate', frDateToInput(data.demontage.date));
+      setVal('fDemontageHeure', data.demontage.heure || '09:00');
+    }
+
+    // Droits
+    if (data.droits && data.droits.actif) {
+      setChk('fConditionsFinancieresActif', true);
+      toggleSection('sectionConditionsFinancieres', true);
+      setVal('fDroitsMontant', data.droits.montant);
+      setVal('fDroitsTva', data.droits.tva || 'Non assujetti');
+    }
+
+    // Optionnels
+    if (data.transport && data.transport.actif) {
+      setChk('fTransportActif', true);
+      toggleSection('sectionTransport', true);
+      setVal('fTransportDetails', data.transport.details);
+    }
+    if (data.hebergement && data.hebergement.actif) {
+      setChk('fHebergementActif', true);
+      toggleSection('sectionHebergement', true);
+      setVal('fHebergementDetails', data.hebergement.details);
+    }
+    if (data.actionsCulturelles && data.actionsCulturelles.actif) {
+      setChk('fActionsCulturellesActif', true);
+      toggleSection('sectionActionsCulturelles', true);
+      setVal('fActionsCulturellesDetails', data.actionsCulturelles.details);
+    }
+
+    // Date signature
+    setVal('fDateSignature', frDateToInput(data.dateSignature));
+
+    // Articles standards
+    if (data.articlesStd && typeof data.articlesStd === 'object') {
+      STD_ARTICLE_KEYS.forEach(function(key) {
+        var item = data.articlesStd[key];
+        if (item && item.actif && item.texte) {
+          var cb  = document.getElementById('fStd_' + key + 'Actif');
+          var ta  = document.getElementById('fStd_' + key + 'Texte');
+          var sec = document.getElementById('sectionStd_' + key);
+          if (cb) cb.checked = true;
+          if (ta) ta.value = item.texte;
+          if (sec) sec.classList.add('active');
+        }
+      });
+    }
+
+    // Articles perso
+    if (data.articlesPerso && Array.isArray(data.articlesPerso) && data.articlesPerso.length) {
+      document.getElementById('customArticlesContainer').innerHTML = '';
+      data.articlesPerso.forEach(function(art) {
+        addCustomArticle(art.titre, art.contenu);
+      });
+    }
+  }
+
+  // ====== COLLECTE DES DONNÉES ======
+  function collectData() {
+    function getVal(id) {
+      var el = document.getElementById(id);
+      return el ? el.value.trim() : '';
+    }
+    function getChk(id) {
+      var el = document.getElementById(id);
+      return el ? el.checked : false;
+    }
+    function fmtDate(isoStr) {
+      if (!isoStr) return '';
+      var parts = isoStr.split('-');
+      if (parts.length !== 3) return isoStr;
+      return parts[2] + '/' + parts[1] + '/' + parts[0];
+    }
+
+    var condFin = getChk('fConditionsFinancieresActif');
+    var artiste2Actif = getChk('fSecondExposantActif');
+
+    return {
+      id: currentId,
+      artiste: {
+        nom:     getVal('fArtisteNom'),
+        adresse: getVal('fArtisteAdresse'),
+        siret:   getVal('fArtisteSiret')
+      },
+      artiste2: artiste2Actif ? {
+        actif:   true,
+        nom:     getVal('fArtiste2Nom'),
+        adresse: getVal('fArtiste2Adresse'),
+        siret:   getVal('fArtiste2Siret')
+      } : { actif: false, nom: '', adresse: '', siret: '' },
+      expo: {
+        debut: fmtDate(getVal('fExpoDebut')),
+        fin:   fmtDate(getVal('fExpoFin')),
+        lieu:  getVal('fExpoLieu') || "Espace Culturel L'Hermine"
+      },
+      installation: {
+        date:  fmtDate(getVal('fInstallDate')),
+        heure: getVal('fInstallHeure')
+      },
+      vernissage: {
+        date:  fmtDate(getVal('fVernissageDate')),
+        heure: getVal('fVernissageHeure')
+      },
+      demontage: {
+        date:  fmtDate(getVal('fDemontageDate')),
+        heure: getVal('fDemontageHeure')
+      },
+      droits: condFin ? {
+        actif:   true,
+        montant: getVal('fDroitsMontant'),
+        tva:     getVal('fDroitsTva')
+      } : { actif: false, montant: '', tva: '' },
+      transport: {
+        actif:   getChk('fTransportActif'),
+        details: getVal('fTransportDetails')
+      },
+      hebergement: {
+        actif:   getChk('fHebergementActif'),
+        details: getVal('fHebergementDetails')
+      },
+      actionsCulturelles: {
+        actif:   getChk('fActionsCulturellesActif'),
+        details: getVal('fActionsCulturellesDetails')
+      },
+      dateSignature:  fmtDate(getVal('fDateSignature')),
+      articlesStd:    getStdArticlesData(),
+      articlesPerso:  getCustomArticlesData(),
+      statut:         currentId ? null : 'Brouillon'
+    };
+  }
+
+  // ====== VALIDATION ======
+  function validateForm() {
+    var data = collectData();
+    if (!data.artiste.nom)            { showToast('Le nom de l\'artiste est requis', 'error'); return null; }
+    if (!data.expo.debut || !data.expo.fin) { showToast('Les dates d\'exposition sont requises', 'error'); return null; }
+    return data;
+  }
+
+  // ====== ENREGISTRER ======
+  function saveConvention() {
+    var data = validateForm();
+    if (!data) return;
+
+    var now = new Date();
+    var isNew = !data.id;
+
+    if (isNew) {
+      data.id = generateId();
+      data.dateCreation = now.toISOString();
+      data.statut = 'Brouillon';
+      conventions.push(data);
+    } else {
+      var idx = conventions.findIndex(function(c) { return c.id === data.id; });
+      if (idx >= 0) {
+        data.dateCreation = conventions[idx].dateCreation;
+        data.statut = conventions[idx].statut || 'Brouillon';
+        conventions[idx] = data;
+      } else {
+        data.id = generateId();
+        data.dateCreation = now.toISOString();
+        data.statut = 'Brouillon';
+        conventions.push(data);
+      }
+    }
+
+    data.derniereModif = now.toISOString();
+    currentId = data.id;
+    saveConventionsToStorage();
+    showToast('Convention enregistrée ✓');
+    return data;
+  }
+
+  // ====== ENREGISTRER & GÉNÉRER ======
+  function saveAndGenerate() {
+    var data = validateForm();
+    if (!data) return;
+
+    // Sauvegarder
+    var now = new Date();
+    var isNew = !data.id;
+    if (isNew) {
+      data.id = generateId();
+      data.dateCreation = now.toISOString();
+    } else {
+      var idx = conventions.findIndex(function(c) { return c.id === data.id; });
+      if (idx >= 0) data.dateCreation = conventions[idx].dateCreation;
+      else data.dateCreation = now.toISOString();
+    }
+    data.derniereModif = now.toISOString();
+    data.statut = 'Généré';
+    currentId = data.id;
+
+    // Mettre à jour ou insérer
+    var existIdx = conventions.findIndex(function(c) { return c.id === data.id; });
+    if (existIdx >= 0) conventions[existIdx] = data;
+    else conventions.push(data);
+    saveConventionsToStorage();
+
+    // Ouvrir la modal de prévisualisation / impression
+    var html = generateConventionHtml(data);
+    _lastPreviewHtml = html;
+    var frame = document.getElementById('previewFrame');
+    frame.srcdoc = html;
+    document.getElementById('previewModal').classList.add('active');
+
+    showToast('Convention générée — imprimez en PDF depuis l\'aperçu');
+  }
+
+  // ====== TOGGLE SECTIONS FORMULAIRE ======
+  function toggleCardSection(key) {
+    var chk = document.getElementById('f' + key + 'Actif');
+    if (chk) { chk.checked = !chk.checked; chk.dispatchEvent(new Event('change')); }
+  }
+  function toggleOptSection(key) {
+    var chk = document.getElementById('f' + key + 'Actif');
+    var sec = document.getElementById('section' + key);
+    if (!chk || !sec) return;
+    chk.checked = !chk.checked;
+    sec.classList.toggle('active', chk.checked);
+  }
+
+  // ====== ARTICLES STANDARDS UI ======
+  function buildStdArticlesUI() {
+    var container = document.getElementById('stdArticlesContainer');
+    if (!container) return;
+    container.innerHTML = STD_ARTICLE_KEYS.map(function(key) {
+      return '<div class="optional-section" id="sectionStd_' + key + '">' +
+        '<div class="optional-header" onclick="toggleStdArticle(\'' + key + '\')">' +
+          '<label class="toggle-switch">' +
+            '<input type="checkbox" id="fStd_' + key + 'Actif">' +
+            '<span class="toggle-slider"></span>' +
+          '</label>' +
+          '<span class="optional-label">' +
+            '<span class="material-symbols-outlined">article</span>' +
+            STD_ARTICLE_LABELS[key] +
+          '</span>' +
+        '</div>' +
+        '<div class="optional-body">' +
+          '<div class="form-group">' +
+            '<label>Texte personnalisé (laisser vide = texte standard)</label>' +
+            '<textarea id="fStd_' + key + 'Texte" rows="5" placeholder="Saisir le texte complet de l\'article…"></textarea>' +
+          '</div>' +
+        '</div>' +
+      '</div>';
+    }).join('');
+  }
+
+  function toggleStdArticle(key) {
+    var cb  = document.getElementById('fStd_' + key + 'Actif');
+    var sec = document.getElementById('sectionStd_' + key);
+    if (!cb || !sec) return;
+    cb.checked = !cb.checked;
+    sec.classList.toggle('active', cb.checked);
+  }
+
+  function getStdArticlesData() {
+    var out = {};
+    STD_ARTICLE_KEYS.forEach(function(key) {
+      var cb = document.getElementById('fStd_' + key + 'Actif');
+      var ta = document.getElementById('fStd_' + key + 'Texte');
+      var active = cb ? cb.checked : false;
+      var texte  = ta ? ta.value.trim() : '';
+      out[key] = active && texte ? { actif: true, texte: texte } : { actif: false, texte: '' };
+    });
+    return out;
+  }
+
+  // ====== ARTICLES PERSONNALISÉS ======
+  var _customArticleCount = 0;
+
+  function addCustomArticle(titre, contenu) {
+    _customArticleCount++;
+    var n = _customArticleCount;
+    var id = 'customArt_' + n;
+    var container = document.getElementById('customArticlesContainer');
+    // Retirer empty state si présent
+    var empty = container.querySelector('.empty-state');
+    if (empty) empty.remove();
+
+    var div = document.createElement('div');
+    div.className = 'custom-article';
+    div.id = id;
+    div.innerHTML =
+      '<div class="custom-article-header">' +
+        '<span class="article-number"><span class="material-symbols-outlined">article</span> Article personnalisé ' + n + '</span>' +
+        '<button class="btn-icon danger" onclick="removeCustomArticle(\'' + id + '\')" title="Supprimer">' +
+          '<span class="material-symbols-outlined">delete</span>' +
+        '</button>' +
+      '</div>' +
+      '<div class="custom-article-body">' +
+        '<div class="form-group">' +
+          '<label>Titre</label>' +
+          '<input type="text" id="' + id + '_titre" value="' + escapeHtml(titre || '') + '" placeholder="Titre de l\'article">' +
+        '</div>' +
+        '<div class="form-group">' +
+          '<label>Contenu</label>' +
+          '<textarea id="' + id + '_contenu" rows="4" placeholder="Texte de l\'article…">' + escapeHtml(contenu || '') + '</textarea>' +
+        '</div>' +
+      '</div>';
+    container.appendChild(div);
+  }
+
+  function removeCustomArticle(id) {
+    var el = document.getElementById(id);
+    if (el) el.remove();
+    if (!document.getElementById('customArticlesContainer').querySelector('.custom-article')) {
+      document.getElementById('customArticlesContainer').innerHTML =
+        '<div class="empty-state" style="padding:20px 0;">' +
+        '<span class="material-symbols-outlined" style="font-size:32px;">article</span>' +
+        '<p style="font-size:13px;">Aucun article personnalisé</p></div>';
+    }
+  }
+
+  function getCustomArticlesData() {
+    var arts = [];
+    document.querySelectorAll('.custom-article').forEach(function(div) {
+      var id = div.id;
+      var titre   = (document.getElementById(id + '_titre')   || {}).value || '';
+      var contenu = (document.getElementById(id + '_contenu') || {}).value || '';
+      if (titre || contenu) arts.push({ titre: titre.trim(), contenu: contenu.trim() });
+    });
+    return arts;
+  }
+
+  // ====== EXPORT / IMPORT JSON ======
+  function exportJson() {
+    var data = collectData();
+    var nom = (data.artiste && data.artiste.nom)
+      ? data.artiste.nom.replace(/[^a-zA-Z0-9À-ɏ _-]/g, '_')
+      : 'convention';
+    var now = new Date();
+    var dateStr = now.getFullYear() + '-' +
+      ('0'+(now.getMonth()+1)).slice(-2) + '-' +
+      ('0'+now.getDate()).slice(-2);
+    downloadFile('convention_' + nom + '_' + dateStr + '.json',
+      JSON.stringify(data, null, 2), 'application/json;charset=utf-8');
+    showToast('Fichier JSON exporté');
+  }
+
+  function exportConventionJson(id) {
+    var c = conventions.find(function(x) { return x.id === id; });
+    if (!c) return;
+    var nom = (c.artiste && c.artiste.nom)
+      ? c.artiste.nom.replace(/[^a-zA-Z0-9À-ɏ _-]/g, '_')
+      : 'convention';
+    downloadFile('convention_' + nom + '.json', JSON.stringify(c, null, 2), 'application/json;charset=utf-8');
+    showToast('JSON exporté');
+  }
+
+  function handleJsonImport(input) {
+    var file = input.files && input.files[0];
+    if (!file) return;
+    var reader = new FileReader();
+    reader.onload = function(e) {
+      try {
+        var data = JSON.parse(e.target.result);
+        if (!data || typeof data !== 'object') throw new Error('Format invalide');
+        currentId = data.id || null;
+        fillForm(data);
+        showView('form');
+        showToast('Convention importée depuis ' + file.name);
+      } catch(err) {
+        showToast('Erreur JSON : ' + err.message, 'error');
+      }
+      input.value = '';
+    };
+    reader.readAsText(file, 'utf-8');
+  }
+
+  // Exporter toutes les conventions (sauvegarde)
+  function exportAllJson() {
+    var now = new Date();
+    var dateStr = now.getFullYear() + '-' + ('0'+(now.getMonth()+1)).slice(-2) + '-' + ('0'+now.getDate()).slice(-2);
+    downloadFile('hermine_conventions_' + dateStr + '.json',
+      JSON.stringify(conventions, null, 2), 'application/json;charset=utf-8');
+    showToast('Sauvegarde complète exportée (' + conventions.length + ' convention(s))');
+  }
+
+  function handleBackupImport(input) {
+    var file = input.files && input.files[0];
+    if (!file) return;
+    var reader = new FileReader();
+    reader.onload = function(e) {
+      try {
+        var data = JSON.parse(e.target.result);
+        // Peut être un tableau (backup) ou un objet (convention unique)
+        if (Array.isArray(data)) {
+          if (!confirm('Ceci va remplacer toutes les conventions existantes (' + conventions.length + ') par ' + data.length + ' convention(s). Continuer ?')) return;
+          conventions = data;
+          saveConventionsToStorage();
+          renderList();
+          showToast(data.length + ' convention(s) restaurée(s)');
+        } else {
+          // Convention unique → l'ajouter
+          if (!data.id) data.id = generateId();
+          var existing = conventions.findIndex(function(c) { return c.id === data.id; });
+          if (existing >= 0) {
+            if (confirm('Une convention avec cet ID existe déjà. Remplacer ?')) {
+              conventions[existing] = data;
             }
           } else {
-            showToast('Erreur import : ' + (result.error || ''), 'error');
-            setSync('error', 'Erreur import');
+            conventions.push(data);
           }
-        })
-        .withFailureHandler(function(err) {
-          showToast('Erreur : ' + err.message, 'error');
-          setSync('error');
-        })
-        .scanDriveFolder();
-    }
-
-    // ============== EXPORT JSON ==============
-    function exportJson() {
-      var data = collectData();
-      // On retire l'id pour que le JSON représente la "fiche" sans identifiant interne
-      // (l'utilisateur peut le conserver s'il veut, on le garde dans le JSON)
-      var nom = (data.artiste && data.artiste.nom) ? data.artiste.nom.replace(/[^a-zA-Z0-9À-ɏ _-]/g, '_') : 'convention';
-      var now = new Date();
-      var dateStr = now.getFullYear() + '-' +
-        ('0' + (now.getMonth() + 1)).slice(-2) + '-' +
-        ('0' + now.getDate()).slice(-2);
-      var filename = 'convention_' + nom + '_' + dateStr + '.json';
-      var json = JSON.stringify(data, null, 2);
-      var blob = new Blob([json], { type: 'application/json;charset=utf-8' });
-      var url = URL.createObjectURL(blob);
-      var a = document.createElement('a');
-      a.href = url;
-      a.download = filename;
-      document.body.appendChild(a);
-      a.click();
-      setTimeout(function() {
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
-      }, 100);
-      showToast('Fichier JSON téléchargé : ' + filename);
-    }
-
-    // ============== IMPORT JSON ==============
-    function handleJsonImport(input) {
-      var file = input.files && input.files[0];
-      if (!file) return;
-      var reader = new FileReader();
-      reader.onload = function(e) {
-        try {
-          var data = JSON.parse(e.target.result);
-          if (!data || typeof data !== 'object') throw new Error('Format invalide');
-          // Réinitialiser currentId : on importe comme un nouveau brouillon
-          // (sauf si l'utilisateur veut écraser la convention existante)
-          // On conserve l'id du JSON pour permettre la mise à jour
-          currentId = data.id || null;
-          fillForm(data);
-          showToast('Convention importée depuis ' + file.name);
-        } catch(err) {
-          showToast('Erreur lecture JSON : ' + err.message, 'error');
+          saveConventionsToStorage();
+          renderList();
+          showToast('Convention importée');
         }
-        // Réinitialiser l'input pour permettre de réimporter le même fichier
-        input.value = '';
-      };
-      reader.readAsText(file, 'utf-8');
+      } catch(err) {
+        showToast('Erreur : ' + err.message, 'error');
+      }
+      input.value = '';
+    };
+    reader.readAsText(file, 'utf-8');
+  }
+
+  // ====== PRÉVISUALISATION ======
+  function previewConvention() {
+    var data = collectData();
+    if (!data.artiste.nom) { showToast('Remplis au moins le nom de l\'artiste', 'error'); return; }
+    var html = generateConventionHtml(data);
+    _lastPreviewHtml = html;
+    document.getElementById('previewFrame').srcdoc = html;
+    document.getElementById('previewModal').classList.add('active');
+  }
+
+  function previewFromList(id) {
+    var c = conventions.find(function(x) { return x.id === id; });
+    if (!c) return;
+    var html = generateConventionHtml(c);
+    _lastPreviewHtml = html;
+    document.getElementById('previewFrame').srcdoc = html;
+    document.getElementById('previewModal').classList.add('active');
+  }
+
+  function closePreview() {
+    document.getElementById('previewModal').classList.remove('active');
+  }
+
+  // ====== EXPORT HTML ======
+  function exportHtmlFromPreview() {
+    if (!_lastPreviewHtml) return;
+    downloadFile('convention.html', _lastPreviewHtml, 'text/html;charset=utf-8');
+    showToast('HTML exporté');
+  }
+
+  function exportHtmlFromList(id) {
+    var c = conventions.find(function(x) { return x.id === id; });
+    if (!c) return;
+    var html = generateConventionHtml(c);
+    var nom = (c.artiste && c.artiste.nom)
+      ? c.artiste.nom.replace(/[^a-zA-Z0-9À-ɏ _-]/g, '_')
+      : 'convention';
+    downloadFile('Convention_' + nom + '.html', html, 'text/html;charset=utf-8');
+    showToast('HTML exporté');
+  }
+
+  // ====== EXPORT PDF (via impression navigateur) ======
+  function printFromPreview() {
+    var frame = document.getElementById('previewFrame');
+    if (!frame || !frame.contentWindow) return;
+    frame.contentWindow.focus();
+    frame.contentWindow.print();
+  }
+
+  // ====== UTILITAIRE DOWNLOAD ======
+  function downloadFile(name, content, type) {
+    var blob = new Blob([content], { type: type });
+    var url  = URL.createObjectURL(blob);
+    var a    = document.createElement('a');
+    a.href = url;
+    a.download = name;
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(function() { document.body.removeChild(a); URL.revokeObjectURL(url); }, 100);
+  }
+
+  // ====== UTILITAIRES DATE ======
+  function frDateToInput(frDate) {
+    if (!frDate) return '';
+    // dd/MM/yyyy → yyyy-MM-dd
+    var parts = frDate.match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
+    if (parts) return parts[3] + '-' + parts[2] + '-' + parts[1];
+    // Long français "lundi 9 février 2026" → ignoré (non inversible simplement)
+    return '';
+  }
+
+  function formatDateLong(frDate) {
+    if (!frDate) return '';
+    var parts = frDate.match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
+    if (!parts) return frDate;
+    var d = new Date(parseInt(parts[3]), parseInt(parts[2])-1, parseInt(parts[1]));
+    if (isNaN(d.getTime())) return frDate;
+    var jours  = ['dimanche','lundi','mardi','mercredi','jeudi','vendredi','samedi'];
+    var moisNm = ['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];
+    return jours[d.getDay()] + ' ' + d.getDate() + ' ' + moisNm[d.getMonth()] + ' ' + d.getFullYear();
+  }
+
+  // ====== TOAST ======
+  var _toastTimer = null;
+  function showToast(msg, type) {
+    var el = document.getElementById('toast');
+    el.textContent = msg;
+    el.className = 'toast ' + (type || 'success') + ' show';
+    if (_toastTimer) clearTimeout(_toastTimer);
+    _toastTimer = setTimeout(function() { el.classList.remove('show'); }, 3200);
+  }
+
+  // ====== ESCAPE HTML ======
+  function escapeHtml(text) {
+    if (!text) return '';
+    var d = document.createElement('div');
+    d.textContent = text;
+    return d.innerHTML;
+  }
+
+  /* ============================================================
+     GÉNÉRATION HTML DE LA CONVENTION
+     ============================================================ */
+  function getConventionCSS() {
+    return '<style>' +
+    ':root{--bleu-marine:#1e3a5f;--bleu-clair:#2c5282;--gris-texte:#2d3748;--gris-clair:#e2e8f0;--gris-moyen:#718096;--fond-subtil:#f8fafc}' +
+    '*{margin:0;padding:0;box-sizing:border-box}' +
+    'body{font-family:"Segoe UI","Helvetica Neue",Arial,sans-serif;line-height:1.6;color:var(--gris-texte);max-width:21cm;margin:0 auto;padding:1.5cm 2cm;background:#fff;font-size:11pt}' +
+    '@media print{body{width:21cm;padding:0}@page{size:A4;margin:1.5cm 2cm 2cm 2cm}.page-break{page-break-after:always;height:0;margin:0}.no-break{page-break-inside:avoid}}' +
+    '.header-page1{margin-bottom:30px}' +
+    '.logo-container{margin-bottom:15px}' +
+    '.logo-page-1{width:66%;max-width:none;height:auto;display:block}' +
+    '.logo-placeholder{display:inline-block;padding:8px 16px;background:#1e3a5f;color:#fff;font-size:14pt;font-weight:600;font-family:Georgia,serif;border-radius:4px;letter-spacing:1px}' +
+    '.header-info{font-size:9.5pt;color:#666;line-height:1.4}' +
+    '.mairie-title{font-family:Georgia,"Times New Roman",serif;font-style:italic;font-size:13pt;color:var(--bleu-marine);margin-bottom:6px}' +
+    '.mairie-details{font-size:9pt;color:#666;margin-bottom:2px}' +
+    '.mairie-web{font-size:9pt;color:var(--bleu-marine);font-style:italic}' +
+    '.header-continuation{display:flex;justify-content:space-between;align-items:center;padding-bottom:15px;margin-bottom:25px;border-bottom:2px solid var(--gris-clair)}' +
+    '.articles-table{width:100%;border-collapse:collapse;border:none}' +
+    '.articles-table td{padding:0;border:none;vertical-align:top}' +
+    '.articles-table thead{display:table-header-group}' +
+    '.articles-table thead td{padding-bottom:0}' +
+    '.logo-small{max-width:120px;height:auto}' +
+    '.logo-small-placeholder{display:inline-block;padding:4px 10px;background:#1e3a5f;color:#fff;font-size:9pt;font-weight:600;font-family:Georgia,serif;border-radius:3px}' +
+    '.header-continuation .page-title{font-size:10pt;color:var(--gris-moyen);font-style:italic}' +
+    '.content-wrapper{padding:0 10px}' +
+    '.main-title{text-align:center;margin:30px 0 50px 0}' +
+    '.main-title h1{font-size:22pt;font-weight:300;color:var(--bleu-marine);text-transform:uppercase;letter-spacing:4px;margin-bottom:10px}' +
+    '.main-title .underline{width:80px;height:3px;background:var(--bleu-clair);margin:0 auto}' +
+    '.parties-section{margin-bottom:40px}' +
+    '.parties-intro{font-weight:600;color:var(--bleu-marine);margin-bottom:20px;font-size:11pt}' +
+    '.party-block{background:var(--fond-subtil);padding:20px 25px;margin-bottom:20px;border-left:4px solid var(--bleu-clair)}' +
+    '.party-block .party-name{font-weight:600;font-size:12pt;color:var(--bleu-marine);margin-bottom:8px}' +
+    '.party-block p{margin:4px 0;font-size:10.5pt}' +
+    '.party-block .designation{margin-top:12px;font-style:italic;color:var(--gris-moyen)}' +
+    '.separator-et{text-align:center;font-style:italic;color:var(--gris-moyen);margin:25px 0;font-size:12pt}' +
+    '.agreement-clause{text-align:center;font-weight:600;font-size:12pt;color:var(--bleu-marine);margin:40px 0;padding:15px;border-top:1px solid var(--gris-clair);border-bottom:1px solid var(--gris-clair)}' +
+    '.article{margin-bottom:25px}' +
+    '.article h3{font-size:11pt;font-weight:600;color:var(--bleu-marine);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;padding-bottom:5px;border-bottom:1px solid var(--gris-clair)}' +
+    '.article p{margin-bottom:10px;text-align:justify}' +
+    '.article ul{margin:10px 0 15px 25px;list-style-type:none}' +
+    '.article ul li{position:relative;padding-left:20px;margin-bottom:8px}' +
+    '.article ul li::before{content:"\\2014";position:absolute;left:0;color:var(--bleu-clair);font-weight:bold}' +
+    '.article .highlight{font-weight:600;color:var(--bleu-marine)}' +
+    '.signatures-section{margin-top:50px}' +
+    '.date-line{text-align:right;font-style:italic;margin-bottom:40px;color:var(--gris-moyen)}' +
+    '.signatures{display:flex;justify-content:space-between;gap:20px}' +
+    '.signature-box{flex:1;min-width:0}' +
+    '.signature-box .title{font-size:9pt;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--bleu-marine);padding-bottom:8px;border-bottom:2px solid var(--bleu-clair);margin-bottom:15px}' +
+    '.signature-box .name{font-size:10.5pt;margin-bottom:80px}' +
+    '.spacer-small{height:20px}.spacer-medium{height:40px}' +
+    '</style>';
+  }
+
+  function esc(text) {
+    if (!text) return '';
+    return String(text)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+
+  function formatArticleTextToHtml(text) {
+    if (!text) return '';
+    var s = String(text).replace(/\r\n/g, '\n').replace(/\r/g, '\n').trim();
+    if (!s) return '';
+    var lines = s.split('\n');
+    var out = [], para = [], list = [];
+
+    function flushPara() {
+      if (!para.length) return;
+      out.push('<p>' + esc(para.join('\n')).replace(/\n/g, '<br>') + '</p>');
+      para = [];
     }
+    function flushList() {
+      if (!list.length) return;
+      out.push('<ul>' + list.map(function(it){ return '<li>' + esc(it) + '</li>'; }).join('') + '</ul>');
+      list = [];
+    }
+
+    for (var i = 0; i < lines.length; i++) {
+      var t = String(lines[i] || '');
+      var trimmed = t.trim();
+      if (!trimmed) { flushPara(); flushList(); continue; }
+      var isBullet = false, item = '';
+      if (trimmed.indexOf('- ') === 0) { isBullet = true; item = trimmed.substring(2).trim(); }
+      else if (trimmed.indexOf('\u2022 ') === 0) { isBullet = true; item = trimmed.substring(2).trim(); }
+      else if (trimmed.indexOf('* ') === 0) { isBullet = true; item = trimmed.substring(2).trim(); }
+      if (isBullet) { flushPara(); list.push(item); }
+      else { flushList(); para.push(t); }
+    }
+    flushPara(); flushList();
+    return out.join('');
+  }
+
+  function getStdOverride(articlesStd, key) {
+    if (!articlesStd || typeof articlesStd !== 'object') return '';
+    var item = articlesStd[key];
+    if (!item) return '';
+    if (typeof item === 'string') return item.trim();
+    if (typeof item === 'object') {
+      if (item.actif !== true) return '';
+      return String(item.texte || '').trim();
+    }
+    return '';
+  }
+
+  function generateConventionHtml(data) {
+    var articleNum = 0;
+    function nextN() { articleNum++; return articleNum; }
+
+    var articlesStd  = data.articlesStd  || {};
+    var articlesPerso = data.articlesPerso || [];
+    if (typeof articlesPerso === 'string') {
+      try { articlesPerso = JSON.parse(articlesPerso); } catch(e) { articlesPerso = []; }
+    }
+
+    var a2      = data.artiste2 || {};
+    var a2Actif = a2.actif === true && !!(a2.nom);
+
+    var html = '<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8">' +
+      '<title>Convention d\u2019exposition \u2014 ' + esc(data.artiste.nom) + '</title>' +
+      getConventionCSS() +
+      '</head><body>';
+
+    // === PAGE 1 ===
+    html += '<header class="header-page1">';
+    html += '<div class="logo-container">';
+    html += '<span class="logo-placeholder">Mairie de Sarzeau</span>';
+    html += '</div>';
+    html += '<div class="header-info">';
+    html += '<div class="mairie-title">Mairie de Sarzeau</div>';
+    html += '<div class="mairie-details">Place Richemont - BP 14<br>56370 Sarzeau<br>T\u00e9l. : 02 97 41 85 15</div>';
+    html += '<div class="mairie-web">www.sarzeau.fr</div>';
+    html += '</div></header>';
+
+    html += '<div class="content-wrapper">';
+    html += '<div class="main-title"><h1>Convention d\u2019exposition</h1><div class="underline"></div></div>';
+
+    // Parties
+    html += '<section class="parties-section">';
+    html += '<p class="parties-intro">ENTRE LES SOUSSIGN\u00c9S,</p>';
+
+    html += '<div class="party-block">';
+    html += '<p class="party-name">' + esc(data.artiste.nom) + '</p>';
+    if (data.artiste.adresse) html += '<p>' + esc(data.artiste.adresse) + '</p>';
+    if (data.artiste.siret)   html += '<p>Num\u00e9ro SIRET : ' + esc(data.artiste.siret) + '</p>';
+    if (a2Actif) {
+      html += '<p class="designation">Ci-apr\u00e8s d\u00e9sign\u00e9 \u00ab <strong>l\u2019Exposant 1</strong> \u00bb,</p>';
+    } else {
+      html += '<p class="designation">Ci-apr\u00e8s d\u00e9sign\u00e9 \u00ab <strong>l\u2019Exposant</strong> \u00bb, d\u2019une part</p>';
+    }
+    html += '</div>';
+
+    if (a2Actif) {
+      html += '<p class="separator-et">\u2014 ET \u2014</p>';
+      html += '<div class="party-block">';
+      html += '<p class="party-name">' + esc(a2.nom) + '</p>';
+      if (a2.adresse) html += '<p>' + esc(a2.adresse) + '</p>';
+      if (a2.siret)   html += '<p>Num\u00e9ro SIRET : ' + esc(a2.siret) + '</p>';
+      html += '<p class="designation">Ci-apr\u00e8s d\u00e9sign\u00e9 \u00ab <strong>l\u2019Exposant 2</strong> \u00bb, d\u2019une part</p>';
+      html += '</div>';
+    }
+
+    html += '<p class="separator-et">\u2014 ET \u2014</p>';
+
+    html += '<div class="party-block">';
+    html += '<p class="party-name">Commune de Sarzeau \u2014 Espace Culturel l\u2019Hermine</p>';
+    html += '<p>Place Richemont - BP 14 - 56370 SARZEAU</p>';
+    html += '<p>T\u00e9l. : 02 97 48 29 40 \u2014 E.mail : lhermine@sarzeau.fr</p>';
+    html += '<p>Num\u00e9ro SIRET : 215 602 400 00016 \u2014 Code NAF/APE : 8411Z</p>';
+    html += '<p>Licence d\u2019entrepreneur de spectacles n\u00b0 : PLATESV-D-2022-008045</p>';
+    html += '<p>Repr\u00e9sent\u00e9e par : Monsieur Jean-Marc Dupeyrat en sa qualit\u00e9 de Maire</p>';
+    html += '<p class="designation">Ci-apr\u00e8s d\u00e9sign\u00e9e \u00ab <strong>l\u2019Organisateur</strong> \u00bb, d\u2019autre part.</p>';
+    html += '</div></section></div>';
+
+    html += '<div class="page-break"></div>';
+
+    // === PAGES SUIVANTES : ARTICLES ===
+    html += '<table class="articles-table"><thead><tr><td>';
+    html += '<div class="header-continuation">';
+    html += '<span class="logo-small-placeholder">L\u2019Hermine</span>';
+    html += '<span class="page-title">Convention d\u2019exposition \u2014 ' + esc(data.artiste.nom) + '</span>';
+    html += '</div>';
+    html += '</td></tr></thead><tbody><tr><td>';
+    html += '<div class="content-wrapper">';
+
+    // Article 1 — Objet
+    var n = nextN();
+    html += '<article class="article no-break">';
+    html += '<h3>Article ' + n + ' \u2014 Objet</h3>';
+    var custom = getStdOverride(articlesStd, 'objet');
+    if (custom) {
+      html += formatArticleTextToHtml(custom);
+    } else {
+      html += '<p>La pr\u00e9sente convention a pour but de d\u00e9finir les modalit\u00e9s d\u2019accueil de l\u2019exposition des \u0153uvres de l\u2019Exposant.</p>';
+      html += '<p>Lieu : <span class="highlight">' + esc(data.expo.lieu) + '</span></p>';
+      var debLong = formatDateLong(data.expo.debut);
+      var finLong = formatDateLong(data.expo.fin);
+      html += '<p>Dates de l\u2019exposition : du <span class="highlight">' + esc(debLong || data.expo.debut) + '</span> au <span class="highlight">' + esc(finLong || data.expo.fin) + '</span>.</p>';
+    }
+    html += '</article>';
+
+    // Article 2 — Obligations Exposant
+    n = nextN();
+    html += '<article class="article no-break">';
+    html += '<h3>Article ' + n + ' \u2014 Obligations de l\u2019Exposant</h3>';
+    custom = getStdOverride(articlesStd, 'obligationsExposant');
+    if (custom) { html += formatArticleTextToHtml(custom); }
+    else {
+      html += '<p>L\u2019Exposant s\u2019engage \u00e0 fournir l\u2019exposition conform\u00e9ment \u00e0 ce qui avait \u00e9t\u00e9 d\u00e9cid\u00e9 avec l\u2019Organisateur.</p>';
+      html += '<p>L\u2019Exposant en outre s\u2019engage \u00e0 communiquer \u00e0 l\u2019organisateur une estimation de la valeur d\u2019assurance (clou \u00e0 clou) de l\u2019exposition. En cas de non-respect de cet article, la collectivit\u00e9 ne prendra pas en charge l\u2019assurance des biens expos\u00e9s.</p>';
+    }
+    html += '</article>';
+
+    // Article 3 — Obligations Organisateur
+    n = nextN();
+    html += '<article class="article no-break">';
+    html += '<h3>Article ' + n + ' \u2014 Obligations de l\u2019Organisateur</h3>';
+    custom = getStdOverride(articlesStd, 'obligationsOrganisateur');
+    if (custom) { html += formatArticleTextToHtml(custom); }
+    else {
+      html += '<p>L\u2019Organisateur s\u2019engage \u00e0 faciliter l\u2019accueil de l\u2019exposition par :</p>';
+      html += '<ul><li>La mise \u00e0 disposition gratuite de locaux ad\u00e9quats,</li>';
+      html += '<li>La mise \u00e0 disposition gratuite d\u2019une personne pour aider \u00e0 l\u2019installation et au d\u00e9montage de l\u2019exposition.</li></ul>';
+    }
+    html += '</article>';
+
+    // Article 4 — Durée
+    n = nextN();
+    html += '<article class="article no-break">';
+    html += '<h3>Article ' + n + ' \u2014 Dur\u00e9e</h3>';
+    custom = getStdOverride(articlesStd, 'duree');
+    if (custom) { html += formatArticleTextToHtml(custom); }
+    else {
+      html += '<p>La pr\u00e9sente convention est conclue pour toute la dur\u00e9e de la pr\u00e9sentation de l\u2019exposition dans les locaux de l\u2019Organisateur, de son installation \u00e0 son d\u00e9montage.</p>';
+    }
+    html += '</article>';
+
+    // Article 5 — Installation, vernissage, démontage
+    n = nextN();
+    html += '<article class="article no-break">';
+    html += '<h3>Article ' + n + ' \u2014 Installation, vernissage et d\u00e9montage</h3>';
+    custom = getStdOverride(articlesStd, 'installation');
+    if (custom) { html += formatArticleTextToHtml(custom); }
+    else {
+      var instLong = formatDateLong(data.installation.date);
+      var vernLong = formatDateLong(data.vernissage.date);
+      var demLong  = formatDateLong(data.demontage.date);
+      html += '<p>L\u2019Organisateur et l\u2019Exposant installeront l\u2019exposition le <span class="highlight">' +
+        esc(instLong || data.installation.date) + ' \u00e0 ' + esc(data.installation.heure) +
+        '</span> \u00e0 l\u2019Hermine \u00e0 Sarzeau pour un vernissage de l\u2019exposition le <span class="highlight">' +
+        esc(vernLong || data.vernissage.date) + ' \u00e0 ' + esc(data.vernissage.heure) + '</span>.</p>';
+      html += '<p>Le d\u00e9montage \u00e9tant le dernier jour de la pr\u00e9sentation public, soit le <span class="highlight">' +
+        esc(demLong || data.demontage.date) + ' \u00e0 ' + esc(data.demontage.heure) + '</span>.</p>';
+    }
+    html += '</article>';
+
+    // Article 6 — Droits (si actif)
+    if (data.droits && data.droits.actif) {
+      n = nextN();
+      html += '<article class="article no-break">';
+      html += '<h3>Article ' + n + ' \u2014 Droits de pr\u00e9sentation publique</h3>';
+      custom = getStdOverride(articlesStd, 'droits');
+      if (custom) { html += formatArticleTextToHtml(custom); }
+      else {
+        html += '<p>L\u2019Organisateur versera la somme de <span class="highlight">' + esc(data.droits.montant) + ' euros TTC</span> \u00e0 l\u2019Exposant pour les droits de pr\u00e9sentation publique de son exposition \u00e0 l\u2019Hermine.</p>';
+        var tvaText = '';
+        if (data.droits.tva === 'Non assujetti') {
+          tvaText = 'TVA non applicable conform\u00e9ment \u00e0 l\u2019article 293B du CGI. ';
+        } else if (data.droits.tva) {
+          tvaText = esc(data.droits.tva) + '. ';
+        }
+        html += '<p>' + tvaText + 'Le r\u00e8glement des sommes dues \u00e0 l\u2019Exposant sera effectu\u00e9 apr\u00e8s d\u00e9p\u00f4t d\u2019une facture sur le portail d\u00e9mat\u00e9rialis\u00e9 Chorus Pro, par virement bancaire sur le compte de l\u2019Exposant dans les 30 jours suivant la date de fin d\u2019exposition mentionn\u00e9e \u00e0 l\u2019article 1 du pr\u00e9sent contrat. Aucun acompte ne peut \u00eatre vers\u00e9 \u00e0 la signature du pr\u00e9sent contrat.</p>';
+      }
+      html += '</article>';
+    }
+
+    // Transport
+    if (data.transport && data.transport.actif) {
+      n = nextN();
+      html += '<article class="article no-break">';
+      html += '<h3>Article ' + n + ' \u2014 Transport des \u0153uvres</h3>';
+      html += '<p>' + esc(data.transport.details || 'Le transport des \u0153uvres est \u00e0 la charge de l\u2019Organisateur. Les modalit\u00e9s seront d\u00e9finies en concertation entre les deux parties.') + '</p>';
+      html += '</article>';
+    }
+
+    // Hébergement
+    if (data.hebergement && data.hebergement.actif) {
+      n = nextN();
+      html += '<article class="article no-break">';
+      html += '<h3>Article ' + n + ' \u2014 H\u00e9bergement</h3>';
+      html += '<p>' + esc(data.hebergement.details || 'L\u2019Organisateur prend en charge l\u2019h\u00e9bergement de l\u2019Exposant pour la dur\u00e9e n\u00e9cessaire \u00e0 l\u2019installation et au vernissage de l\u2019exposition.') + '</p>';
+      html += '</article>';
+    }
+
+    // Actions culturelles
+    if (data.actionsCulturelles && data.actionsCulturelles.actif) {
+      n = nextN();
+      html += '<article class="article no-break">';
+      html += '<h3>Article ' + n + ' \u2014 Actions culturelles</h3>';
+      html += '<p>' + esc(data.actionsCulturelles.details || 'Des actions de m\u00e9diation culturelle pourront \u00eatre organis\u00e9es autour de l\u2019exposition. Les modalit\u00e9s seront d\u00e9finies d\u2019un commun accord.') + '</p>';
+      html += '</article>';
+    }
+
+    // Articles personnalisés
+    if (Array.isArray(articlesPerso)) {
+      articlesPerso.forEach(function(art) {
+        if (art.titre || art.contenu) {
+          n = nextN();
+          html += '<article class="article no-break">';
+          html += '<h3>Article ' + n + ' \u2014 ' + esc(art.titre || 'Article suppl\u00e9mentaire') + '</h3>';
+          html += '<p>' + esc(art.contenu || '') + '</p>';
+          html += '</article>';
+        }
+      });
+    }
+
+    // Résiliation (toujours)
+    n = nextN();
+    html += '<article class="article no-break">';
+    html += '<h3>Article ' + n + ' \u2014 R\u00e9siliation</h3>';
+    custom = getStdOverride(articlesStd, 'resiliation');
+    if (custom) { html += formatArticleTextToHtml(custom); }
+    else {
+      html += '<p>Toute rupture de cette convention, hors cas de force majeure, engendrera de la part de la partie d\u00e9faillante, une compensation estim\u00e9e sur la base du montant des frais engag\u00e9s par l\u2019autre partie. Une annulation g\u00e9n\u00e9r\u00e9e par des mesures COVID sera consid\u00e9r\u00e9e comme force majeure et n\u2019engendrera pas de compensation pour l\u2019Exposant.</p>';
+    }
+    html += '</article>';
+
+    // Assurances
+    n = nextN();
+    html += '<article class="article no-break">';
+    html += '<h3>Article ' + n + ' \u2014 Assurances</h3>';
+    custom = getStdOverride(articlesStd, 'assurances');
+    if (custom) { html += formatArticleTextToHtml(custom); }
+    else {
+      html += '<p>L\u2019Organisateur d\u00e9clare avoir souscrit les assurances n\u00e9cessaires \u00e0 la couverture des risques li\u00e9s au transport et \u00e0 l\u2019exposition des \u0153uvres de l\u2019Exposant.</p>';
+    }
+    html += '</article>';
+
+    // Attribution de compétences + Signatures (groupés no-break)
+    n = nextN();
+    html += '<div class="no-break">';
+    html += '<article class="article">';
+    html += '<h3>Article ' + n + ' \u2014 Attribution de comp\u00e9tences</h3>';
+    custom = getStdOverride(articlesStd, 'competences');
+    if (custom) { html += formatArticleTextToHtml(custom); }
+    else {
+      html += '<p>En cas de litige portant sur l\u2019interpr\u00e9tation ou l\u2019application du pr\u00e9sent contrat, les parties conviennent de s\u2019en remettre \u00e0 l\u2019appr\u00e9ciation des tribunaux comp\u00e9tents de la ville de Rennes.</p>';
+    }
+    html += '</article>';
+
+    // Signatures
+    var nbEx = a2Actif ? '3' : '2';
+    var sigLong = formatDateLong(data.dateSignature);
+    html += '<section class="signatures-section">';
+    html += '<p class="date-line">Fait \u00e0 Sarzeau en ' + nbEx + ' exemplaires, le ' + esc(sigLong || data.dateSignature || '') + '.</p>';
+    html += '<div class="signatures">';
+    html += '<div class="signature-box">';
+    html += '<div class="title">Pour la Commune de Sarzeau</div>';
+    html += '<p class="name">M. Jean-Marc DUPEYRAT, Maire</p>';
+    html += '</div>';
+    if (a2Actif) {
+      html += '<div class="signature-box"><div class="title">L\u2019Exposant 1</div><p class="name">' + esc(data.artiste.nom) + '</p></div>';
+      html += '<div class="signature-box"><div class="title">L\u2019Exposant 2</div><p class="name">' + esc(a2.nom) + '</p></div>';
+    } else {
+      html += '<div class="signature-box"><div class="title">L\u2019Exposant</div><p class="name">' + esc(data.artiste.nom) + '</p></div>';
+    }
+    html += '</div></section>';
+    html += '</div>'; // fin no-break
+
+    html += '</div>'; // fin content-wrapper
+    html += '</td></tr></tbody></table>';
+    html += '</body></html>';
+
+    return html;
+  }
 
   </script>
-
 </body>
 </html>
