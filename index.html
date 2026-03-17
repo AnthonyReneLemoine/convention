@@ -472,7 +472,7 @@
       <div class="header-subtitle">Espace Culturel l'Hermine — Sarzeau</div>
     </div>
     <div class="header-actions">
-      <span class="version-badge">v1.2.0</span>
+      <span class="version-badge">v1.2.2</span>
 
       <!-- Boutons vue formulaire -->
       <div class="header-form-actions hidden" id="headerFormActions">
@@ -850,7 +850,7 @@
   <script>
   /* ====================================================
      CONVENTIONS D'EXPOSITION — L'HERMINE
-     GitHub Pages standalone — v1.2.0
+     GitHub Pages standalone — v1.2.2
      ===================================================== */
 
   // ====== ÉTAT GLOBAL ======
@@ -1058,6 +1058,12 @@
       '<div class="empty-state" style="padding:20px 0;">' +
       '<span class="material-symbols-outlined" style="font-size:32px;">article</span>' +
       '<p style="font-size:13px;">Aucun article personnalisé</p></div>';
+
+    // Conditions financières actives par défaut
+    var cfChk = document.getElementById('fConditionsFinancieresActif');
+    var cfSec = document.getElementById('sectionConditionsFinancieres');
+    if (cfChk) cfChk.checked = true;
+    if (cfSec) cfSec.classList.add('active');
   }
 
   // ====== REMPLIR FORMULAIRE ======
@@ -1360,9 +1366,86 @@
   function toggleStdArticle(key) {
     var cb  = document.getElementById('fStd_' + key + 'Actif');
     var sec = document.getElementById('sectionStd_' + key);
+    var ta  = document.getElementById('fStd_' + key + 'Texte');
     if (!cb || !sec) return;
     cb.checked = !cb.checked;
     sec.classList.toggle('active', cb.checked);
+    // Préremplir avec le texte par défaut si textarea vide et qu'on vient d'activer
+    if (cb.checked && ta && !ta.value.trim()) {
+      ta.value = getStdDefaultText(key);
+    }
+  }
+
+  // Génère le texte par défaut d'un article standard à partir des valeurs actuelles du formulaire
+  function getStdDefaultText(key) {
+    function getVal(id) {
+      var el = document.getElementById(id);
+      return el ? el.value.trim() : '';
+    }
+    function fmtDate(isoStr) {
+      if (!isoStr) return '';
+      var parts = isoStr.split('-');
+      if (parts.length !== 3) return isoStr;
+      return formatDateLong(parts[2] + '/' + parts[1] + '/' + parts[0]);
+    }
+
+    var expoLieu  = getVal('fExpoLieu')          || "Espace Culturel L'Hermine";
+    var expoDebut = fmtDate(getVal('fExpoDebut')) || getVal('fExpoDebut');
+    var expoFin   = fmtDate(getVal('fExpoFin'))   || getVal('fExpoFin');
+    var instDate  = fmtDate(getVal('fInstallDate'))     || '';
+    var instHeure = getVal('fInstallHeure')             || '';
+    var vernDate  = fmtDate(getVal('fVernissageDate'))  || '';
+    var vernHeure = getVal('fVernissageHeure')           || '';
+    var demDate   = fmtDate(getVal('fDemontageDate'))   || '';
+    var demHeure  = getVal('fDemontageHeure')            || '';
+    var montant   = getVal('fDroitsMontant')             || '';
+    var tva       = getVal('fDroitsTva')                 || '';
+
+    switch (key) {
+      case 'objet':
+        return "La présente convention a pour but de définir les modalités d\u2019accueil de l\u2019exposition des \u0153uvres de l\u2019Exposant.\n\n" +
+               "Lieu : " + expoLieu + "\n" +
+               "Dates de l\u2019exposition : du " + expoDebut + " au " + expoFin + ".";
+
+      case 'obligationsExposant':
+        return "L\u2019Exposant s\u2019engage \u00e0 fournir l\u2019exposition conform\u00e9ment \u00e0 ce qui avait \u00e9t\u00e9 d\u00e9cid\u00e9 avec l\u2019Organisateur.\n\n" +
+               "L\u2019Exposant en outre s\u2019engage \u00e0 communiquer \u00e0 l\u2019organisateur une estimation de la valeur d\u2019assurance (clou \u00e0 clou) de l\u2019exposition. En cas de non-respect de cet article, la collectivit\u00e9 ne prendra pas en charge l\u2019assurance des biens expos\u00e9s.";
+
+      case 'obligationsOrganisateur':
+        return "L\u2019Organisateur s\u2019engage \u00e0 faciliter l\u2019accueil de l\u2019exposition par :\n" +
+               "- La mise \u00e0 disposition gratuite de locaux ad\u00e9quats,\n" +
+               "- La mise \u00e0 disposition gratuite d\u2019une personne pour aider \u00e0 l\u2019installation et au d\u00e9montage de l\u2019exposition.";
+
+      case 'duree':
+        return "La pr\u00e9sente convention est conclue pour toute la dur\u00e9e de la pr\u00e9sentation de l\u2019exposition dans les locaux de l\u2019Organisateur, de son installation \u00e0 son d\u00e9montage.";
+
+      case 'installation':
+        return "L\u2019Organisateur et l\u2019Exposant installeront l\u2019exposition le " + instDate + " \u00e0 " + instHeure + " \u00e0 l\u2019Hermine \u00e0 Sarzeau pour un vernissage de l\u2019exposition le " + vernDate + " \u00e0 " + vernHeure + ".\n\n" +
+               "Le d\u00e9montage \u00e9tant le dernier jour de la pr\u00e9sentation public, soit le " + demDate + " \u00e0 " + demHeure + ".";
+
+      case 'droits':
+        var tvaPhrase = '';
+        if (tva === 'Non assujetti') {
+          tvaPhrase = "TVA non applicable conform\u00e9ment \u00e0 l\u2019article 293B du CGI. ";
+        } else if (tva) {
+          tvaPhrase = tva + ". ";
+        }
+        return "L\u2019Organisateur versera la somme de " + montant + " euros TTC \u00e0 l\u2019Exposant pour les droits de pr\u00e9sentation publique de son exposition \u00e0 l\u2019Hermine.\n\n" +
+               tvaPhrase +
+               "Le r\u00e8glement des sommes dues \u00e0 l\u2019Exposant sera effectu\u00e9 apr\u00e8s d\u00e9p\u00f4t d\u2019une facture sur le portail d\u00e9mat\u00e9rialis\u00e9 Chorus Pro, par virement bancaire sur le compte de l\u2019Exposant dans les 30 jours suivant la date de fin d\u2019exposition mentionn\u00e9e \u00e0 l\u2019article 1 du pr\u00e9sent contrat. Aucun acompte ne peut \u00eatre vers\u00e9 \u00e0 la signature du pr\u00e9sent contrat.";
+
+      case 'resiliation':
+        return "Toute rupture de cette convention, hors cas de force majeure, engendrera de la part de la partie d\u00e9faillante, une compensation estim\u00e9e sur la base du montant des frais engag\u00e9s par l\u2019autre partie. Une annulation g\u00e9n\u00e9r\u00e9e par des mesures COVID sera consid\u00e9r\u00e9e comme force majeure et n\u2019engendrera pas de compensation pour l\u2019Exposant.";
+
+      case 'assurances':
+        return "L\u2019Organisateur d\u00e9clare avoir souscrit les assurances n\u00e9cessaires \u00e0 la couverture des risques li\u00e9s au transport et \u00e0 l\u2019exposition des \u0153uvres de l\u2019Exposant.";
+
+      case 'competences':
+        return "En cas de litige portant sur l\u2019interpr\u00e9tation ou l\u2019application du pr\u00e9sent contrat, les parties conviennent de s\u2019en remettre \u00e0 l\u2019appr\u00e9ciation des tribunaux comp\u00e9tents de la ville de Rennes.";
+
+      default:
+        return '';
+    }
   }
 
   function getStdArticlesData() {
@@ -1372,7 +1455,13 @@
       var ta = document.getElementById('fStd_' + key + 'Texte');
       var active = cb ? cb.checked : false;
       var texte  = ta ? ta.value.trim() : '';
-      out[key] = active && texte ? { actif: true, texte: texte } : { actif: false, texte: '' };
+      if (!active) { out[key] = { actif: false, texte: '' }; return; }
+      var defText = (getStdDefaultText(key) || '').trim();
+      if (!texte || texte === defText) {
+        out[key] = { actif: false, texte: '' };
+      } else {
+        out[key] = { actif: true, texte: texte };
+      }
     });
     return out;
   }
