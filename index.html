@@ -472,7 +472,7 @@
       <div class="header-subtitle">Espace Culturel l'Hermine — Sarzeau</div>
     </div>
     <div class="header-actions">
-      <span class="version-badge">v1.2.3</span>
+      <span class="version-badge">v1.3.0</span>
 
       <!-- Boutons vue formulaire -->
       <div class="header-form-actions hidden" id="headerFormActions">
@@ -519,6 +519,52 @@
 
     <!-- ============ VUE LISTE ============ -->
     <div class="view active" id="viewList">
+
+      <!-- Card logos -->
+      <div class="card" id="cardLogos">
+        <div class="card-header" style="cursor:pointer" onclick="toggleLogosCard()">
+          <h2><span class="material-symbols-outlined">image</span> Logos de la convention</h2>
+          <span id="logosCardToggle" style="font-size:12px;color:var(--text-light);font-weight:600;">▼ Configurer</span>
+        </div>
+        <div id="logosCardBody" style="display:none;padding:16px 20px;">
+          <p style="font-size:12px;color:var(--text-light);margin-bottom:14px;">
+            Les logos sont stockés localement dans votre navigateur. Chargez-les une seule fois.
+          </p>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+            <div>
+              <div style="font-size:11px;font-weight:700;color:var(--text-light);text-transform:uppercase;letter-spacing:0.6px;margin-bottom:8px;">
+                Logo page 1 (logo.jpg) — grande vague
+              </div>
+              <div id="logo1Preview" style="height:70px;background:var(--bg);border:1.5px dashed var(--border);border-radius:6px;display:flex;align-items:center;justify-content:center;margin-bottom:8px;overflow:hidden;">
+                <span style="font-size:12px;color:var(--text-lighter)">Aucun logo chargé</span>
+              </div>
+              <label class="btn btn-secondary btn-sm" style="cursor:pointer;width:100%;justify-content:center;">
+                <span class="material-symbols-outlined">upload</span> Charger logo.jpg
+                <input type="file" accept="image/*" style="display:none" onchange="loadLogoFile(this, 1)">
+              </label>
+              <button class="btn btn-danger btn-sm" style="width:100%;justify-content:center;margin-top:6px;" onclick="clearLogo(1)">
+                <span class="material-symbols-outlined">delete</span> Supprimer
+              </button>
+            </div>
+            <div>
+              <div style="font-size:11px;font-weight:700;color:var(--text-light);text-transform:uppercase;letter-spacing:0.6px;margin-bottom:8px;">
+                Logo pages suivantes (logo2.jpg) — petite vague
+              </div>
+              <div id="logo2Preview" style="height:70px;background:var(--bg);border:1.5px dashed var(--border);border-radius:6px;display:flex;align-items:center;justify-content:center;margin-bottom:8px;overflow:hidden;">
+                <span style="font-size:12px;color:var(--text-lighter)">Aucun logo chargé</span>
+              </div>
+              <label class="btn btn-secondary btn-sm" style="cursor:pointer;width:100%;justify-content:center;">
+                <span class="material-symbols-outlined">upload</span> Charger logo2.jpg
+                <input type="file" accept="image/*" style="display:none" onchange="loadLogoFile(this, 2)">
+              </label>
+              <button class="btn btn-danger btn-sm" style="width:100%;justify-content:center;margin-top:6px;" onclick="clearLogo(2)">
+                <span class="material-symbols-outlined">delete</span> Supprimer
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="card">
         <div class="card-header">
           <h2><span class="material-symbols-outlined">history</span> Historique des conventions</h2>
@@ -850,7 +896,7 @@
   <script>
   /* ====================================================
      CONVENTIONS D'EXPOSITION — L'HERMINE
-     GitHub Pages standalone — v1.2.3
+     GitHub Pages standalone — v1.3.0
      ===================================================== */
 
   // ====== ÉTAT GLOBAL ======
@@ -878,6 +924,7 @@
   document.addEventListener('DOMContentLoaded', function() {
     buildStdArticlesUI();
     loadConventions();
+    initLogos(); // chargement logos depuis localStorage
 
     document.addEventListener('keydown', function(e) {
       if (e.key === 'Escape') closePreview();
@@ -1823,12 +1870,64 @@
   }
 
   // Calcule l'URL de base pour les logos (chemin absolu depuis la page courante)
-  var _baseLogoUrl = (function() {
-    var href = window.location.href;
-    // Retirer le fichier éventuel en fin d'URL (ex: index.html)
-    var base = href.replace(/\/[^/]*$/, '/');
-    return base;
-  })();
+  // ====== GESTION LOGOS (base64 stocké dans localStorage) ======
+  var _logos = { logo1: '', logo2: '' };
+
+  function initLogos() {
+    _logos.logo1 = localStorage.getItem('hermine_logo1') || '';
+    _logos.logo2 = localStorage.getItem('hermine_logo2') || '';
+    renderLogoPreviews();
+  }
+
+  function renderLogoPreviews() {
+    renderLogoPreview(1, _logos.logo1);
+    renderLogoPreview(2, _logos.logo2);
+  }
+
+  function renderLogoPreview(num, src) {
+    var el = document.getElementById('logo' + num + 'Preview');
+    if (!el) return;
+    if (src) {
+      el.innerHTML = '<img src="' + src + '" style="max-height:66px;max-width:100%;object-fit:contain;">';
+    } else {
+      el.innerHTML = '<span style="font-size:12px;color:var(--text-lighter)">Aucun logo chargé</span>';
+    }
+  }
+
+  function loadLogoFile(input, num) {
+    var file = input.files && input.files[0];
+    if (!file) return;
+    var reader = new FileReader();
+    reader.onload = function(e) {
+      var b64 = e.target.result;
+      _logos['logo' + num] = b64;
+      try { localStorage.setItem('hermine_logo' + num, b64); } catch(ex) {}
+      renderLogoPreview(num, b64);
+      showToast('Logo ' + num + ' chargé et sauvegardé');
+    };
+    reader.readAsDataURL(file);
+    input.value = '';
+  }
+
+  function clearLogo(num) {
+    _logos['logo' + num] = '';
+    localStorage.removeItem('hermine_logo' + num);
+    renderLogoPreview(num, '');
+    showToast('Logo ' + num + ' supprimé');
+  }
+
+  function toggleLogosCard() {
+    var body   = document.getElementById('logosCardBody');
+    var toggle = document.getElementById('logosCardToggle');
+    if (!body) return;
+    var visible = body.style.display !== 'none';
+    body.style.display = visible ? 'none' : 'block';
+    toggle.textContent = visible ? '▼ Configurer' : '▲ Réduire';
+  }
+
+  function getBaseUrl() {
+    return window.location.href.replace(/\/[^/]*$/, '/');
+  }
 
   function generateConventionHtml(data) {
     var articleNum = 0;
@@ -1851,7 +1950,7 @@
     // === PAGE 1 ===
     html += '<header class="header-page1">';
     html += '<div class="logo-container">';
-    html += '<img src="' + _baseLogoUrl + 'logo.jpg" alt="Mairie de Sarzeau" class="logo-page-1">';
+    html += '<img src="' + (_logos.logo1 || getBaseUrl() + 'logo.jpg') + '" alt="Mairie de Sarzeau" class="logo-page-1">';
     html += '</div>';
     html += '<div class="header-info">';
     html += '<div class="mairie-title">Mairie de Sarzeau</div>';
@@ -1904,7 +2003,7 @@
     // === PAGES SUIVANTES : ARTICLES ===
     html += '<table class="articles-table"><thead><tr><td>';
     html += '<div class="header-continuation">';
-    html += '<img src="' + _baseLogoUrl + 'logo2.jpg" alt="L\u2019Hermine" class="logo-small">';
+    html += '<img src="' + (_logos.logo2 || getBaseUrl() + 'logo2.jpg') + '" alt="L\u2019Hermine" class="logo-small">';
     html += '<span class="page-title">Convention d\u2019exposition \u2014 ' + esc(data.artiste.nom) + '</span>';
     html += '</div>';
     html += '</td></tr></thead><tbody><tr><td>';
