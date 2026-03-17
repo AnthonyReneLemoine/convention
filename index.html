@@ -472,7 +472,7 @@
       <div class="header-subtitle">Espace Culturel l'Hermine — Sarzeau</div>
     </div>
     <div class="header-actions">
-      <span class="version-badge">v1.2.2</span>
+      <span class="version-badge">v1.2.3</span>
 
       <!-- Boutons vue formulaire -->
       <div class="header-form-actions hidden" id="headerFormActions">
@@ -850,7 +850,7 @@
   <script>
   /* ====================================================
      CONVENTIONS D'EXPOSITION — L'HERMINE
-     GitHub Pages standalone — v1.2.2
+     GitHub Pages standalone — v1.2.3
      ===================================================== */
 
   // ====== ÉTAT GLOBAL ======
@@ -1822,6 +1822,14 @@
     return '';
   }
 
+  // Calcule l'URL de base pour les logos (chemin absolu depuis la page courante)
+  var _baseLogoUrl = (function() {
+    var href = window.location.href;
+    // Retirer le fichier éventuel en fin d'URL (ex: index.html)
+    var base = href.replace(/\/[^/]*$/, '/');
+    return base;
+  })();
+
   function generateConventionHtml(data) {
     var articleNum = 0;
     function nextN() { articleNum++; return articleNum; }
@@ -1843,7 +1851,7 @@
     // === PAGE 1 ===
     html += '<header class="header-page1">';
     html += '<div class="logo-container">';
-    html += '<span class="logo-placeholder">Mairie de Sarzeau</span>';
+    html += '<img src="' + _baseLogoUrl + 'logo.jpg" alt="Mairie de Sarzeau" class="logo-page-1">';
     html += '</div>';
     html += '<div class="header-info">';
     html += '<div class="mairie-title">Mairie de Sarzeau</div>';
@@ -1896,7 +1904,7 @@
     // === PAGES SUIVANTES : ARTICLES ===
     html += '<table class="articles-table"><thead><tr><td>';
     html += '<div class="header-continuation">';
-    html += '<span class="logo-small-placeholder">L\u2019Hermine</span>';
+    html += '<img src="' + _baseLogoUrl + 'logo2.jpg" alt="L\u2019Hermine" class="logo-small">';
     html += '<span class="page-title">Convention d\u2019exposition \u2014 ' + esc(data.artiste.nom) + '</span>';
     html += '</div>';
     html += '</td></tr></thead><tbody><tr><td>';
